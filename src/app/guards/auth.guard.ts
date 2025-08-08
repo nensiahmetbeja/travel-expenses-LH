@@ -11,6 +11,7 @@ export const authGuard: CanActivateFn = (route: ActivatedRouteSnapshot) => {
   const role = auth.getRole();
 
   if (!role || (allowed.length && !allowed.includes(role))) {
+    console.log(role, " ", allowed, " failing routing")
     router.navigate(['/login']);
     return false;
   }

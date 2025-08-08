@@ -1,14 +1,22 @@
-// src/app/services/auth.service.ts
 import { Injectable } from '@angular/core';
 import { Role } from '../models/role';
+import { USERS } from '../data/users';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private storageKey = 'userRole';
 
-  loginAs(role: Role) {
-    localStorage.setItem(this.storageKey, role);
- }
+  login(username: string, password: string): boolean {
+    const found = USERS.find(
+      u => u.username === username && u.password === password
+    );
+
+    if (found) {
+      localStorage.setItem(this.storageKey, found.role);
+      return true;
+    }
+    return false;
+  }
 
   logout() {
     localStorage.removeItem(this.storageKey);

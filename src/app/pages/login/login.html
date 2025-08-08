@@ -1,0 +1,18 @@
+<section class="login">
+    <h1>Login</h1>
+  
+    <div>
+      <label>Username:</label>
+      <input [(ngModel)]="username" placeholder="Enter username" />
+    </div>
+  
+    <div>
+      <label>Password:</label>
+      <input type="password" [(ngModel)]="password" placeholder="Enter password" />
+    </div>
+  
+    <button (click)="login()">Login</button>
+  
+    <p *ngIf="errorMsg" style="color:red">{{ errorMsg }}</p>
+  </section>
+  
