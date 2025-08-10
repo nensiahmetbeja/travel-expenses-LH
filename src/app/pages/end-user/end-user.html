@@ -1,1 +1,64 @@
-<p>traveller works!</p>
+<div class="traveller-dashboard">
+  <div class="header">
+    <h1>My Trips</h1>
+    <button class="create-trip-btn" (click)="createNewTrip()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="12" y1="5" x2="12" y2="19"></line>
+        <line x1="5" y1="12" x2="19" y2="12"></line>
+      </svg>
+      Create New Trip
+    </button>
+  </div>
+
+  <div class="trips-container" *ngIf="!isLoading">
+    <div class="trips-grid" *ngIf="trips.length > 0; else noTrips">
+      <div class="trip-card" *ngFor="let trip of trips" (click)="viewTrip(trip.id)">
+        <div class="trip-header">
+          <h3>{{ trip.name }}</h3>
+          <span class="status-badge" [class]="getStatusColor(trip.financeStatus)">
+            {{ trip.financeStatus }}
+          </span>
+        </div>
+        
+        <div class="trip-details">
+          <div class="detail-item">
+            <span class="label">Duration:</span>
+            <span>{{ trip.duration }} days</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Dates:</span>
+            <span>{{ formatDate(trip.startDate) }} - {{ formatDate(trip.endDate) }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Total Expenses:</span>
+            <span class="total">{{ formatCurrency(getTotalExpenses(trip.id)) }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Expenses:</span>
+            <span>{{ trip.expenses.length }} items</span>
+          </div>
+        </div>
+
+        <div class="trip-actions">
+          <button class="view-btn">View Details</button>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #noTrips>
+      <div class="empty-state">
+        <div class="empty-icon">✈️</div>
+        <h2>No trips yet</h2>
+        <p>Create your first trip to get started with expense tracking</p>
+        <button class="create-trip-btn" (click)="createNewTrip()">
+          Create Your First Trip
+        </button>
+      </div>
+    </ng-template>
+  </div>
+
+  <div class="loading" *ngIf="isLoading">
+    <div class="spinner"></div>
+    <p>Loading your trips...</p>
+  </div>
+</div>

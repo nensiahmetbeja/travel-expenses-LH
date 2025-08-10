@@ -1,0 +1,87 @@
+<div class="create-trip">
+  <div class="header">
+    <h1>Create New Trip</h1>
+    <p>Start by providing basic trip information</p>
+  </div>
+
+  <div class="trip-card">
+    <div class="card-header">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+        <line x1="16" y1="2" x2="16" y2="6"></line>
+        <line x1="8" y1="2" x2="8" y2="6"></line>
+        <line x1="3" y1="10" x2="21" y2="10"></line>
+      </svg>
+      <h2>Trip Details</h2>
+    </div>
+    <p class="card-subtitle">Enter your trip information to get started</p>
+
+    <form (ngSubmit)="createTrip()" #tripForm="ngForm">
+      <div class="form-group">
+        <label for="tripName">Trip Name</label>
+        <input
+          id="tripName"
+          type="text"
+          [(ngModel)]="tripName"
+          name="tripName"
+          placeholder="e.g., Business Trip to New York"
+          required
+        />
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="startDate">Start Date</label>
+          <div class="date-input">
+            <input
+              id="startDate"
+              type="date"
+              [(ngModel)]="startDate"
+              name="startDate"
+              required
+            />
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="endDate">End Date</label>
+          <div class="date-input">
+            <input
+              id="endDate"
+              type="date"
+              [(ngModel)]="endDate"
+              name="endDate"
+              required
+            />
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="error-message" *ngIf="errorMsg">
+        {{ errorMsg }}
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="btn-secondary" (click)="cancel()">
+          Cancel
+        </button>
+        <button type="submit" class="btn-primary" [disabled]="isLoading">
+          <span *ngIf="isLoading">Creating...</span>
+          <span *ngIf="!isLoading">Create Trip</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div> 
