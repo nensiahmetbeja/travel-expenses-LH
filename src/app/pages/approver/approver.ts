@@ -4,8 +4,6 @@ import { Component } from '@angular/core';
   selector: 'app-approver',
   imports: [],
   templateUrl: './approver.html',
-  styleUrl: './approver.scss'
+  styleUrl: './approver.scss',
 })
-export class ApproverComponent {
-
-}
+export class ApproverComponent {}

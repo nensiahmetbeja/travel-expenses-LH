@@ -7,6 +7,7 @@ export class AuthService {
   private storageKey = 'userRole';
 
   login(username: string, password: string): boolean {
+    
     const found = USERS.find(
       u => u.username === username && u.password === password
     );

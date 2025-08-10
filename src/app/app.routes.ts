@@ -1,34 +1,39 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './guards/auth.guard';
 import { Role } from './models/role';
+import { EndUserComponent } from './pages/end-user/end-user';
+import { ApproverComponent } from './pages/approver/approver';
+import { FinanceComponent } from './pages/finance/finance';
+import { LoginComponent } from './pages/login/login';
 
 export const routes: Routes = [
-    { path: '', pathMatch: 'full', redirectTo: 'login' },
-  { path: 'login',
-    loadComponent: () =>
-      import('./pages/login/login').then(m => m.LoginComponent)
-  },
+  { path: '', pathMatch: 'full', redirectTo: 'login' },
 
-  { path: 'end-user',
+  {
+    path: 'login',
+    component:LoginComponent,
+   
+  },
+  
+  {
+    path: 'traveller',
     canActivate: [authGuard],
     data: { roles: [Role.EndUser] },
-    loadComponent: () =>
-      import('./pages/end-user/end-user').then(m => m.EndUserComponent)
+    component: EndUserComponent,
   },
 
-  { path: 'approver',
+  {
+    path: 'approver',
     canActivate: [authGuard],
     data: { roles: [Role.Approver] },
-    loadComponent: () =>
-      import('./pages/approver/approver').then(m => m.ApproverComponent)
+    component: ApproverComponent,
   },
 
-  { path: 'finance',
+  {
+    path: 'finance',
     canActivate: [authGuard],
     data: { roles: [Role.Finance] },
-    loadComponent: () =>
-      import('./pages/finance/finance').then(m => m.FinanceComponent)
+    component: FinanceComponent,
   },
   { path: '**', redirectTo: 'login' },
-
 ];

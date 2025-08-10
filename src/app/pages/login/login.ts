@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { Role } from '../../models/role';
 import { FormsModule } from '@angular/forms';
+import { pathForRole } from '../../guards/role-path';
 
 @Component({
   selector: 'app-login',
@@ -12,24 +12,29 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './login.html',
   styleUrls: ['./login.scss']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   username = '';
   password = '';
   errorMsg = '';
 
   constructor(private auth: AuthService, private router: Router) {}
 
+  ngOnInit(): void {
+    // Check if user is already logged in and redirect to appropriate page
+    if (this.auth.isLoggedIn()) {
+      const userRole = this.auth.getRole();
+      if (userRole) {
+        this.router.navigateByUrl(pathForRole(userRole));
+      }
+    }
+  }
+
   login() {
     const success = this.auth.login(this.username, this.password);
 
     if (success) {
-      const role = this.auth.getRole();
-      const target =
-        role === Role.EndUser ? '/end-user' :
-        role === Role.Approver ? '/approver' : '/finance';
-        console.log("successful, role: ", role, " target: ", target )
-        this.router.navigateByUrl(target); 
-      } else {
+      this.router.navigateByUrl(pathForRole(this.auth.getRole()!));
+    } else {
       this.errorMsg = 'Invalid username or password';
     }
   }
