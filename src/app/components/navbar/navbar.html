@@ -1,5 +1,5 @@
 <nav class="navbar" *ngIf="isLoggedIn">
-  <div class="navbar-container">
+  <div class="navbar-container" (click)="closeMenuIfOutside($event)">
     <!-- Logo/Brand -->
     <div class="navbar-brand">
       <span>Travel Expenses</span>

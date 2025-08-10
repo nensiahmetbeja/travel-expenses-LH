@@ -20,8 +20,16 @@ export class NavbarComponent {
   }
 
   toggleMenu(): void {
-    console.log("Togglin menu")
+    console.log("Toggling menu, current state:", this.isMenuOpen);
     this.isMenuOpen = !this.isMenuOpen;
+    console.log("New menu state:", this.isMenuOpen);
+  }
+
+  closeMenuIfOutside(event: Event): void {
+    const target = event.target as HTMLElement;
+    if (!target.closest('.hamburger') && !target.closest('.mobile-menu')) {
+      this.isMenuOpen = false;
+    }
   }
 
   logout(): void {
