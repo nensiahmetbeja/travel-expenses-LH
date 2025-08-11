@@ -22,6 +22,7 @@
           </svg>
           Add Expense
         </button>
+        test
       </div>
 
       <div class="expenses-list" *ngIf="trip.expenses.length > 0; else noExpenses">
@@ -78,14 +79,6 @@
         </div>
         
         <div class="summary-actions" *ngIf="canEdit()">
-          <button class="btn-secondary" (click)="saveAsDraft()">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
-              <polyline points="17,21 17,13 7,13 7,21"></polyline>
-              <polyline points="7,3 7,8 15,8"></polyline>
-            </svg>
-            Save as Draft
-          </button>
           <button class="btn-primary" (click)="submitForApproval()">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <line x1="22" y1="2" x2="11" y2="13"></line>

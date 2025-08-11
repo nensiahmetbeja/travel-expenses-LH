@@ -7,7 +7,10 @@ import { TripDetailComponent } from './pages/end-user/trip-detail/trip-detail';
 import { AddExpenseComponent } from './pages/end-user/add-expense/add-expense';
 import { ApproverComponent } from './pages/approver/approver';
 import { FinanceComponent } from './pages/finance/finance';
+import { ApproverTripDetailComponent } from './pages/approver/trip-detail/trip-detail';
+import { FinanceTripDetailComponent } from './pages/finance/trip-detail/trip-detail';
 import { LoginComponent } from './pages/login/login';
+import { TripDetailViewComponent } from './components/trip-detail-view/trip-detail-view';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'login' },
@@ -49,12 +52,24 @@ export const routes: Routes = [
     data: { roles: [Role.Approver] },
     component: ApproverComponent,
   },
+  {
+    path: 'approver/trip/:tripId',
+    canActivate: [authGuard],
+    data: { roles: [Role.Approver] },
+    component: ApproverTripDetailComponent,
+  },
 
   {
     path: 'finance',
     canActivate: [authGuard],
     data: { roles: [Role.Finance] },
     component: FinanceComponent,
+  },
+  {
+    path: 'finance/trip/:tripId',
+    canActivate: [authGuard],
+    data: { roles: [Role.Finance] },
+    component: FinanceTripDetailComponent,
   },
   { path: '**', redirectTo: 'login' },
 ];

@@ -20,6 +20,12 @@
     font-size: 1.25rem;
     font-weight: 600;
     color: #1f2937;
+    cursor: pointer;
+    transition: color 0.2s ease-in-out;
+
+    &:hover {
+      color: #3b82f6;
+    }
   }
 
   .navbar-menu {

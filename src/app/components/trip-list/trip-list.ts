@@ -23,6 +23,20 @@ export class TripListComponent {
   @Output() tripRejected = new EventEmitter<string>();
   @Output() tripRefunded = new EventEmitter<string>();
   @Output() tripInProcess = new EventEmitter<string>();
+  visibleTrips: Trip[] = [];
+
+  ngOnChanges() {
+    this.recomputeVisibleTrips();
+  }
+  
+  ngOnInit() {
+    this.recomputeVisibleTrips();
+  }
+  
+  private recomputeVisibleTrips() {
+    this.visibleTrips = (this.trips ?? []).filter(t => this.canShowTrip(t));
+  }
+  
 
   readonly Role = Role;
   readonly ApprovalStatus = ApprovalStatus;
@@ -48,17 +62,7 @@ export class TripListComponent {
     this.tripInProcess.emit(tripId);
   }
 
-  canShowTrip(trip: Trip): boolean {
-    // Safety check to ensure userRole is defined
-    if (!this.userRole) {
-      return true; // Default to showing all trips if role is not set
-    }
-    
-    if (this.userRole === Role.Finance) {
-      return trip.approvalStatus === ApprovalStatus.Approved;
-    }
-    return true;
-  }
+ 
 
 
   getStatusColor(status: string): string {
@@ -95,6 +99,17 @@ export class TripListComponent {
     }).format(amount);
   }
 
+  canShowTrip(trip: Trip): boolean {
+    if (!this.userRole) return true;
+    if (this.userRole === Role.Approver) {
+      return trip.approvalStatus != ApprovalStatus.Draft;
+    }
+    if (this.userRole === Role.Finance) {
+      return trip.approvalStatus === ApprovalStatus.Approved;
+    }
+    return true;
+  }
+  
   getTotalExpenses(trip: Trip): number {
     return trip.expenses.reduce((total, expense) => total + expense.totalPrice, 0);
   }

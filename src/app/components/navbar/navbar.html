@@ -1,7 +1,7 @@
 <nav class="navbar" *ngIf="isLoggedIn">
   <div class="navbar-container" (click)="closeMenuIfOutside($event)">
     <!-- Logo/Brand -->
-    <div class="navbar-brand">
+    <div class="navbar-brand" (click)="redirectToHomepage()">
       <span>Travel Expenses</span>
     </div>
 

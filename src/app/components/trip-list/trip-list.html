@@ -1,7 +1,7 @@
 <div class="trip-list-container">
   <div class="trips-container" *ngIf="!isLoading">
-    <div class="trips-grid" *ngIf="trips.filter(trip => canShowTrip(trip)).length > 0; else noTrips">
-      <div class="trip-card" *ngFor="let trip of trips" [class.hidden]="!canShowTrip(trip)">
+    <div class="trips-grid" *ngIf="visibleTrips.length > 0; else noTrips">
+        <div class="trip-card" *ngFor="let trip of trips" [class.hidden]="!canShowTrip(trip)">
         <div class="trip-header">
           <h3>{{ trip.name }}</h3>
           <div class="status-badges">

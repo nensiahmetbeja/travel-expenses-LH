@@ -1,0 +1,11 @@
+<app-trip-detail-view
+  [trip]="trip"
+  [userRole]="userRole"
+  [isLoading]="isLoading"
+  [showApprovalActions]="true"
+  [showFinanceActions]="false"
+  [canEdit]="false"
+  (backClicked)="onBack()"
+  (tripApproved)="onTripApproved($event)"
+  (tripRejected)="onTripRejected($event)"
+></app-trip-detail-view> 

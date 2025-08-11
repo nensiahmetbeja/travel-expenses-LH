@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { Role } from '../../models/role';
 
 @Component({
   selector: 'app-navbar',
@@ -17,6 +18,31 @@ export class NavbarComponent {
 
   get isLoggedIn(): boolean {
     return this.auth.isLoggedIn();
+  }
+
+  get userRole(): Role | null {
+    return this.auth.getRole();
+  }
+
+  redirectToHomepage(): void {
+    const role = this.userRole;
+    if (role) {
+      switch (role) {
+        case Role.EndUser:
+          this.router.navigate(['/traveller']);
+          break;
+        case Role.Approver:
+          this.router.navigate(['/approver']);
+          break;
+        case Role.Finance:
+          this.router.navigate(['/finance']);
+          break;
+        default:
+          this.router.navigate(['/login']);
+      }
+    } else {
+      this.router.navigate(['/login']);
+    }
   }
 
   toggleMenu(): void {
