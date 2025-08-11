@@ -246,6 +246,16 @@
             background: #fee2e2;
             color: #991b1b;
           }
+
+          &.in-process {
+            background: #e0e7ff;
+            color: #3730a3;
+          }
+
+          &.refunded {
+            background: #ecfdf5;
+            color: #047857;
+          }
         }
       }
 

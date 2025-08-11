@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { TripService } from '../../services/trip.service';
-import { Trip } from '../../models/trip';
+import { Trip, ApprovalStatus, FinanceStatus } from '../../models/trip';
 
 @Component({
   selector: 'app-end-user',
@@ -66,6 +66,10 @@ export class EndUserComponent implements OnInit {
         return 'approved';
       case 'rejected':
         return 'rejected';
+      case 'in process':
+        return 'in-process';
+      case 'refunded':
+        return 'refunded';
       default:
         return 'draft';
     }

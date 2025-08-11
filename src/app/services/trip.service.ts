@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Trip, CreateTripRequest } from '../models/trip';
+import { Trip, CreateTripRequest, FinanceStatus, ApprovalStatus } from '../models/trip';
 import { Expense, ExpenseType, CreateCarRentalExpenseRequest, CreateHotelExpenseRequest, CreateFlightExpenseRequest, CreateTaxiExpenseRequest } from '../models/expense';
 
 @Injectable({ providedIn: 'root' })
@@ -20,6 +20,9 @@ export class TripService {
         endDate: new Date(trip.endDate),
         createdAt: new Date(trip.createdAt),
         updatedAt: new Date(trip.updatedAt),
+        // Handle migration from old format to new enum format
+        financeStatus: trip.financeStatus || FinanceStatus.InProcess,
+        approvalStatus: trip.approvalStatus || (trip.isApproved ? ApprovalStatus.Approved : ApprovalStatus.Draft),
         expenses: trip.expenses.map((expense: any) => ({
           ...expense,
           createdAt: new Date(expense.createdAt),
@@ -49,8 +52,8 @@ export class TripService {
       duration,
       startDate: request.startDate,
       endDate: request.endDate,
-      financeStatus: 'Draft',
-      isApproved: false,
+      financeStatus: FinanceStatus.InProcess,
+      approvalStatus: ApprovalStatus.Draft,
       expenses: [],
       createdAt: new Date(),
       updatedAt: new Date()
@@ -71,7 +74,7 @@ export class TripService {
 
   addExpense(tripId: string, type: ExpenseType, expenseData: any): Expense | null {
     const trip = this.getTripById(tripId);
-    if (!trip || trip.isApproved) {
+    if (!trip || trip.approvalStatus === ApprovalStatus.Approved) {
       return null;
     }
 
@@ -148,7 +151,7 @@ export class TripService {
 
   updateExpense(tripId: string, expenseId: string, expenseRequest: any): Expense | null {
     const trip = this.getTripById(tripId);
-    if (!trip || trip.isApproved) {
+    if (!trip || trip.approvalStatus === ApprovalStatus.Approved) {
       return null;
     }
 
@@ -171,7 +174,7 @@ export class TripService {
 
   deleteExpense(tripId: string, expenseId: string): boolean {
     const trip = this.getTripById(tripId);
-    if (!trip || trip.isApproved) {
+    if (!trip || trip.approvalStatus === ApprovalStatus.Approved) {
       return false;
     }
 
@@ -188,11 +191,11 @@ export class TripService {
 
   submitForApproval(tripId: string): boolean {
     const trip = this.getTripById(tripId);
-    if (!trip || trip.isApproved) {
+    if (!trip || trip.approvalStatus === ApprovalStatus.Approved) {
       return false;
     }
 
-    trip.financeStatus = 'Pending Approval';
+    trip.approvalStatus = ApprovalStatus.PendingApproval;
     trip.updatedAt = new Date();
     this.saveTrips();
     return true;

@@ -65,7 +65,13 @@
           <span>{{ trip.expenses.length }}</span>
         </div>
         <div class="summary-item">
-          <span>Status:</span>
+          <span>Approval Status:</span>
+          <span class="status-badge" [class]="trip.approvalStatus.toLowerCase().replace(' ', '-')">
+            {{ trip.approvalStatus }}
+          </span>
+        </div>
+        <div class="summary-item">
+          <span>Finance Status:</span>
           <span class="status-badge" [class]="trip.financeStatus.toLowerCase().replace(' ', '-')">
             {{ trip.financeStatus }}
           </span>

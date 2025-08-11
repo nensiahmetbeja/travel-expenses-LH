@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TripService } from '../../../services/trip.service';
 import { Expense, ExpenseType } from '../../../models/expense';
-import { Trip } from '../../../models/trip';
+import { Trip, ApprovalStatus, FinanceStatus } from '../../../models/trip';
 
 @Component({
   selector: 'app-trip-detail',
@@ -143,6 +143,6 @@ export class TripDetailComponent implements OnInit {
   }
 
   canEdit(): boolean {
-    return this.trip ? !this.trip.isApproved && this.trip.financeStatus === 'Draft' : false;
+    return this.trip ? this.trip.approvalStatus === ApprovalStatus.Draft && this.trip.financeStatus === FinanceStatus.InProcess : false;
   }
 } 

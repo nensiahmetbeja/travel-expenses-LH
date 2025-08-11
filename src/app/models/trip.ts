@@ -1,13 +1,26 @@
 import { Expense } from "./expense";
 
+export enum FinanceStatus {
+  Refunded = 'Refunded',
+  InProcess = 'In Process',
+  Rejected = 'Rejected'
+}
+
+export enum ApprovalStatus {
+  Draft = 'Draft',
+  PendingApproval = 'Pending Approval',
+  Approved = 'Approved',
+  Rejected = 'Rejected'
+}
+
 export interface Trip {
   id: string;
   name: string;
   duration: number; // in days
   startDate: Date;
   endDate: Date;
-  financeStatus: string;
-  isApproved: boolean;
+  financeStatus: FinanceStatus;
+  approvalStatus: ApprovalStatus;
   expenses: Expense[];
   createdAt: Date;
   updatedAt: Date;

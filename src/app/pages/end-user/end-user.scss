@@ -78,6 +78,13 @@
           flex: 1;
         }
 
+        .status-badges {
+          display: flex;
+          flex-direction: column;
+          gap: 0.25rem;
+          align-items: flex-end;
+        }
+
         .status-badge {
           padding: 0.25rem 0.75rem;
           border-radius: 9999px;
@@ -104,6 +111,24 @@
           &.rejected {
             background: #fee2e2;
             color: #991b1b;
+          }
+
+          &.in-process {
+            background: #e0e7ff;
+            color: #3730a3;
+          }
+
+          &.refunded {
+            background: #ecfdf5;
+            color: #047857;
+          }
+
+          &.approval {
+            border: 1px solid #d1d5db;
+          }
+
+          &.finance {
+            border: 1px solid #d1d5db;
           }
         }
       }

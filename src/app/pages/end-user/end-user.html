@@ -15,9 +15,14 @@
       <div class="trip-card" *ngFor="let trip of trips" (click)="viewTrip(trip.id)">
         <div class="trip-header">
           <h3>{{ trip.name }}</h3>
-          <span class="status-badge" [class]="getStatusColor(trip.financeStatus)">
-            {{ trip.financeStatus }}
-          </span>
+          <div class="status-badges">
+            <span class="status-badge approval" [class]="getStatusColor(trip.approvalStatus)">
+              {{ trip.approvalStatus }}
+            </span>
+            <span class="status-badge finance" [class]="getStatusColor(trip.financeStatus)">
+              {{ trip.financeStatus }}
+            </span>
+          </div>
         </div>
         
         <div class="trip-details">
