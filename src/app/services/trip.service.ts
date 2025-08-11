@@ -201,6 +201,54 @@ export class TripService {
     return true;
   }
 
+  approveTrip(tripId: string): boolean {
+    const trip = this.getTripById(tripId);
+    if (!trip || trip.approvalStatus !== ApprovalStatus.PendingApproval) {
+      return false;
+    }
+
+    trip.approvalStatus = ApprovalStatus.Approved;
+    trip.updatedAt = new Date();
+    this.saveTrips();
+    return true;
+  }
+
+  rejectTrip(tripId: string): boolean {
+    const trip = this.getTripById(tripId);
+    if (!trip || trip.approvalStatus !== ApprovalStatus.PendingApproval) {
+      return false;
+    }
+
+    trip.approvalStatus = ApprovalStatus.Rejected;
+    trip.updatedAt = new Date();
+    this.saveTrips();
+    return true;
+  }
+
+  markTripRefunded(tripId: string): boolean {
+    const trip = this.getTripById(tripId);
+    if (!trip || trip.approvalStatus !== ApprovalStatus.Approved) {
+      return false;
+    }
+
+    trip.financeStatus = FinanceStatus.Refunded;
+    trip.updatedAt = new Date();
+    this.saveTrips();
+    return true;
+  }
+
+  markTripInProcess(tripId: string): boolean {
+    const trip = this.getTripById(tripId);
+    if (!trip || trip.approvalStatus !== ApprovalStatus.Approved) {
+      return false;
+    }
+
+    trip.financeStatus = FinanceStatus.InProcess;
+    trip.updatedAt = new Date();
+    this.saveTrips();
+    return true;
+  }
+
   private generateId(): string {
     return Date.now().toString(36) + Math.random().toString(36).substr(2);
   }

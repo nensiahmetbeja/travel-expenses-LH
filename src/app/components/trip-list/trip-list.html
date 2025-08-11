@@ -1,0 +1,129 @@
+<div class="trip-list-container">
+  <div class="trips-container" *ngIf="!isLoading">
+    <div class="trips-grid" *ngIf="trips.filter(trip => canShowTrip(trip)).length > 0; else noTrips">
+      <div class="trip-card" *ngFor="let trip of trips" [class.hidden]="!canShowTrip(trip)">
+        <div class="trip-header">
+          <h3>{{ trip.name }}</h3>
+          <div class="status-badges">
+            <span class="status-badge approval" [class]="getStatusColor(trip.approvalStatus)">
+              {{ trip.approvalStatus }}
+            </span>
+            <span class="status-badge finance" [class]="getStatusColor(trip.financeStatus)">
+              {{ trip.financeStatus }}
+            </span>
+          </div>
+        </div>
+        
+        <div class="trip-details">
+          <div class="detail-item">
+            <span class="label">Duration:</span>
+            <span>{{ trip.duration }} days</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Dates:</span>
+            <span>{{ formatDate(trip.startDate) }} - {{ formatDate(trip.endDate) }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Total Expenses:</span>
+            <span class="total">{{ formatCurrency(getTotalExpenses(trip)) }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Expenses:</span>
+            <span>{{ trip.expenses.length }} items</span>
+          </div>
+        </div>
+
+        <!-- Role-specific actions -->
+        <div class="trip-actions">
+          <!-- End User Actions -->
+          <button 
+            *ngIf="userRole === Role.EndUser && canEdit" 
+            class="view-btn"
+            (click)="onTripClick(trip.id)"
+          >
+            View Details
+          </button>
+
+          <!-- Approver Actions -->
+          <div *ngIf="userRole === Role.Approver && showApprovalActions" class="approver-actions">
+            <button 
+              *ngIf="trip.approvalStatus === ApprovalStatus.PendingApproval"
+              class="btn-approve"
+              (click)="onApproveTrip(trip.id)"
+            >
+              Approve
+            </button>
+            <button 
+              *ngIf="trip.approvalStatus === ApprovalStatus.PendingApproval"
+              class="btn-reject"
+              (click)="onRejectTrip(trip.id)"
+            >
+              Reject
+            </button>
+            <button 
+              *ngIf="trip.approvalStatus !== ApprovalStatus.PendingApproval"
+              class="view-btn"
+              (click)="onTripClick(trip.id)"
+            >
+              View Details
+            </button>
+          </div>
+
+          <!-- Finance Actions -->
+          <div *ngIf="userRole === Role.Finance && showFinanceActions" class="finance-actions">
+            <button 
+              *ngIf="trip.financeStatus === FinanceStatus.InProcess"
+              class="btn-refund"
+              (click)="onMarkRefunded(trip.id)"
+            >
+              Mark Refunded
+            </button>
+            <button 
+              *ngIf="trip.financeStatus === FinanceStatus.Refunded"
+              class="btn-in-process"
+              (click)="onMarkInProcess(trip.id)"
+            >
+              Mark In Process
+            </button>
+            <button 
+              class="view-btn"
+              (click)="onTripClick(trip.id)"
+            >
+              View Details
+            </button>
+          </div>
+
+          <!-- Default view button for other cases -->
+          <button 
+            *ngIf="userRole === Role.EndUser && !canEdit"
+            class="view-btn"
+            (click)="onTripClick(trip.id)"
+          >
+            View Details
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #noTrips>
+      <div class="empty-state">
+        <div class="empty-icon">✈️</div>
+        <h2>No trips available</h2>
+        <p *ngIf="userRole === Role.Finance">
+          No approved trips found. Only approved trips are visible to finance users.
+        </p>
+        <p *ngIf="userRole === Role.Approver">
+          No trips pending approval found.
+        </p>
+        <p *ngIf="userRole === Role.EndUser">
+          Create your first trip to get started with expense tracking
+        </p>
+      </div>
+    </ng-template>
+  </div>
+
+  <div class="loading" *ngIf="isLoading">
+    <div class="spinner"></div>
+    <p>Loading trips...</p>
+  </div>
+</div> 

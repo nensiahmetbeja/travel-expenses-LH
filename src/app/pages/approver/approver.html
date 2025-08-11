@@ -1,1 +1,18 @@
-<p>approver works!</p>
+<div class="approver-dashboard">
+  <div class="header">
+    <h1>Trip Approval Dashboard</h1>
+    <p>Review and approve pending trip requests</p>
+  </div>
+
+  <app-trip-list
+    [trips]="trips"
+    [userRole]="userRole"
+    [isLoading]="isLoading"
+    [showApprovalActions]="true"
+    [showFinanceActions]="false"
+    [canEdit]="false"
+    (tripSelected)="onTripSelected($event)"
+    (tripApproved)="onTripApproved($event)"
+    (tripRejected)="onTripRejected($event)"
+  ></app-trip-list>
+</div>

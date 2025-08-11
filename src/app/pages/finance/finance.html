@@ -1,1 +1,18 @@
-<p>finance works!</p>
+<div class="finance-dashboard">
+  <div class="header">
+    <h1>Finance Dashboard</h1>
+    <p>Manage approved trips and process refunds</p>
+  </div>
+
+  <app-trip-list
+    [trips]="trips"
+    [userRole]="userRole"
+    [isLoading]="isLoading"
+    [showApprovalActions]="false"
+    [showFinanceActions]="true"
+    [canEdit]="false"
+    (tripSelected)="onTripSelected($event)"
+    (tripRefunded)="onTripRefunded($event)"
+    (tripInProcess)="onTripInProcess($event)"
+  ></app-trip-list>
+</div>

@@ -49,11 +49,17 @@ export class TripListComponent {
   }
 
   canShowTrip(trip: Trip): boolean {
+    // Safety check to ensure userRole is defined
+    if (!this.userRole) {
+      return true; // Default to showing all trips if role is not set
+    }
+    
     if (this.userRole === Role.Finance) {
       return trip.approvalStatus === ApprovalStatus.Approved;
     }
     return true;
   }
+
 
   getStatusColor(status: string): string {
     switch (status.toLowerCase()) {
