@@ -178,9 +178,6 @@ export class TripDetailViewComponent {
   }
 
   canShowExpenseActions(): boolean {
-    if (this.userRole === Role.EndUser) {
-      return this.canEdit;
-    }
-    return false; // Approvers and Finance users can't edit expenses
+    return this.userRole === Role.EndUser && this.canEdit;
   }
 } 

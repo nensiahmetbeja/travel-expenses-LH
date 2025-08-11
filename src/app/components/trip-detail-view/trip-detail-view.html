@@ -42,8 +42,11 @@
             </div>
             <p class="expense-description">{{ getExpenseDescription(expense) }}</p>
             <div class="expense-actions" *ngIf="canShowExpenseActions()">
-              <button class="btn-text" (click)="onEditExpense(expense.id)">Edit</button>
-              <button class="btn-text delete" (click)="onDeleteExpense(expense.id)">Delete</button>
+              <button class="btn-text" (click)="onViewExpense(expense.id)">View</button>
+              <!-- <button class="btn-text delete" (click)="onDeleteExpense(expense.id)" *ngIf="canEditExpense()">Delete</button> -->
+            </div>
+            <div class="expense-actions" *ngIf="!canShowExpenseActions()">
+              <button class="btn-text" (click)="onViewExpense(expense.id)">View</button>
             </div>
           </div>
         </div>
@@ -87,7 +90,11 @@
         <div class="summary-actions">
           <!-- End User Actions -->
           <div *ngIf="userRole === Role.EndUser && canEdit" class="end-user-actions">
-            <button class="btn-secondary" (click)="onSubmitForApproval()">
+            <button 
+              *ngIf="trip.approvalStatus === ApprovalStatus.Draft"
+              class="btn-secondary" 
+              (click)="onSubmitForApproval()"
+            >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <line x1="22" y1="2" x2="11" y2="13"></line>
                 <polygon points="22,2 15,22 11,13 2,9 22,2"></polygon>

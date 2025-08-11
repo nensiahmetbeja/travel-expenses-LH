@@ -2,23 +2,22 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TripService } from '../../../services/trip.service';
-import { Expense, ExpenseType } from '../../../models/expense';
+import { ExpenseType } from '../../../models/expense';
 import { Trip, ApprovalStatus, FinanceStatus } from '../../../models/trip';
-import { ExpenseModalComponent } from '../../../components/expense-modal/expense-modal';
+import { TripDetailViewComponent } from '../../../components/trip-detail-view/trip-detail-view';
+import { Role } from '../../../models/role';
 
 @Component({
   selector: 'app-trip-detail',
   standalone: true,
-  imports: [CommonModule, ExpenseModalComponent],
+  imports: [CommonModule, TripDetailViewComponent],
   templateUrl: './trip-detail.html',
   styleUrls: ['./trip-detail.scss']
 })
 export class TripDetailComponent implements OnInit {
   trip: Trip | null = null;
-  totalExpenses = 0;
   isLoading = true;
-  showExpenseModal = false;
-  expenseToView: Expense | null = null;
+  userRole: Role = Role.EndUser;
 
   constructor(
     private tripService: TripService,
@@ -44,68 +43,11 @@ export class TripDetailComponent implements OnInit {
     }
 
     this.trip = trip;
-    this.totalExpenses = this.tripService.getTotalExpenses(tripId);
     this.isLoading = false;
   }
 
-  getExpenseTypeIcon(type: ExpenseType): string {
-    switch (type) {
-      case ExpenseType.CarRental:
-        return '🚗';
-      case ExpenseType.Hotel:
-        return '🏨';
-      case ExpenseType.Flight:
-        return '✈️';
-      case ExpenseType.Taxi:
-        return '🚕';
-      default:
-        return '💰';
-    }
-  }
-
-  getExpenseTypeName(type: ExpenseType): string {
-    switch (type) {
-      case ExpenseType.CarRental:
-        return 'Car Rental';
-      case ExpenseType.Hotel:
-        return 'Hotel';
-      case ExpenseType.Flight:
-        return 'Flight';
-      case ExpenseType.Taxi:
-        return 'Taxi';
-      default:
-        return 'Expense';
-    }
-  }
-
-  getExpenseDescription(expense: Expense): string {
-    switch (expense.type) {
-      case ExpenseType.CarRental:
-        return `${expense.carName} - ${expense.pickUpLocation} to ${expense.dropOffLocation}`;
-      case ExpenseType.Hotel:
-        return `${expense.hotelName} - ${expense.hotelLocation}`;
-      case ExpenseType.Flight:
-        return `${expense.airline} - ${expense.from} to ${expense.to}`;
-      case ExpenseType.Taxi:
-        return `${expense.from} to ${expense.to}`;
-      default:
-        return 'Expense';
-    }
-  }
-
-  addExpense(): void {
-    this.expenseToView = null; // Ensure we're in add mode
-    this.showExpenseModal = true;
-  }
-
-  viewExpense(expenseId: string): void {
-    if (this.trip) {
-      const expense = this.trip.expenses.find(e => e.id === expenseId);
-      if (expense) {
-        this.expenseToView = expense;
-        this.showExpenseModal = true;
-      }
-    }
+  goBack(): void {
+    this.router.navigate(['/traveller']);
   }
 
   onExpenseCreated(event: { type: ExpenseType; data: any }): void {
@@ -138,11 +80,6 @@ export class TripDetailComponent implements OnInit {
     }
   }
 
-  onExpenseModalClosed(): void {
-    this.showExpenseModal = false;
-    this.expenseToView = null; // Reset view mode
-  }
-
   editExpense(expenseId: string): void {
     if (this.trip) {
       this.router.navigate(['/traveller/trip', this.trip.id, 'expense', expenseId, 'edit']);
@@ -161,21 +98,6 @@ export class TripDetailComponent implements OnInit {
       this.tripService.submitForApproval(this.trip.id);
       this.loadTrip(); // Reload to update the view
     }
-  }
-
-  formatDate(date: Date): string {
-    return new Date(date).toLocaleDateString('en-US', {
-      month: 'short',
-      day: '2-digit',
-      year: 'numeric'
-    });
-  }
-
-  formatCurrency(amount: number): string {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD'
-    }).format(amount);
   }
 
   canEdit(): boolean {

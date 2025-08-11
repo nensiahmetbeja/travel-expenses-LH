@@ -1,293 +1,112 @@
-<div class="expense-form-container">
-  <div class="form-header">
-    <h2>Add New Expense</h2>
-    <p>Select an expense type and fill in the details</p>
+<div class="expense-form" [formGroup]="expenseForm">
+
+
+
+  <!-- Expense Type Selection -->
+  <div class="form-group">
+    <label for="type">Expense Type *</label>
+    <select id="type" formControlName="type" class="form-control">
+      <option value="">Select expense type</option>
+      <option *ngFor="let type of expenseTypes" [value]="type">
+        {{ getExpenseTypeName(type) }}
+      </option>
+    </select>
   </div>
 
-  <form [formGroup]="expenseForm" (ngSubmit)="onSubmit()" class="expense-form">
-    <!-- Expense Type Selection -->
+  <!-- Dynamic Form Fields -->
+  <div class="dynamic-fields" *ngIf="selectedType">
+    <!-- Car Rental Fields -->
+    <div *ngIf="isFieldVisible('carName')" class="form-group">
+      <label for="carName">{{ getFieldLabel('carName') }} *</label>
+      <input type="text" id="carName" formControlName="carName" class="form-control">
+    </div>
+
+    <div *ngIf="isFieldVisible('pickUpDateTime')" class="form-group">
+      <label for="pickUpDateTime">{{ getFieldLabel('pickUpDateTime') }} *</label>
+      <input type="datetime-local" id="pickUpDateTime" formControlName="pickUpDateTime" class="form-control">
+    </div>
+
+    <div *ngIf="isFieldVisible('dropOffDateTime')" class="form-group">
+      <label for="dropOffDateTime">{{ getFieldLabel('dropOffDateTime') }} *</label>
+      <input type="datetime-local" id="dropOffDateTime" formControlName="dropOffDateTime" class="form-control">
+    </div>
+
+    <div *ngIf="isFieldVisible('pickUpLocation')" class="form-group">
+      <label for="pickUpLocation">{{ getFieldLabel('pickUpLocation') }} *</label>
+      <input type="text" id="pickUpLocation" formControlName="pickUpLocation" class="form-control">
+    </div>
+
+    <div *ngIf="isFieldVisible('dropOffLocation')" class="form-group">
+      <label for="dropOffLocation">{{ getFieldLabel('dropOffLocation') }} *</label>
+      <input type="text" id="dropOffLocation" formControlName="dropOffLocation" class="form-control">
+    </div>
+
+    <!-- Hotel Fields -->
+    <div *ngIf="isFieldVisible('hotelName')" class="form-group">
+      <label for="hotelName">{{ getFieldLabel('hotelName') }} *</label>
+      <input type="text" id="hotelName" formControlName="hotelName" class="form-control">
+    </div>
+
+    <div *ngIf="isFieldVisible('hotelLocation')" class="form-group">
+      <label for="hotelLocation">{{ getFieldLabel('hotelLocation') }} *</label>
+      <input type="text" id="hotelLocation" formControlName="hotelLocation" class="form-control">
+    </div>
+
+    <div *ngIf="isFieldVisible('checkInDate')" class="form-group">
+      <label for="checkInDate">{{ getFieldLabel('checkInDate') }} *</label>
+      <input type="datetime-local" id="checkInDate" formControlName="checkInDate" class="form-control">
+    </div>
+
+    <div *ngIf="isFieldVisible('checkoutDate')" class="form-group">
+      <label for="checkoutDate">{{ getFieldLabel('checkoutDate') }} *</label>
+      <input type="datetime-local" id="checkoutDate" formControlName="checkoutDate" class="form-control">
+    </div>
+
+    <!-- Flight Fields -->
+    <div *ngIf="isFieldVisible('airline')" class="form-group">
+      <label for="airline">{{ getFieldLabel('airline') }} *</label>
+      <input type="text" id="airline" formControlName="airline" class="form-control">
+    </div>
+
+    <div *ngIf="isFieldVisible('from')" class="form-group">
+      <label for="from">{{ getFieldLabel('from') }} *</label>
+      <input type="text" id="from" formControlName="from" class="form-control">
+    </div>
+
+    <div *ngIf="isFieldVisible('to')" class="form-group">
+      <label for="to">{{ getFieldLabel('to') }} *</label>
+      <input type="text" id="to" formControlName="to" class="form-control">
+    </div>
+
+    <div *ngIf="isFieldVisible('departureDateTime')" class="form-group">
+      <label for="departureDateTime">{{ getFieldLabel('departureDateTime') }} *</label>
+      <input type="datetime-local" id="departureDateTime" formControlName="departureDateTime" class="form-control">
+    </div>
+
+    <div *ngIf="isFieldVisible('arrivalDateTime')" class="form-group">
+      <label for="arrivalDateTime">{{ getFieldLabel('arrivalDateTime') }} *</label>
+      <input type="datetime-local" id="arrivalDateTime" formControlName="arrivalDateTime" class="form-control">
+    </div>
+
+    <!-- Taxi Fields -->
+    <div *ngIf="isFieldVisible('dateTime')" class="form-group">
+      <label for="dateTime">{{ getFieldLabel('dateTime') }} *</label>
+      <input type="datetime-local" id="dateTime" formControlName="dateTime" class="form-control">
+    </div>
+
+    <!-- Total Price Field -->
     <div class="form-group">
-      <label for="type">Expense Type *</label>
-      <select 
-        id="type" 
-        formControlName="type" 
-        class="form-control"
-        [class.error]="expenseForm.get('type')?.invalid && expenseForm.get('type')?.touched"
-      >
-        <option value="">Select an expense type</option>
-        <option *ngFor="let type of expenseTypes" [value]="type">
-          {{ getExpenseTypeName(type) }}
-        </option>
-      </select>
-      <div class="error-message" *ngIf="expenseForm.get('type')?.invalid && expenseForm.get('type')?.touched">
-        Please select an expense type
-      </div>
+      <label for="totalPrice">{{ getFieldLabel('totalPrice') }} *</label>
+      <input type="number" id="totalPrice" formControlName="totalPrice" class="form-control" step="0.01" min="0.01">
     </div>
+  </div>
 
-    <!-- Dynamic Fields Based on Expense Type -->
-    <div class="dynamic-fields" *ngIf="selectedType">
-      <!-- Car Rental Fields -->
-      <div class="form-group" *ngIf="isFieldVisible('carName')">
-        <label for="carName">Car Name *</label>
-        <input 
-          type="text" 
-          id="carName" 
-          formControlName="carName" 
-          class="form-control"
-          placeholder="e.g., Toyota Camry, BMW X5"
-          [class.error]="expenseForm.get('carName')?.invalid && expenseForm.get('carName')?.touched"
-        >
-        <div class="error-message" *ngIf="expenseForm.get('carName')?.invalid && expenseForm.get('carName')?.touched">
-          Car name is required
-        </div>
-      </div>
-
-      <div class="form-group" *ngIf="isFieldVisible('pickUpDateTime')">
-        <label for="pickUpDateTime">Pick-up Date & Time *</label>
-        <input 
-          type="datetime-local" 
-          id="pickUpDateTime" 
-          formControlName="pickUpDateTime" 
-          class="form-control"
-          [class.error]="expenseForm.get('pickUpDateTime')?.invalid && expenseForm.get('pickUpDateTime')?.touched"
-        >
-        <div class="error-message" *ngIf="expenseForm.get('pickUpDateTime')?.invalid && expenseForm.get('pickUpDateTime')?.touched">
-          Pick-up date & time is required
-        </div>
-      </div>
-
-      <div class="form-group" *ngIf="isFieldVisible('dropOffDateTime')">
-        <label for="dropOffDateTime">Drop-off Date & Time *</label>
-        <input 
-          type="datetime-local" 
-          id="dropOffDateTime" 
-          formControlName="dropOffDateTime" 
-          class="form-control"
-          [class.error]="expenseForm.get('dropOffDateTime')?.invalid && expenseForm.get('dropOffDateTime')?.touched"
-        >
-        <div class="error-message" *ngIf="expenseForm.get('dropOffDateTime')?.invalid && expenseForm.get('dropOffDateTime')?.touched">
-          <span *ngIf="expenseForm.get('dropOffDateTime')?.errors?.['required']">Drop-off date & time is required</span>
-          <span *ngIf="expenseForm.get('dropOffDateTime')?.errors?.['invalidDateRange']">Drop-off date must be after pick-up date</span>
-        </div>
-      </div>
-
-      <div class="form-group" *ngIf="isFieldVisible('pickUpLocation')">
-        <label for="pickUpLocation">Pick-up Location *</label>
-        <input 
-          type="text" 
-          id="pickUpLocation" 
-          formControlName="pickUpLocation" 
-          class="form-control"
-          placeholder="e.g., Airport, Hotel, Address"
-          [class.error]="expenseForm.get('pickUpLocation')?.invalid && expenseForm.get('pickUpLocation')?.touched"
-        >
-        <div class="error-message" *ngIf="expenseForm.get('pickUpLocation')?.invalid && expenseForm.get('pickUpLocation')?.touched">
-          Pick-up location is required
-        </div>
-      </div>
-
-      <div class="form-group" *ngIf="isFieldVisible('dropOffLocation')">
-        <label for="dropOffLocation">Drop-off Location *</label>
-        <input 
-          type="text" 
-          id="dropOffLocation" 
-          formControlName="dropOffLocation" 
-          class="form-control"
-          placeholder="e.g., Airport, Hotel, Address"
-          [class.error]="expenseForm.get('dropOffLocation')?.invalid && expenseForm.get('dropOffLocation')?.touched"
-        >
-        <div class="error-message" *ngIf="expenseForm.get('dropOffLocation')?.invalid && expenseForm.get('dropOffLocation')?.touched">
-          Drop-off location is required
-        </div>
-      </div>
-
-      <!-- Hotel Fields -->
-      <div class="form-group" *ngIf="isFieldVisible('hotelName')">
-        <label for="hotelName">Hotel Name *</label>
-        <input 
-          type="text" 
-          id="hotelName" 
-          formControlName="hotelName" 
-          class="form-control"
-          placeholder="e.g., Marriott, Hilton, Holiday Inn"
-          [class.error]="expenseForm.get('hotelName')?.invalid && expenseForm.get('hotelName')?.touched"
-        >
-        <div class="error-message" *ngIf="expenseForm.get('hotelName')?.invalid && expenseForm.get('hotelName')?.touched">
-          Hotel name is required
-        </div>
-      </div>
-
-      <div class="form-group" *ngIf="isFieldVisible('hotelLocation')">
-        <label for="hotelLocation">Hotel Location *</label>
-        <input 
-          type="text" 
-          id="hotelLocation" 
-          formControlName="hotelLocation" 
-          class="form-control"
-          placeholder="e.g., City, Address"
-          [class.error]="expenseForm.get('hotelLocation')?.invalid && expenseForm.get('hotelLocation')?.touched"
-        >
-        <div class="error-message" *ngIf="expenseForm.get('hotelLocation')?.invalid && expenseForm.get('hotelLocation')?.touched">
-          Hotel location is required
-        </div>
-      </div>
-
-      <div class="form-group" *ngIf="isFieldVisible('checkInDate')">
-        <label for="checkInDate">Check-in Date *</label>
-        <input 
-          type="date" 
-          id="checkInDate" 
-          formControlName="checkInDate" 
-          class="form-control"
-          [class.error]="expenseForm.get('checkInDate')?.invalid && expenseForm.get('checkInDate')?.touched"
-        >
-        <div class="error-message" *ngIf="expenseForm.get('checkInDate')?.invalid && expenseForm.get('checkInDate')?.touched">
-          Check-in date is required
-        </div>
-      </div>
-
-      <div class="form-group" *ngIf="isFieldVisible('checkoutDate')">
-        <label for="checkoutDate">Check-out Date *</label>
-        <input 
-          type="date" 
-          id="checkoutDate" 
-          formControlName="checkoutDate" 
-          class="form-control"
-          [class.error]="expenseForm.get('checkoutDate')?.invalid && expenseForm.get('checkoutDate')?.touched"
-        >
-        <div class="error-message" *ngIf="expenseForm.get('checkoutDate')?.invalid && expenseForm.get('checkoutDate')?.touched">
-          <span *ngIf="expenseForm.get('checkoutDate')?.errors?.['required']">Check-out date is required</span>
-          <span *ngIf="expenseForm.get('checkoutDate')?.errors?.['invalidDateRange']">Check-out date must be after check-in date</span>
-        </div>
-      </div>
-
-      <!-- Flight Fields -->
-      <div class="form-group" *ngIf="isFieldVisible('airline')">
-        <label for="airline">Airline *</label>
-        <input 
-          type="text" 
-          id="airline" 
-          formControlName="airline" 
-          class="form-control"
-          placeholder="e.g., American Airlines, Delta, United"
-          [class.error]="expenseForm.get('airline')?.invalid && expenseForm.get('airline')?.touched"
-        >
-        <div class="error-message" *ngIf="expenseForm.get('airline')?.invalid && expenseForm.get('airline')?.touched">
-          Airline is required
-        </div>
-      </div>
-
-      <div class="form-group" *ngIf="isFieldVisible('from')">
-        <label for="from">From *</label>
-        <input 
-          type="text" 
-          id="from" 
-          formControlName="from" 
-          class="form-control"
-          placeholder="e.g., Airport code or city"
-          [class.error]="expenseForm.get('from')?.invalid && expenseForm.get('from')?.touched"
-        >
-        <div class="error-message" *ngIf="expenseForm.get('from')?.invalid && expenseForm.get('from')?.touched">
-          Origin is required
-        </div>
-      </div>
-
-      <div class="form-group" *ngIf="isFieldVisible('to')">
-        <label for="to">To *</label>
-        <input 
-          type="text" 
-          id="to" 
-          formControlName="to" 
-          class="form-control"
-          placeholder="e.g., Airport code or city"
-          [class.error]="expenseForm.get('to')?.invalid && expenseForm.get('to')?.touched"
-        >
-        <div class="error-message" *ngIf="expenseForm.get('to')?.invalid && expenseForm.get('to')?.touched">
-          Destination is required
-        </div>
-      </div>
-
-      <div class="form-group" *ngIf="isFieldVisible('departureDateTime')">
-        <label for="departureDateTime">Departure Date & Time *</label>
-        <input 
-          type="datetime-local" 
-          id="departureDateTime" 
-          formControlName="departureDateTime" 
-          class="form-control"
-          [class.error]="expenseForm.get('departureDateTime')?.invalid && expenseForm.get('departureDateTime')?.touched"
-        >
-        <div class="error-message" *ngIf="expenseForm.get('departureDateTime')?.invalid && expenseForm.get('departureDateTime')?.touched">
-          Departure date & time is required
-        </div>
-      </div>
-
-      <div class="form-group" *ngIf="isFieldVisible('arrivalDateTime')">
-        <label for="arrivalDateTime">Arrival Date & Time *</label>
-        <input 
-          type="datetime-local" 
-          id="arrivalDateTime" 
-          formControlName="arrivalDateTime" 
-          class="form-control"
-          [class.error]="expenseForm.get('arrivalDateTime')?.invalid && expenseForm.get('arrivalDateTime')?.touched"
-        >
-        <div class="error-message" *ngIf="expenseForm.get('arrivalDateTime')?.invalid && expenseForm.get('arrivalDateTime')?.touched">
-          Arrival date & time is required
-        </div>
-      </div>
-
-      <!-- Taxi Fields -->
-      <div class="form-group" *ngIf="isFieldVisible('dateTime')">
-        <label for="dateTime">Date & Time *</label>
-        <input 
-          type="datetime-local" 
-          id="dateTime" 
-          formControlName="dateTime" 
-          class="form-control"
-          [class.error]="expenseForm.get('dateTime')?.invalid && expenseForm.get('dateTime')?.touched"
-        >
-        <div class="error-message" *ngIf="expenseForm.get('dateTime')?.invalid && expenseForm.get('dateTime')?.touched">
-          Date & time is required
-        </div>
-      </div>
-
-      <!-- Total Price Field (always visible) -->
-      <div class="form-group">
-        <label for="totalPrice">Total Price ($) *</label>
-        <input 
-          type="number" 
-          id="totalPrice" 
-          formControlName="totalPrice" 
-          class="form-control"
-          placeholder="0.00"
-          step="0.01"
-          min="0.01"
-          [class.error]="expenseForm.get('totalPrice')?.invalid && expenseForm.get('totalPrice')?.touched"
-        >
-        <div class="error-message" *ngIf="expenseForm.get('totalPrice')?.invalid && expenseForm.get('totalPrice')?.touched">
-          <span *ngIf="expenseForm.get('totalPrice')?.errors?.['required']">Total price is required</span>
-          <span *ngIf="expenseForm.get('totalPrice')?.errors?.['min']">Total price must be greater than $0</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Form Actions -->
-    <div class="form-actions">
-      <button 
-        type="button" 
-        class="btn-secondary" 
-        (click)="onCancel()"
-        [disabled]="isLoading"
-      >
-        Cancel
-      </button>
-      <button 
-        type="submit" 
-        class="btn-primary" 
-        [disabled]="expenseForm.invalid || isLoading"
-      >
-        <span *ngIf="!isLoading">Create Expense</span>
-        <span *ngIf="isLoading">Creating...</span>
-      </button>
-    </div>
-  </form>
+  <!-- Form Actions -->
+  <div class="form-actions">
+    <button type="button" class="btn-secondary" (click)="onCancel()">Cancel</button>
+    <button type="submit" class="btn-primary" (click)="onSubmit()" [disabled]="!expenseForm.valid || isLoading">
+      <span *ngIf="!isLoading">{{ isEditMode ? 'Save Changes' : 'Create Expense' }}</span>
+      <span *ngIf="isLoading">Loading...</span>
+    </button>
+  </div>
 </div> 

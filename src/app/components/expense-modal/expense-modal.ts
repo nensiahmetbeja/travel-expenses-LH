@@ -18,6 +18,7 @@ export class ExpenseModalComponent {
   @Output() expenseCreated = new EventEmitter<any>();
   @Output() expenseUpdated = new EventEmitter<any>();
   @Output() closed = new EventEmitter<void>();
+  @Output() expenseDeleted = new EventEmitter<string>();
 
   showSuccessMessage = false;
   isEditMode = false;
@@ -31,6 +32,18 @@ export class ExpenseModalComponent {
 
   get isViewMode(): boolean {
     return this.expenseToView !== null && !this.isEditMode;
+  }
+
+  canShowEditButton(): boolean {
+    return this.trip?.approvalStatus === 'Draft';
+  }
+
+  onDeleteExpense(): void {
+    if (this.expenseToView) {
+      // Emit delete event to parent component
+      this.expenseDeleted.emit(this.expenseToView.id);
+      this.closeModal();
+    }
   }
 
   onExpenseCreated(event: { type: ExpenseType; data: any }): void {

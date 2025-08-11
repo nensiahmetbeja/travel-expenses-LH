@@ -143,6 +143,8 @@
             height: 16px;
           }
         }
+
+      
       }
     }
 
@@ -198,3 +200,30 @@
     padding: 1rem;
   }
 } 
+.expense-view{
+.btn-delete {
+  display: flex;
+  align-items: right;
+  justify-content: right;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: #eb8d8d;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 12px;
+  width: 20%;
+
+  &:hover {
+    background: #dc2626;
+  }
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+}
