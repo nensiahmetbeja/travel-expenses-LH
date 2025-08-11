@@ -4,11 +4,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TripService } from '../../../services/trip.service';
 import { Expense, ExpenseType } from '../../../models/expense';
 import { Trip, ApprovalStatus, FinanceStatus } from '../../../models/trip';
+import { ExpenseModalComponent } from '../../../components/expense-modal/expense-modal';
 
 @Component({
   selector: 'app-trip-detail',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ExpenseModalComponent],
   templateUrl: './trip-detail.html',
   styleUrls: ['./trip-detail.scss']
 })
@@ -16,6 +17,7 @@ export class TripDetailComponent implements OnInit {
   trip: Trip | null | undefined = null;
   totalExpenses = 0;
   isLoading = true;
+  showExpenseModal = false;
 
   constructor(
     private tripService: TripService,
@@ -90,9 +92,26 @@ export class TripDetailComponent implements OnInit {
   }
 
   addExpense(): void {
+    this.showExpenseModal = true;
+  }
+
+  onExpenseCreated(event: { type: ExpenseType; data: any }): void {
     if (this.trip) {
-      this.router.navigate(['/traveller/trip', this.trip.id, 'add-expense']);
+      try {
+        // Add the expense to the trip
+        this.tripService.addExpense(this.trip.id, event.type, event.data);
+        
+        // Reload trip data to update the view
+        this.loadTrip();
+      } catch (error) {
+        console.error('Error creating expense:', error);
+        alert('Error creating expense. Please try again.');
+      }
     }
+  }
+
+  onExpenseModalClosed(): void {
+    this.showExpenseModal = false;
   }
 
   editExpense(expenseId: string): void {

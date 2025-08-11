@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { Trip, ApprovalStatus, FinanceStatus } from '../../models/trip';
 import { Expense, ExpenseType } from '../../models/expense';
 import { Role } from '../../models/role';
+import { ExpenseModalComponent } from '../expense-modal/expense-modal';
 
 @Component({
   selector: 'app-trip-detail-view',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ExpenseModalComponent],
   templateUrl: './trip-detail-view.html',
   styleUrls: ['./trip-detail-view.scss']
 })
@@ -28,6 +29,9 @@ export class TripDetailViewComponent {
   @Output() tripRefunded = new EventEmitter<string>();
   @Output() tripInProcess = new EventEmitter<string>();
   @Output() submitForApprovalClicked = new EventEmitter<void>();
+  @Output() expenseCreated = new EventEmitter<{ type: ExpenseType; data: any }>();
+
+  showExpenseModal = false;
 
   readonly Role = Role;
   readonly ExpenseType = ExpenseType;
@@ -39,7 +43,16 @@ export class TripDetailViewComponent {
   }
 
   onAddExpense(): void {
-    this.addExpenseClicked.emit();
+    this.showExpenseModal = true;
+  }
+
+  onExpenseCreated(event: { type: ExpenseType; data: any }): void {
+    this.expenseCreated.emit(event);
+    this.showExpenseModal = false;
+  }
+
+  onExpenseModalClosed(): void {
+    this.showExpenseModal = false;
   }
 
   onEditExpense(expenseId: string): void {

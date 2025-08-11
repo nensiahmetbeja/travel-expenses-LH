@@ -5,6 +5,7 @@ import { TripDetailViewComponent } from '../../../components/trip-detail-view/tr
 import { TripService } from '../../../services/trip.service';
 import { Trip } from '../../../models/trip';
 import { Role } from '../../../models/role';
+import { ExpenseType } from '../../../models/expense';
 
 @Component({
   selector: 'app-approver-trip-detail',
@@ -59,5 +60,10 @@ export class ApproverTripDetailComponent implements OnInit {
     if (this.tripService.rejectTrip(tripId)) {
       this.loadTrip(); // Reload to update the view
     }
+  }
+
+  onExpenseCreated(event: { type: ExpenseType; data: any }): void {
+    // Approvers can't create expenses, but handle the event for consistency
+    console.log('Expense creation attempted by approver:', event);
   }
 } 

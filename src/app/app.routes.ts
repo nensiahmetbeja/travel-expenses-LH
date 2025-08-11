@@ -4,7 +4,6 @@ import { Role } from './models/role';
 import { EndUserComponent } from './pages/end-user/end-user';
 import { CreateTripComponent } from './pages/end-user/create-trip/create-trip';
 import { TripDetailComponent } from './pages/end-user/trip-detail/trip-detail';
-import { AddExpenseComponent } from './pages/end-user/add-expense/add-expense';
 import { ApproverComponent } from './pages/approver/approver';
 import { FinanceComponent } from './pages/finance/finance';
 import { ApproverTripDetailComponent } from './pages/approver/trip-detail/trip-detail';
@@ -38,12 +37,6 @@ export const routes: Routes = [
     canActivate: [authGuard],
     data: { roles: [Role.EndUser] },
     component: TripDetailComponent,
-  },
-  {
-    path: 'traveller/trip/:tripId/add-expense',
-    canActivate: [authGuard],
-    data: { roles: [Role.EndUser] },
-    component: AddExpenseComponent,
   },
 
   {

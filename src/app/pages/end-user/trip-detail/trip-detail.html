@@ -22,7 +22,6 @@
           </svg>
           Add Expense
         </button>
-        test
       </div>
 
       <div class="expenses-list" *ngIf="trip.expenses.length > 0; else noExpenses">
@@ -95,4 +94,12 @@
 <div class="loading" *ngIf="isLoading">
   <div class="spinner"></div>
   <p>Loading trip details...</p>
-</div> 
+</div>
+
+<!-- Expense Modal -->
+<app-expense-modal
+  [trip]="trip"
+  [isOpen]="showExpenseModal"
+  (expenseCreated)="onExpenseCreated($event)"
+  (closed)="onExpenseModalClosed()"
+></app-expense-modal> 
