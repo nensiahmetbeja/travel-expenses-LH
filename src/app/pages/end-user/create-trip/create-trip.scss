@@ -68,16 +68,14 @@
       width: 100%;
       padding: 0.75rem;
       border: 1px solid #d1d5db;
-      border-radius: 6px;
-      font-size: 1rem;
-      transition: all 0.2s ease-in-out;
+      border-radius: 0.5rem;
+      font-size: 0.875rem;
+      line-height: 1.25rem;
+      background-color: white;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      box-sizing: border-box;
 
-      &:focus {
-        outline: none;
-        border-color: #3b82f6;
-        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-      }
-
+      
       &::placeholder {
         color: #9ca3af;
       }
@@ -98,7 +96,16 @@
     position: relative;
 
     input {
-      padding-right: 2.5rem;
+      
+      &::-webkit-calendar-picker-indicator {
+        cursor: pointer;
+        opacity: 0.6;
+        transition: opacity 0.2s ease;
+        
+        &:hover {
+          opacity: 1;
+        }
+      }
     }
 
     svg {
@@ -116,7 +123,7 @@
     border: 1px solid #fecaca;
     color: #dc2626;
     padding: 0.75rem;
-    border-radius: 6px;
+    border-radius: 0.5rem;
     font-size: 0.875rem;
     margin-bottom: 1.5rem;
   }
@@ -126,6 +133,8 @@
     gap: 1rem;
     justify-content: flex-end;
     margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e5e7eb;
 
     @media (max-width: 640px) {
       flex-direction: column;
@@ -133,11 +142,11 @@
 
     button {
       padding: 0.75rem 1.5rem;
-      border-radius: 6px;
+      border-radius: 0.5rem;
       font-weight: 500;
       font-size: 0.875rem;
       cursor: pointer;
-      transition: all 0.2s ease-in-out;
+      transition: all 0.2s ease;
       border: none;
 
       &:disabled {
@@ -147,12 +156,12 @@
     }
 
     .btn-secondary {
-      background: #ffffff;
+      background: #f3f4f6;
       color: #374151;
       border: 1px solid #d1d5db;
 
       &:hover:not(:disabled) {
-        background: #f9fafb;
+        background: #e5e7eb;
         border-color: #9ca3af;
       }
     }
@@ -163,11 +172,6 @@
 
       &:hover:not(:disabled) {
         background: #2563eb;
-        transform: translateY(-1px);
-      }
-
-      &:active:not(:disabled) {
-        transform: translateY(0);
       }
     }
   }
