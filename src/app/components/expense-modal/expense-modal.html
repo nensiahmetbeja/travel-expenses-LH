@@ -45,23 +45,23 @@
           <ng-container [ngSwitch]="expenseToView.type">
             <!-- Car Rental -->
             <ng-container *ngSwitchCase="'CarRental'">
-              <div class="detail-item">
+              <div class="detail-item" *ngIf="isCarRentalExpense(expenseToView)">
                 <span class="label">Car Name:</span>
                 <span class="value">{{ expenseToView.carName }}</span>
               </div>
-              <div class="detail-item">
+              <div class="detail-item" *ngIf="isCarRentalExpense(expenseToView)">
                 <span class="label">Pick-up Date & Time:</span>
                 <span class="value">{{ formatDateTime(expenseToView.pickUpDateTime) }}</span>
               </div>
-              <div class="detail-item">
+              <div class="detail-item" *ngIf="isCarRentalExpense(expenseToView)">
                 <span class="label">Drop-off Date & Time:</span>
                 <span class="value">{{ formatDateTime(expenseToView.dropOffDateTime) }}</span>
               </div>
-              <div class="detail-item">
+              <div class="detail-item" *ngIf="isCarRentalExpense(expenseToView)">
                 <span class="label">Pick-up Location:</span>
                 <span class="value">{{ expenseToView.pickUpLocation }}</span>
               </div>
-              <div class="detail-item">
+              <div class="detail-item" *ngIf="isCarRentalExpense(expenseToView)">
                 <span class="label">Drop-off Location:</span>
                 <span class="value">{{ expenseToView.dropOffLocation }}</span>
               </div>
@@ -69,19 +69,19 @@
 
             <!-- Hotel -->
             <ng-container *ngSwitchCase="'Hotel'">
-              <div class="detail-item">
+              <div class="detail-item" *ngIf="isHotelExpense(expenseToView)">
                 <span class="label">Hotel Name:</span>
                 <span class="value">{{ expenseToView.hotelName }}</span>
               </div>
-              <div class="detail-item">
+              <div class="detail-item" *ngIf="isHotelExpense(expenseToView)">
                 <span class="label">Hotel Location:</span>
                 <span class="value">{{ expenseToView.hotelLocation }}</span>
               </div>
-              <div class="detail-item">
+              <div class="detail-item" *ngIf="isHotelExpense(expenseToView)">
                 <span class="label">Check-in Date:</span>
                 <span class="value">{{ formatDateTime(expenseToView.checkInDate) }}</span>
               </div>
-              <div class="detail-item">
+              <div class="detail-item" *ngIf="isHotelExpense(expenseToView)">
                 <span class="label">Check-out Date:</span>
                 <span class="value">{{ formatDateTime(expenseToView.checkoutDate) }}</span>
               </div>
@@ -89,23 +89,23 @@
 
             <!-- Flight -->
             <ng-container *ngSwitchCase="'Flight'">
-              <div class="detail-item">
+              <div class="detail-item" *ngIf="isFlightExpense(expenseToView)">
                 <span class="label">Airline:</span>
                 <span class="value">{{ expenseToView.airline }}</span>
               </div>
-              <div class="detail-item">
+              <div class="detail-item" *ngIf="isFlightExpense(expenseToView)">
                 <span class="label">From:</span>
                 <span class="value">{{ expenseToView.from }}</span>
               </div>
-              <div class="detail-item">
+              <div class="detail-item" *ngIf="isFlightExpense(expenseToView)">
                 <span class="label">To:</span>
                 <span class="value">{{ expenseToView.to }}</span>
               </div>
-              <div class="detail-item">
+              <div class="detail-item" *ngIf="isFlightExpense(expenseToView)">
                 <span class="label">Departure Date & Time:</span>
                 <span class="value">{{ formatDateTime(expenseToView.departureDateTime) }}</span>
               </div>
-              <div class="detail-item">
+              <div class="detail-item" *ngIf="isFlightExpense(expenseToView)">
                 <span class="label">Arrival Date & Time:</span>
                 <span class="value">{{ formatDateTime(expenseToView.arrivalDateTime) }}</span>
               </div>
@@ -113,15 +113,15 @@
 
             <!-- Taxi -->
             <ng-container *ngSwitchCase="'Taxi'">
-              <div class="detail-item">
+              <div class="detail-item" *ngIf="isTaxiExpense(expenseToView)">
                 <span class="label">From:</span>
                 <span class="value">{{ expenseToView.from }}</span>
               </div>
-              <div class="detail-item">
+              <div class="detail-item" *ngIf="isTaxiExpense(expenseToView)">
                 <span class="label">To:</span>
                 <span class="value">{{ expenseToView.to }}</span>
               </div>
-              <div class="detail-item">
+              <div class="detail-item" *ngIf="isTaxiExpense(expenseToView)">
                 <span class="label">Date & Time:</span>
                 <span class="value">{{ formatDateTime(expenseToView.dateTime) }}</span>
               </div>

@@ -134,4 +134,21 @@ export class ExpenseModalComponent {
         return type;
     }
   }
+
+  // Type guard methods
+  isCarRentalExpense(expense: Expense): expense is import('../../models/expense').CarRentalExpense {
+    return expense.type === ExpenseType.CarRental;
+  }
+
+  isHotelExpense(expense: Expense): expense is import('../../models/expense').HotelExpense {
+    return expense.type === ExpenseType.Hotel;
+  }
+
+  isFlightExpense(expense: Expense): expense is import('../../models/expense').FlightExpense {
+    return expense.type === ExpenseType.Flight;
+  }
+
+  isTaxiExpense(expense: Expense): expense is import('../../models/expense').TaxiExpense {
+    return expense.type === ExpenseType.Taxi;
+  }
 } 

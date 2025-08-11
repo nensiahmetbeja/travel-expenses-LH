@@ -1,107 +1,14 @@
-<div class="trip-detail" *ngIf="!isLoading && trip">
-  <div class="trip-header">
-    <div class="trip-info">
-      <h1>{{ trip.name }}</h1>
-      <p class="trip-dates">{{ formatDate(trip.startDate) }} - {{ formatDate(trip.endDate) }} ({{ trip.duration }} days)</p>
-    </div>
-  </div>
-
-  <div class="trip-content">
-    <div class="expenses-section">
-      <div class="section-header">
-        <h2>Expenses</h2>
-        <button 
-          class="add-expense-btn" 
-          (click)="addExpense()" 
-          [disabled]="!canEdit()"
-          *ngIf="canEdit()"
-        >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <line x1="12" y1="5" x2="12" y2="19"></line>
-            <line x1="5" y1="12" x2="19" y2="12"></line>
-          </svg>
-          Add Expense
-        </button>
-      </div>
-
-      <div class="expenses-list" *ngIf="trip.expenses.length > 0; else noExpenses">
-        <div class="expense-item" *ngFor="let expense of trip.expenses">
-          <div class="expense-icon">
-            {{ getExpenseTypeIcon(expense.type) }}
-          </div>
-          <div class="expense-details">
-            <div class="expense-header">
-              <h3>{{ getExpenseTypeName(expense.type) }}</h3>
-              <span class="expense-price">{{ formatCurrency(expense.totalPrice) }}</span>
-            </div>
-            <p class="expense-description">{{ getExpenseDescription(expense) }}</p>
-            <div class="expense-actions" *ngIf="canEdit()">
-              <button class="btn-text" (click)="viewExpense(expense.id)">View</button>
-              <button class="btn-text" (click)="editExpense(expense.id)">Edit</button>
-              <button class="btn-text delete" (click)="deleteExpense(expense.id)">Delete</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <ng-template #noExpenses>
-        <div class="empty-state">
-          <div class="empty-icon">✈️</div>
-          <h3>No expenses added yet</h3>
-          <p>Click "Add Expense" to get started</p>
-        </div>
-      </ng-template>
-    </div>
-
-    <div class="trip-summary">
-      <div class="summary-card">
-        <h3>Trip Summary</h3>
-        <div class="summary-item">
-          <span>Total Expenses:</span>
-          <span class="total-amount">{{ formatCurrency(totalExpenses) }}</span>
-        </div>
-        <div class="summary-item">
-          <span>Number of Expenses:</span>
-          <span>{{ trip.expenses.length }}</span>
-        </div>
-        <div class="summary-item">
-          <span>Approval Status:</span>
-          <span class="status-badge" [class]="trip.approvalStatus.toLowerCase().replace(' ', '-')">
-            {{ trip.approvalStatus }}
-          </span>
-        </div>
-        <div class="summary-item">
-          <span>Finance Status:</span>
-          <span class="status-badge" [class]="trip.financeStatus.toLowerCase().replace(' ', '-')">
-            {{ trip.financeStatus }}
-          </span>
-        </div>
-        
-        <div class="summary-actions" *ngIf="canEdit()">
-          <button class="btn-primary" (click)="submitForApproval()">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <line x1="22" y1="2" x2="11" y2="13"></line>
-              <polygon points="22,2 15,22 11,13 2,9 22,2"></polygon>
-            </svg>
-            Submit for Approval
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="loading" *ngIf="isLoading">
-  <div class="spinner"></div>
-  <p>Loading trip details...</p>
-</div>
-
-<!-- Expense Modal -->
-<app-expense-modal
+<app-trip-detail-view
   [trip]="trip"
-  [isOpen]="showExpenseModal"
-  [expenseToView]="expenseToView"
+  [userRole]="userRole"
+  [isLoading]="isLoading"
+  [showApprovalActions]="false"
+  [showFinanceActions]="false"
+  [canEdit]="canEdit()"
+  (backClicked)="goBack()"
   (expenseCreated)="onExpenseCreated($event)"
   (expenseUpdated)="onExpenseUpdated($event)"
-  (closed)="onExpenseModalClosed()"
-></app-expense-modal> 
+  (expenseEdited)="editExpense($event)"
+  (expenseDeleted)="deleteExpense($event)"
+  (submitForApprovalClicked)="submitForApproval()"
+></app-trip-detail-view> 
