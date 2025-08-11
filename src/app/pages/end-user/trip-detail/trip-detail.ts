@@ -18,6 +18,7 @@ export class TripDetailComponent implements OnInit {
   totalExpenses = 0;
   isLoading = true;
   showExpenseModal = false;
+  expenseToView: Expense | null = null;
 
   constructor(
     private tripService: TripService,
@@ -93,7 +94,18 @@ export class TripDetailComponent implements OnInit {
   }
 
   addExpense(): void {
+    this.expenseToView = null; // Ensure we're in add mode
     this.showExpenseModal = true;
+  }
+
+  viewExpense(expenseId: string): void {
+    if (this.trip) {
+      const expense = this.trip.expenses.find(e => e.id === expenseId);
+      if (expense) {
+        this.expenseToView = expense;
+        this.showExpenseModal = true;
+      }
+    }
   }
 
   onExpenseCreated(event: { type: ExpenseType; data: any }): void {
@@ -111,19 +123,29 @@ export class TripDetailComponent implements OnInit {
     }
   }
 
+  onExpenseUpdated(event: { expenseId: string; type: ExpenseType; data: any }): void {
+    if (this.trip) {
+      try {
+        // Update the expense
+        this.tripService.updateExpense(this.trip.id, event.expenseId, event.data);
+        
+        // Reload trip data to update the view
+        this.loadTrip();
+      } catch (error) {
+        console.error('Error updating expense:', error);
+        alert('Error updating expense. Please try again.');
+      }
+    }
+  }
+
   onExpenseModalClosed(): void {
     this.showExpenseModal = false;
+    this.expenseToView = null; // Reset view mode
   }
 
   editExpense(expenseId: string): void {
     if (this.trip) {
       this.router.navigate(['/traveller/trip', this.trip.id, 'expense', expenseId, 'edit']);
-    }
-  }
-
-  viewExpense(expenseId: string): void {
-    if (this.trip) {
-      this.router.navigate(['/traveller/trip', this.trip.id, 'expense', expenseId]);
     }
   }
 

@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
-import { ExpenseType, CreateCarRentalExpenseRequest, CreateHotelExpenseRequest, CreateFlightExpenseRequest, CreateTaxiExpenseRequest } from '../../models/expense';
+import { ExpenseType, CreateCarRentalExpenseRequest, CreateHotelExpenseRequest, CreateFlightExpenseRequest, CreateTaxiExpenseRequest, Expense } from '../../models/expense';
 
 @Component({
   selector: 'app-expense-form',
@@ -10,9 +10,12 @@ import { ExpenseType, CreateCarRentalExpenseRequest, CreateHotelExpenseRequest, 
   templateUrl: './expense-form.html',
   styleUrls: ['./expense-form.scss']
 })
-export class ExpenseFormComponent implements OnInit {
+export class ExpenseFormComponent implements OnInit, OnChanges {
   @Input() tripId: string = '';
+  @Input() expenseToEdit: Expense | null = null;
+  @Input() isEditMode: boolean = false;
   @Output() expenseCreated = new EventEmitter<any>();
+  @Output() expenseUpdated = new EventEmitter<any>();
   @Output() cancelled = new EventEmitter<void>();
 
   expenseForm: FormGroup;
@@ -59,6 +62,78 @@ export class ExpenseFormComponent implements OnInit {
       this.selectedType = type;
       this.updateFormFields();
     });
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['expenseToEdit'] && this.expenseToEdit) {
+      this.populateFormForEdit();
+    }
+  }
+
+  private populateFormForEdit(): void {
+    if (!this.expenseToEdit) return;
+
+    const expense = this.expenseToEdit;
+    this.selectedType = expense.type;
+    
+    // Set basic fields
+    this.expenseForm.patchValue({
+      type: expense.type,
+      totalPrice: expense.totalPrice
+    });
+
+    // Update form fields based on type
+    this.updateFormFields();
+
+    // Populate type-specific fields
+    switch (expense.type) {
+      case ExpenseType.CarRental:
+        this.expenseForm.patchValue({
+          carName: expense.carName,
+          pickUpDateTime: this.formatDateForInput(expense.pickUpDateTime),
+          dropOffDateTime: this.formatDateForInput(expense.dropOffDateTime),
+          pickUpLocation: expense.pickUpLocation,
+          dropOffLocation: expense.dropOffLocation
+        });
+        break;
+      
+      case ExpenseType.Hotel:
+        this.expenseForm.patchValue({
+          hotelName: expense.hotelName,
+          hotelLocation: expense.hotelLocation,
+          checkInDate: this.formatDateForInput(expense.checkInDate),
+          checkoutDate: this.formatDateForInput(expense.checkoutDate)
+        });
+        break;
+      
+      case ExpenseType.Flight:
+        this.expenseForm.patchValue({
+          airline: expense.airline,
+          from: expense.from,
+          to: expense.to,
+          departureDateTime: this.formatDateForInput(expense.departureDateTime),
+          arrivalDateTime: this.formatDateForInput(expense.arrivalDateTime)
+        });
+        break;
+      
+      case ExpenseType.Taxi:
+        this.expenseForm.patchValue({
+          from: expense.from,
+          to: expense.to,
+          dateTime: this.formatDateForInput(expense.dateTime)
+        });
+        break;
+    }
+  }
+
+  private formatDateForInput(date: Date): string {
+    const d = new Date(date);
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    const hours = String(d.getHours()).padStart(2, '0');
+    const minutes = String(d.getMinutes()).padStart(2, '0');
+    return `${year}-${month}-${day}T${hours}:${minutes}`;
   }
 
   private updateFormFields(): void {
@@ -157,10 +232,18 @@ export class ExpenseFormComponent implements OnInit {
           break;
       }
 
-      this.expenseCreated.emit({
-        type: this.selectedType,
-        data: expenseData
-      });
+      if (this.isEditMode && this.expenseToEdit) {
+        this.expenseUpdated.emit({
+          expenseId: this.expenseToEdit.id,
+          type: this.selectedType,
+          data: expenseData
+        });
+      } else {
+        this.expenseCreated.emit({
+          type: this.selectedType,
+          data: expenseData
+        });
+      }
       
       // Reset loading state after emitting
       this.isLoading = false;
@@ -207,7 +290,6 @@ export class ExpenseFormComponent implements OnInit {
     const labels: { [key: string]: string } = {
       carName: 'Car Name',
       pickUpDateTime: 'Pick-up Date & Time',
-      dropOffDateTime: 'Drop-off Date & Time',
       pickUpLocation: 'Pick-up Location',
       dropOffLocation: 'Drop-off Location',
       hotelName: 'Hotel Name',

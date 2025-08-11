@@ -170,6 +170,8 @@
 <app-expense-modal
   [trip]="trip"
   [isOpen]="showExpenseModal"
+  [expenseToView]="expenseToView"
   (expenseCreated)="onExpenseCreated($event)"
+  (expenseUpdated)="onExpenseUpdated($event)"
   (closed)="onExpenseModalClosed()"
 ></app-expense-modal> 

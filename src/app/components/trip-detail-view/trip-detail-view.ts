@@ -30,8 +30,10 @@ export class TripDetailViewComponent {
   @Output() tripInProcess = new EventEmitter<string>();
   @Output() submitForApprovalClicked = new EventEmitter<void>();
   @Output() expenseCreated = new EventEmitter<{ type: ExpenseType; data: any }>();
+  @Output() expenseUpdated = new EventEmitter<{ expenseId: string; type: ExpenseType; data: any }>();
 
   showExpenseModal = false;
+  expenseToView: Expense | null = null;
 
   readonly Role = Role;
   readonly ExpenseType = ExpenseType;
@@ -43,16 +45,35 @@ export class TripDetailViewComponent {
   }
 
   onAddExpense(): void {
+    this.expenseToView = null; // Ensure we're in add mode
     this.showExpenseModal = true;
+  }
+
+  onViewExpense(expenseId: string): void {
+    if (this.trip) {
+      const expense = this.trip.expenses.find(e => e.id === expenseId);
+      if (expense) {
+        this.expenseToView = expense;
+        this.showExpenseModal = true;
+      }
+    }
   }
 
   onExpenseCreated(event: { type: ExpenseType; data: any }): void {
     this.expenseCreated.emit(event);
     this.showExpenseModal = false;
+    this.expenseToView = null;
+  }
+
+  onExpenseUpdated(event: { expenseId: string; type: ExpenseType; data: any }): void {
+    this.expenseUpdated.emit(event);
+    this.showExpenseModal = false;
+    this.expenseToView = null;
   }
 
   onExpenseModalClosed(): void {
     this.showExpenseModal = false;
+    this.expenseToView = null;
   }
 
   onEditExpense(expenseId: string): void {

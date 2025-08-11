@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ExpenseFormComponent } from '../expense-form/expense-form';
-import { ExpenseType } from '../../models/expense';
+import { ExpenseType, Expense } from '../../models/expense';
 import { Trip } from '../../models/trip';
 
 @Component({
@@ -14,10 +14,24 @@ import { Trip } from '../../models/trip';
 export class ExpenseModalComponent {
   @Input() trip: Trip | null = null;
   @Input() isOpen = false;
+  @Input() expenseToView: Expense | null = null;
   @Output() expenseCreated = new EventEmitter<any>();
+  @Output() expenseUpdated = new EventEmitter<any>();
   @Output() closed = new EventEmitter<void>();
 
   showSuccessMessage = false;
+  isEditMode = false;
+
+  get modalTitle(): string {
+    if (this.expenseToView) {
+      return this.isEditMode ? 'Edit Expense' : 'View Expense';
+    }
+    return 'Add Expense';
+  }
+
+  get isViewMode(): boolean {
+    return this.expenseToView !== null && !this.isEditMode;
+  }
 
   onExpenseCreated(event: { type: ExpenseType; data: any }): void {
     if (this.trip) {
@@ -39,13 +53,39 @@ export class ExpenseModalComponent {
     }
   }
 
+  onExpenseUpdated(event: { expenseId: string; type: ExpenseType; data: any }): void {
+    if (this.trip) {
+      try {
+        // Show success message
+        this.showSuccessMessage = true;
+        
+        // Close modal after a short delay
+        setTimeout(() => {
+          this.closeModal();
+        }, 2000);
+        
+        // Emit the event to parent component
+        this.expenseUpdated.emit(event);
+      } catch (error) {
+        console.error('Error updating expense:', error);
+        alert('Error updating expense. Please try again.');
+      }
+    }
+  }
+
   onCancelled(): void {
     this.closeModal();
+  }
+
+  toggleEditMode(): void {
+    this.isEditMode = !this.isEditMode;
   }
 
   closeModal(): void {
     this.isOpen = false;
     this.showSuccessMessage = false;
+    this.expenseToView = null;
+    this.isEditMode = false;
     this.closed.emit();
   }
 
@@ -61,5 +101,37 @@ export class ExpenseModalComponent {
       day: '2-digit',
       year: 'numeric'
     });
+  }
+
+  formatDateTime(date: Date): string {
+    return new Date(date).toLocaleString('en-US', {
+      month: 'short',
+      day: '2-digit',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  }
+
+  formatCurrency(amount: number): string {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD'
+    }).format(amount);
+  }
+
+  getExpenseTypeName(type: ExpenseType): string {
+    switch (type) {
+      case ExpenseType.CarRental:
+        return 'Car Rental';
+      case ExpenseType.Hotel:
+        return 'Hotel';
+      case ExpenseType.Flight:
+        return 'Flight';
+      case ExpenseType.Taxi:
+        return 'Taxi';
+      default:
+        return type;
+    }
   }
 } 

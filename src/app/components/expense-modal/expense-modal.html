@@ -2,7 +2,7 @@
   <div class="modal-content">
     <div class="modal-header">
       <div class="header-content" *ngIf="trip">
-        <h2>Add Expense</h2>
+        <h2>{{ modalTitle }}</h2>
         <p class="trip-info">{{ trip.name }} - {{ formatDate(trip.startDate) }} to {{ formatDate(trip.endDate) }}</p>
       </div>
       <button class="close-button" (click)="closeModal()">
@@ -16,15 +16,128 @@
       <!-- Success Message -->
       <div class="success-message" *ngIf="showSuccessMessage">
         <div class="success-icon">✓</div>
-        <h3>Expense Created Successfully!</h3>
+        <h3>{{ expenseToView ? 'Expense Updated Successfully!' : 'Expense Created Successfully!' }}</h3>
         <p>Closing modal...</p>
       </div>
 
-      <!-- Expense Form -->
+      <!-- View Mode - Read-only display -->
+      <div *ngIf="isViewMode && expenseToView" class="expense-view">
+        <div class="expense-header">
+          <h3>{{ getExpenseTypeName(expenseToView.type) }}</h3>
+          <div class="expense-actions">
+            <button class="btn-edit" (click)="toggleEditMode()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+              </svg>
+              Edit
+            </button>
+          </div>
+        </div>
+
+        <div class="expense-details">
+          <div class="detail-item">
+            <span class="label">Total Price:</span>
+            <span class="value">{{ formatCurrency(expenseToView.totalPrice) }}</span>
+          </div>
+
+          <!-- Type-specific details -->
+          <ng-container [ngSwitch]="expenseToView.type">
+            <!-- Car Rental -->
+            <ng-container *ngSwitchCase="'CarRental'">
+              <div class="detail-item">
+                <span class="label">Car Name:</span>
+                <span class="value">{{ expenseToView.carName }}</span>
+              </div>
+              <div class="detail-item">
+                <span class="label">Pick-up Date & Time:</span>
+                <span class="value">{{ formatDateTime(expenseToView.pickUpDateTime) }}</span>
+              </div>
+              <div class="detail-item">
+                <span class="label">Drop-off Date & Time:</span>
+                <span class="value">{{ formatDateTime(expenseToView.dropOffDateTime) }}</span>
+              </div>
+              <div class="detail-item">
+                <span class="label">Pick-up Location:</span>
+                <span class="value">{{ expenseToView.pickUpLocation }}</span>
+              </div>
+              <div class="detail-item">
+                <span class="label">Drop-off Location:</span>
+                <span class="value">{{ expenseToView.dropOffLocation }}</span>
+              </div>
+            </ng-container>
+
+            <!-- Hotel -->
+            <ng-container *ngSwitchCase="'Hotel'">
+              <div class="detail-item">
+                <span class="label">Hotel Name:</span>
+                <span class="value">{{ expenseToView.hotelName }}</span>
+              </div>
+              <div class="detail-item">
+                <span class="label">Hotel Location:</span>
+                <span class="value">{{ expenseToView.hotelLocation }}</span>
+              </div>
+              <div class="detail-item">
+                <span class="label">Check-in Date:</span>
+                <span class="value">{{ formatDateTime(expenseToView.checkInDate) }}</span>
+              </div>
+              <div class="detail-item">
+                <span class="label">Check-out Date:</span>
+                <span class="value">{{ formatDateTime(expenseToView.checkoutDate) }}</span>
+              </div>
+            </ng-container>
+
+            <!-- Flight -->
+            <ng-container *ngSwitchCase="'Flight'">
+              <div class="detail-item">
+                <span class="label">Airline:</span>
+                <span class="value">{{ expenseToView.airline }}</span>
+              </div>
+              <div class="detail-item">
+                <span class="label">From:</span>
+                <span class="value">{{ expenseToView.from }}</span>
+              </div>
+              <div class="detail-item">
+                <span class="label">To:</span>
+                <span class="value">{{ expenseToView.to }}</span>
+              </div>
+              <div class="detail-item">
+                <span class="label">Departure Date & Time:</span>
+                <span class="value">{{ formatDateTime(expenseToView.departureDateTime) }}</span>
+              </div>
+              <div class="detail-item">
+                <span class="label">Arrival Date & Time:</span>
+                <span class="value">{{ formatDateTime(expenseToView.arrivalDateTime) }}</span>
+              </div>
+            </ng-container>
+
+            <!-- Taxi -->
+            <ng-container *ngSwitchCase="'Taxi'">
+              <div class="detail-item">
+                <span class="label">From:</span>
+                <span class="value">{{ expenseToView.from }}</span>
+              </div>
+              <div class="detail-item">
+                <span class="label">To:</span>
+                <span class="value">{{ expenseToView.to }}</span>
+              </div>
+              <div class="detail-item">
+                <span class="label">Date & Time:</span>
+                <span class="value">{{ formatDateTime(expenseToView.dateTime) }}</span>
+              </div>
+            </ng-container>
+          </ng-container>
+        </div>
+      </div>
+
+      <!-- Expense Form (for add/edit) -->
       <app-expense-form
-        *ngIf="!showSuccessMessage"
+        *ngIf="!showSuccessMessage && (!expenseToView || isEditMode)"
         [tripId]="trip?.id || ''"
+        [expenseToEdit]="isEditMode ? expenseToView : null"
+        [isEditMode]="isEditMode"
         (expenseCreated)="onExpenseCreated($event)"
+        (expenseUpdated)="onExpenseUpdated($event)"
         (cancelled)="onCancelled()"
       ></app-expense-form>
     </div>
