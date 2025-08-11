@@ -61,7 +61,6 @@
               Reject
             </button>
             <button 
-              *ngIf="trip.approvalStatus !== ApprovalStatus.PendingApproval"
               class="view-btn"
               (click)="onTripClick(trip.id)"
             >

@@ -14,7 +14,7 @@ import { ExpenseModalComponent } from '../../../components/expense-modal/expense
   styleUrls: ['./trip-detail.scss']
 })
 export class TripDetailComponent implements OnInit {
-  trip: Trip | null | undefined = null;
+  trip: Trip | null = null;
   totalExpenses = 0;
   isLoading = true;
   showExpenseModal = false;
@@ -36,12 +36,13 @@ export class TripDetailComponent implements OnInit {
       return;
     }
 
-    this.trip = this.tripService.getTripById(tripId);
-    if (!this.trip) {
+    const trip = this.tripService.getTripById(tripId);
+    if (!trip) {
       this.router.navigate(['/traveller']);
       return;
     }
 
+    this.trip = trip;
     this.totalExpenses = this.tripService.getTotalExpenses(tripId);
     this.isLoading = false;
   }
@@ -138,12 +139,6 @@ export class TripDetailComponent implements OnInit {
       this.tripService.submitForApproval(this.trip.id);
       this.loadTrip(); // Reload to update the view
     }
-  }
-
-  saveAsDraft(): void {
-    // This would typically save any unsaved changes
-    // For now, we'll just show a message
-    alert('Trip saved as draft');
   }
 
   formatDate(date: Date): string {
