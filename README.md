@@ -49,6 +49,20 @@ The application supports three user roles — **End User**, **Approver**, and **
 
 ---
 
+# Trip Management System - Architecture Overview
+
+## System Architecture
+<img width="3840" height="2219" alt="Travel-Expenses-LH-UML" src="https://github.com/user-attachments/assets/016861c5-0c24-4ec1-a268-47d7fa7996b5" />
+
+
+## Key Design Decisions
+- Role-based routing with guards
+- Centralized state management via services
+- Reusable component architecture
+- Local storage for persistence
+
+---
+
 ## Setup Instructions
 
 ### **Prerequisites**
