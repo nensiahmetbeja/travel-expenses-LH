@@ -5,7 +5,6 @@ import { TripDetailViewComponent } from '../../../components/trip-detail-view/tr
 import { TripService } from '../../../services/trip.service';
 import { Trip, ApprovalStatus } from '../../../models/trip';
 import { Role } from '../../../models/role';
-import { ExpenseType } from '../../../models/expense';
 
 @Component({
   selector: 'app-finance-trip-detail',
@@ -66,10 +65,5 @@ export class FinanceTripDetailComponent implements OnInit {
     if (this.tripService.markTripInProcess(tripId)) {
       this.loadTrip(); // Reload to update the view
     }
-  }
-
-  onExpenseCreated(event: { type: ExpenseType; data: any }): void {
-    // Finance users can't create expenses, but handle the event for consistency
-    console.log('Expense creation attempted by finance user:', event);
   }
 } 

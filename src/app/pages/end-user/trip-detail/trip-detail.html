@@ -2,12 +2,8 @@
   [trip]="trip"
   [userRole]="userRole"
   [isLoading]="isLoading"
-  [showApprovalActions]="false"
-  [showFinanceActions]="false"
   [canEdit]="canEdit()"
   (backClicked)="goBack()"
-  (expenseCreated)="onExpenseCreated($event)"
-  (expenseUpdated)="onExpenseUpdated($event)"
-  (expenseEdited)="editExpense($event)"
   (submitForApprovalClicked)="submitForApproval()"
+  (tripUpdated)="loadTrip()"
 ></app-trip-detail-view> 

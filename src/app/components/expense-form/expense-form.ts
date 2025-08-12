@@ -265,9 +265,15 @@ export class ExpenseFormComponent implements OnInit, OnChanges {
       }
 
       if (this.isEditMode && this.expenseToEdit) {
-        this.expenseUpdated.emit(expenseData);
+        this.expenseUpdated.emit({
+          expenseId: this.expenseToEdit.id,
+          data: expenseData
+        });
       } else {
-        this.expenseCreated.emit(expenseData);
+        this.expenseCreated.emit({
+          type: this.selectedType,
+          data: expenseData
+        });
       }
       }
       finally {

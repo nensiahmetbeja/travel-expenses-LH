@@ -72,6 +72,7 @@ export class TripService {
   }
 
   addExpense(tripId: string, type: ExpenseType, expenseData: any): Expense | null {
+    console.log('addExpense ', tripId, type, expenseData);
     const trip = this.getTripById(tripId);
     if (!trip || trip.approvalStatus === ApprovalStatus.Approved) {
       return null;
@@ -142,7 +143,9 @@ export class TripService {
         return null;
     }
 
+    console.log('expense ', expense);
     trip.expenses.push(expense);
+    console.log('trip.expenses ', trip.expenses);
     trip.updatedAt = now;
     this.saveTrips();
     return expense;

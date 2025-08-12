@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TripService } from '../../../services/trip.service';
-import { ExpenseType } from '../../../models/expense';
 import { Trip, ApprovalStatus, FinanceStatus } from '../../../models/trip';
 import { TripDetailViewComponent } from '../../../components/trip-detail-view/trip-detail-view';
 import { Role } from '../../../models/role';
@@ -29,7 +28,7 @@ export class TripDetailComponent implements OnInit {
     this.loadTrip();
   }
 
-  private loadTrip(): void {
+  loadTrip(): void {
     const tripId = this.route.snapshot.paramMap.get('id');
     if (!tripId) {
       this.router.navigate(['/traveller']);
@@ -48,36 +47,6 @@ export class TripDetailComponent implements OnInit {
 
   goBack(): void {
     this.router.navigate(['/traveller']);
-  }
-
-  onExpenseCreated(event: { type: ExpenseType; data: any }): void {
-    if (this.trip) {
-      try {
-        // Add the expense to the trip
-        this.tripService.addExpense(this.trip.id, event.type, event.data);
-        
-        // Reload trip data to update the view
-        this.loadTrip();
-      } catch (error) {
-        console.error('Error creating expense:', error);
-        alert('Error creating expense. Please try again.');
-      }
-    }
-  }
-
-  onExpenseUpdated(event: { expenseId: string; type: ExpenseType; data: any }): void {
-    if (this.trip) {
-      try {
-        // Update the expense
-        this.tripService.updateExpense(this.trip.id, event.expenseId, event.data);
-        
-        // Reload trip data to update the view
-        this.loadTrip();
-      } catch (error) {
-        console.error('Error updating expense:', error);
-        alert('Error updating expense. Please try again.');
-      }
-    }
   }
 
   editExpense(expenseId: string): void {

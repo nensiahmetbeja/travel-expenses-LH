@@ -48,6 +48,7 @@ export class ExpenseModalComponent {
   }
 
   onExpenseCreated(event: { type: ExpenseType; data: any }): void {
+    console.log('this.trip ', this.trip);
     if (this.trip) {
       try {
         // Show success message
@@ -57,7 +58,7 @@ export class ExpenseModalComponent {
         setTimeout(() => {
           this.closeModal();
         }, 2000);
-        
+        console.log('onExpenseCreated from child comp ', event);
         // Emit the event to parent component
         this.expenseCreated.emit(event);
       } catch (error) {

@@ -23,15 +23,12 @@ export class TripDetailViewComponent {
 
   @Output() backClicked = new EventEmitter<void>();
   @Output() addExpenseClicked = new EventEmitter<void>();
-  @Output() expenseEdited = new EventEmitter<string>();
-  @Output() expenseDeleted = new EventEmitter<string>();
   @Output() tripApproved = new EventEmitter<string>();
   @Output() tripRejected = new EventEmitter<string>();
   @Output() tripRefunded = new EventEmitter<string>();
   @Output() tripInProcess = new EventEmitter<string>();
   @Output() submitForApprovalClicked = new EventEmitter<void>();
-  @Output() expenseCreated = new EventEmitter<{ type: ExpenseType; data: any }>();
-  @Output() expenseUpdated = new EventEmitter<{ expenseId: string; type: ExpenseType; data: any }>();
+  @Output() tripUpdated = new EventEmitter<void>();
 
   showExpenseModal = false;
   expenseToView: Expense | null = null;
@@ -66,15 +63,23 @@ export class TripDetailViewComponent {
   }
 
   onExpenseCreated(event: { type: ExpenseType; data: any }): void {
-    this.expenseCreated.emit(event);
-    this.showExpenseModal = false;
-    this.expenseToView = null;
+    console.log('onExpenseCreated ', event.data, " ", event.type);
+    console.log('this.trip from parent comp ', this.trip);
+    if (this.trip) {
+      this.tripService.addExpense(this.trip.id, event.type, event.data);
+      // Emit event to parent to refresh trip data
+      this.tripUpdated.emit();
+    }
+    this.onExpenseModalClosed();
   }
 
-  onExpenseUpdated(event: { expenseId: string; type: ExpenseType; data: any }): void {
-    this.expenseUpdated.emit(event);
-    this.showExpenseModal = false;
-    this.expenseToView = null;
+  onExpenseUpdated(event: { expenseId: string; data: any }): void {
+    if (this.trip) {
+      this.tripService.updateExpense(this.trip.id, event.expenseId, event.data);
+      // Emit event to parent to refresh trip data
+      this.tripUpdated.emit();
+    }
+    this.onExpenseModalClosed();
   }
 
   onExpenseModalClosed(): void {
@@ -82,9 +87,6 @@ export class TripDetailViewComponent {
     this.expenseToView = null;
   }
 
-  onEditExpense(expenseId: string): void {
-    this.expenseEdited.emit(expenseId);
-  }
 
 
   onApproveTrip(): void {
@@ -101,9 +103,11 @@ export class TripDetailViewComponent {
 
   onExpenseDeleted(expenseId: string): void {
     if (this.trip) {
-    this.tripService.deleteExpense(this.trip.id, expenseId);
+      this.tripService.deleteExpense(this.trip.id, expenseId);
+      // Emit event to parent to refresh trip data
+      this.tripUpdated.emit();
     }
-   
+    this.onExpenseModalClosed();
   }
 
   onMarkRefunded(): void {
