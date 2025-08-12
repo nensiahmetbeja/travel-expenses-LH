@@ -52,7 +52,7 @@ The application supports three user roles — **End User**, **Approver**, and **
 ## Setup Instructions
 
 ### **Prerequisites**
-- **Node.js** v16+ (LTS recommended)
+- **Node.js** v20+ (LTS recommended)
 - **Angular CLI** (install globally if not already)
 ```bash
 npm install -g @angular/cli
