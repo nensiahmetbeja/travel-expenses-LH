@@ -16,17 +16,24 @@
     </div>
     <p class="card-subtitle">Enter your trip information to get started</p>
 
-    <form (ngSubmit)="createTrip()" #tripForm="ngForm">
+    <!-- <form (ngSubmit)="createTrip()" #tripForm="ngForm"> -->
+      <form [formGroup]="tripForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
         <label for="tripName">Trip Name</label>
         <input
           id="tripName"
           type="text"
-          [(ngModel)]="tripName"
+          formControlName="tripName"
           name="tripName"
           placeholder="e.g., Business Trip to New York"
           required
         />
+        <div class="error-message" *ngIf="tripForm.get('tripName')?.touched && tripForm.get('tripName')?.hasError('required')">
+          Trip name is required
+        </div>
+        <div class="error-message" *ngIf="tripForm.get('tripName')?.touched && tripForm.get('tripName')?.hasError('minlength')">
+          Trip name must be at least 3 characters
+        </div>
       </div>
 
       <div class="form-row">
@@ -36,10 +43,13 @@
             <input
               id="startDate"
               type="date"
-              [(ngModel)]="startDate"
+              formControlName="startDate"
               name="startDate"
               required
             />
+          </div>
+          <div class="error-message" *ngIf="tripForm.get('startDate')?.touched && tripForm.get('startDate')?.hasError('required')">
+            Start date is required
           </div>
         </div>
 
@@ -49,23 +59,30 @@
             <input
               id="endDate"
               type="date"
-              [(ngModel)]="endDate"
+              formControlName="endDate"
               name="endDate"
               required
             />
           </div>
+          <div class="error-message" *ngIf="tripForm.get('endDate')?.touched && tripForm.get('endDate')?.hasError('required')">
+            End date is required
+          </div>
+          
+          <div class="error-message" *ngIf="tripForm.get('endDate')?.touched && tripForm.hasError('invalidDateRange')">
+            End date must be after start date
+          </div>
+          
         </div>
       </div>
 
-      <div class="error-message" *ngIf="errorMsg">
-        {{ errorMsg }}
-      </div>
 
       <div class="form-actions">
-        <button type="button" class="btn-secondary" (click)="cancel()">
+        <button type="button" class="btn-secondary" (click)="cancel()"
+        [disabled]="!tripForm.valid || isLoading"
+        >
           Cancel
         </button>
-        <button type="submit" class="btn-primary" [disabled]="isLoading">
+        <button type="submit" class="btn-primary" [disabled]="!tripForm.valid || isLoading">
           <span *ngIf="isLoading">Creating...</span>
           <span *ngIf="!isLoading">Create Trip</span>
         </button>

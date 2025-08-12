@@ -174,7 +174,7 @@ export class TripDetailViewComponent {
 
   getTotalExpenses(): number {
     if (!this.trip) return 0;
-    return this.trip.expenses.reduce((total, expense) => total + expense.totalPrice, 0);
+    return this.trip.expenses.reduce((total, expense) => total + expense.totalPrice, 0);   
   }
 
   canShowExpenseActions(): boolean {
