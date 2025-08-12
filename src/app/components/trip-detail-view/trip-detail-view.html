@@ -133,7 +133,7 @@
                       <div class="note-actions">
                         <button class="btn-note-add"
                                 (click)="addTripNote()
-                                " [disabled]="savingNote || !noteCtrl.value?.trim()">
+                                " [disabled]="savingNote || !noteCtrl.value.trim()">
                           Add note
                         </button>
                       </div>
@@ -143,7 +143,7 @@
               }
             }
 
-            @if (trip?.approvalNote) {
+            @if (trip.approvalNote) {
               <p class="approver-note-read">
                 <strong>Approver's note:</strong> {{ trip.approvalNote }}
               </p>
