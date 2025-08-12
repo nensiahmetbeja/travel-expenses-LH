@@ -3,10 +3,12 @@
   <div class="form-group">
     <label for="type">Expense Type *</label>
     <select id="type" formControlName="type" class="form-control">
-      <option value="">Select expense type</option>
-      <option *ngFor="let type of expenseTypes" [value]="type">
-        {{ getExpenseTypeName(type) }}
-      </option>
+      <option [ngValue]="null">Select expense type</option>
+      @for (type of expenseTypes; track type) {
+        <option [ngValue]="type">
+          {{ getExpenseTypeName(type) }}
+        </option>
+      }
     </select>
     @if (showError('type','required')) {
       <div class="error-message">Expense type is required</div>
@@ -14,177 +16,181 @@
   </div>
 
   <!-- Dynamic Form Fields -->
-  <div class="dynamic-fields" *ngIf="selectedType">
-    <!-- Car Rental Fields -->
-    <div class="form-group" *ngIf="selectedType === ExpenseType.CarRental">
-      <label for="carName">Car Name *</label>
-      <input type="text" id="carName" formControlName="carName" class="form-control">
-      @if (showError('carName','required')) {
-        <div class="error-message">Car name is required</div>
+  @if (selectedType) {
+    <div class="dynamic-fields">
+      @switch (selectedType) {
+        @case (ExpenseType.CarRental) {
+          <div class="form-group">
+            <label for="carName">Car Name *</label>
+            <input type="text" id="carName" formControlName="carName" class="form-control">
+            @if (showError('carName','required')) {
+              <div class="error-message">Car name is required</div>
+            }
+          </div>
+
+          <div class="form-group">
+            <label for="pickUpDateTime">Pick-up Date & Time *</label>
+            <input type="datetime-local" id="pickUpDateTime" formControlName="pickUpDateTime" class="form-control">
+            @if (showError('pickUpDateTime','required')) {
+              <div class="error-message">Pick-up date & time is required</div>
+            }
+          </div>
+
+          <div class="form-group">
+            <label for="dropOffDateTime">Drop-off Date & Time *</label>
+            <input type="datetime-local" id="dropOffDateTime" formControlName="dropOffDateTime" class="form-control">
+            @if (showError('dropOffDateTime','required')) {
+              <div class="error-message">Drop-off date & time is required</div>
+            }
+            @if (showError('dropOffDateTime','invalidDateRange')) {
+              <div class="error-message">Drop-off date must be after pick-up date</div>
+            }
+          </div>
+
+          <div class="form-group">
+            <label for="pickUpLocation">Pick-up Location *</label>
+            <input type="text" id="pickUpLocation" formControlName="pickUpLocation" class="form-control">
+            @if (showError('pickUpLocation','required')) {
+              <div class="error-message">Pick-up location is required</div>
+            }
+          </div>
+
+          <div class="form-group">
+            <label for="dropOffLocation">Drop-off Location *</label>
+            <input type="text" id="dropOffLocation" formControlName="dropOffLocation" class="form-control">
+            @if (showError('dropOffLocation','required')) {
+              <div class="error-message">Drop-off location is required</div>
+            }
+          </div>
+        }
+
+        @case (ExpenseType.Hotel) {
+          <div class="form-group">
+            <label for="hotelName">Hotel Name *</label>
+            <input type="text" id="hotelName" formControlName="hotelName" class="form-control">
+            @if (showError('hotelName','required')) {
+              <div class="error-message">Hotel name is required</div>
+            }
+          </div>
+
+          <div class="form-group">
+            <label for="hotelLocation">Hotel Location *</label>
+            <input type="text" id="hotelLocation" formControlName="hotelLocation" class="form-control">
+            @if (showError('hotelLocation','required')) {
+              <div class="error-message">Hotel location is required</div>
+            }
+          </div>
+
+          <div class="form-group">
+            <label for="checkInDate">Check-in Date *</label>
+            <input type="date" id="checkInDate" formControlName="checkInDate" class="form-control">
+            @if (showError('checkInDate','required')) {
+              <div class="error-message">Check-in date is required</div>
+            }
+          </div>
+
+          <div class="form-group">
+            <label for="checkoutDate">Check-out Date *</label>
+            <input type="date" id="checkoutDate" formControlName="checkoutDate" class="form-control">
+            @if (showError('checkoutDate','required')) {
+              <div class="error-message">Check-out date is required</div>
+            }
+            @if (showError('checkoutDate','invalidDateRange')) {
+              <div class="error-message">Check-out date must be after check-in date</div>
+            }
+          </div>
+        }
+
+        @case (ExpenseType.Flight) {
+          <div class="form-group">
+            <label for="airline">Airline *</label>
+            <input type="text" id="airline" formControlName="airline" class="form-control">
+            @if (showError('airline','required')) {
+              <div class="error-message">Airline is required</div>
+            }
+          </div>
+
+          <div class="form-group">
+            <label for="from">From *</label>
+            <input type="text" id="from" formControlName="from" class="form-control">
+            @if (showError('from','required')) {
+              <div class="error-message">Departure location is required</div>
+            }
+          </div>
+
+          <div class="form-group">
+            <label for="to">To *</label>
+            <input type="text" id="to" formControlName="to" class="form-control">
+            @if (showError('to','required')) {
+              <div class="error-message">Arrival location is required</div>
+            }
+          </div>
+
+          <div class="form-group">
+            <label for="departureDateTime">Departure Date & Time *</label>
+            <input type="datetime-local" id="departureDateTime" formControlName="departureDateTime" class="form-control">
+            @if (showError('departureDateTime','required')) {
+              <div class="error-message">Departure date & time is required</div>
+            }
+          </div>
+
+          <div class="form-group">
+            <label for="arrivalDateTime">Arrival Date & Time *</label>
+            <input type="datetime-local" id="arrivalDateTime" formControlName="arrivalDateTime" class="form-control">
+            @if (showError('arrivalDateTime','required')) {
+              <div class="error-message">Arrival date & time is required</div>
+            }
+            @if (showError('arrivalDateTime','invalidDateRange')) {
+              <div class="error-message">Arrival date & time must be after departure</div>
+            }
+          </div>
+        }
+
+        @case (ExpenseType.Taxi) {
+          <div class="form-group">
+            <label for="from">From *</label>
+            <input type="text" id="from" formControlName="from" class="form-control">
+            @if (showError('from','required')) {
+              <div class="error-message">Pick-up location is required</div>
+            }
+          </div>
+
+          <div class="form-group">
+            <label for="to">To *</label>
+            <input type="text" id="to" formControlName="to" class="form-control">
+            @if (showError('to','required')) {
+              <div class="error-message">Drop-off location is required</div>
+            }
+          </div>
+
+          <div class="form-group">
+            <label for="dateTime">Date & Time (pick-up time) *</label>
+            <input type="datetime-local" id="dateTime" formControlName="dateTime" class="form-control">
+            @if (showError('dateTime','required')) {
+              <div class="error-message">Pick-up date & time is required</div>
+            }
+          </div>
+        }
       }
-    </div>
-
-    <div class="form-group" *ngIf="selectedType === ExpenseType.CarRental">
-      <label for="pickUpDateTime">Pick-up Date & Time *</label>
-      <input type="datetime-local" id="pickUpDateTime" formControlName="pickUpDateTime" class="form-control">
-      <div class="error-message" *ngIf="expenseForm.get('pickUpDateTime')?.touched && expenseForm.get('pickUpDateTime')?.hasError('required')">
-        Pick-up date & time is required
+      <!-- Total Price Field -->
+      <div class="form-group">
+        <label for="totalPrice">{{ getFieldLabel('totalPrice') }} *</label>
+        <input type="number" id="totalPrice" formControlName="totalPrice" class="form-control" step="0.01" min="0.01">
+        @if (showError('totalPrice','required')) {
+          <div class="error-message">Total price is required</div>
+        }
+        @if (showError('totalPrice','min')) {
+          <div class="error-message">Total price must be greater than $0</div>
+        }
       </div>
     </div>
-
-    <div class="form-group" *ngIf="selectedType === ExpenseType.CarRental">
-      <label for="dropOffDateTime">Drop-off Date & Time *</label>
-      <input type="datetime-local" id="dropOffDateTime" formControlName="dropOffDateTime" class="form-control">
-      <div class="error-message" *ngIf="expenseForm.get('dropOffDateTime')?.touched && expenseForm.get('dropOffDateTime')?.hasError('required')">
-        Drop-off date & time is required
-      </div>
-      <div class="error-message" *ngIf="expenseForm.get('dropOffDateTime')?.touched && expenseForm.get('dropOffDateTime')?.hasError('invalidDateRange')">
-        Drop-off date must be after pick-up date
-      </div>
-    </div>
-
-    <div *ngIf="isFieldVisible('pickUpLocation')" class="form-group">
-      <label for="pickUpLocation">{{ getFieldLabel('pickUpLocation') }}</label>
-      <input type="text" id="pickUpLocation" formControlName="pickUpLocation" class="form-control">
-      <div class="error-message" *ngIf="expenseForm.get('pickUpLocation')?.touched && expenseForm.get('pickUpLocation')?.hasError('required')">
-        Pick-up location is required
-      </div>
-    </div>
-
-    <div *ngIf="isFieldVisible('dropOffLocation')" class="form-group">
-      <label for="dropOffLocation">{{ getFieldLabel('dropOffLocation') }} *</label>
-      <input type="text" id="dropOffLocation" formControlName="dropOffLocation" class="form-control">
-      <div class="error-message" *ngIf="expenseForm.get('dropOffLocation')?.touched && expenseForm.get('dropOffLocation')?.hasError('required')">
-        Drop-off location is required
-      </div>
-    </div>
-
-    <!-- Hotel Fields -->
-    <div class="form-group" *ngIf="selectedType === ExpenseType.Hotel">
-      <label for="hotelName">Hotel Name *</label>
-      <input type="text" id="hotelName" formControlName="hotelName" class="form-control">
-      <div class="error-message" *ngIf="expenseForm.get('hotelName')?.touched && expenseForm.get('hotelName')?.hasError('required')">
-        Hotel name is required
-      </div>
-    </div>
-
-    <div class="form-group" *ngIf="selectedType === ExpenseType.Hotel">
-      <label for="hotelLocation">Hotel Location *</label>
-      <input type="text" id="hotelLocation" formControlName="hotelLocation" class="form-control">
-      <div class="error-message" *ngIf="expenseForm.get('hotelLocation')?.touched && expenseForm.get('hotelLocation')?.hasError('required')">
-        Hotel location is required
-      </div>
-    </div>
-
-    <div class="form-group" *ngIf="selectedType === ExpenseType.Hotel">
-      <label for="checkInDate">Check-in Date *</label>
-      <input type="date" id="checkInDate" formControlName="checkInDate" class="form-control">
-      <div class="error-message" *ngIf="expenseForm.get('checkInDate')?.touched && expenseForm.get('checkInDate')?.hasError('required')">
-        Check-in date is required
-      </div>
-    </div>
-
-    <div class="form-group" *ngIf="selectedType === ExpenseType.Hotel">
-      <label for="checkoutDate">Check-out Date *</label>
-      <input type="date" id="checkoutDate" formControlName="checkoutDate" class="form-control">
-      <div class="error-message" *ngIf="expenseForm.get('checkoutDate')?.touched && expenseForm.get('checkoutDate')?.hasError('required')">
-        Check-out date is required
-      </div>
-      <div class="error-message" *ngIf="expenseForm.get('checkoutDate')?.touched && expenseForm.get('checkoutDate')?.hasError('invalidDateRange')">
-        Check-out date must be after check-in date
-      </div>
-    </div>
-
-    <!-- Flight Fields -->
-    <div class="form-group" *ngIf="selectedType === ExpenseType.Flight">
-      <label for="airline">Airline *</label>
-      <input type="text" id="airline" formControlName="airline" class="form-control">
-      <div class="error-message" *ngIf="expenseForm.get('airline')?.touched && expenseForm.get('airline')?.hasError('required')">
-        Airline is required
-      </div>
-    </div>
-
-    <div class="form-group" *ngIf="selectedType === ExpenseType.Flight">
-      <label for="from">From *</label>
-      <input type="text" id="from" formControlName="from" class="form-control">
-      <div class="error-message" *ngIf="expenseForm.get('from')?.touched && expenseForm.get('from')?.hasError('required')">
-        Departure location is required
-      </div>
-    </div>
-
-    <div class="form-group" *ngIf="selectedType === ExpenseType.Flight">
-      <label for="to">To *</label>
-      <input type="text" id="to" formControlName="to" class="form-control">
-      <div class="error-message" *ngIf="expenseForm.get('to')?.touched && expenseForm.get('to')?.hasError('required')">
-        Arrival location is required
-      </div>
-    </div>
-
-    <div class="form-group" *ngIf="selectedType === ExpenseType.Flight">
-      <label for="departureDateTime">Departure Date & Time *</label>
-      <input type="datetime-local" id="departureDateTime" formControlName="departureDateTime" class="form-control">
-      <div class="error-message" *ngIf="expenseForm.get('departureDateTime')?.touched && expenseForm.get('departureDateTime')?.hasError('required')">
-        Departure date & time is required
-      </div>
-    </div>
-
-    <div class="form-group" *ngIf="selectedType === ExpenseType.Flight">
-      <label for="arrivalDateTime">Arrival Date & Time *</label>
-      <input type="datetime-local" id="arrivalDateTime" formControlName="arrivalDateTime" class="form-control">
-      <div class="error-message" *ngIf="expenseForm.get('arrivalDateTime')?.touched && expenseForm.get('arrivalDateTime')?.hasError('required')">
-        Arrival date & time is required
-      </div>
-      <div class="error-message" *ngIf="expenseForm.get('arrivalDateTime')?.touched && expenseForm.get('arrivalDateTime')?.hasError('invalidDateRange')">
-        Arrival date & time must be after departure date & time
-      </div>
-    </div>
-
-    <!-- Taxi Fields -->
-    <div class="form-group" *ngIf="selectedType === ExpenseType.Taxi">
-      <label for="from">From *</label>
-      <input type="text" id="from" formControlName="from" class="form-control">
-      <div class="error-message" *ngIf="expenseForm.get('from')?.touched && expenseForm.get('from')?.hasError('required')">
-        Pick-up location is required
-      </div>
-    </div>
-
-    <div class="form-group" *ngIf="selectedType === ExpenseType.Taxi">
-      <label for="to">To *</label>
-      <input type="text" id="to" formControlName="to" class="form-control">
-      <div class="error-message" *ngIf="expenseForm.get('to')?.touched && expenseForm.get('to')?.hasError('required')">
-        Drop-off location is required
-      </div>
-    </div>
-
-    <div class="form-group" *ngIf="selectedType === ExpenseType.Taxi">
-      <label for="dateTime">Date & Time (pick-up time) *</label>
-      <input type="datetime-local" id="dateTime" formControlName="dateTime" class="form-control">
-      <div class="error-message" *ngIf="expenseForm.get('dateTime')?.touched && expenseForm.get('dateTime')?.hasError('required')">
-        Pick-up date & time is required
-      </div>
-    </div>
-
-    <!-- Total Price Field -->
-    <div class="form-group">
-      <label for="totalPrice">{{ getFieldLabel('totalPrice') }} *</label>
-      <input type="number" id="totalPrice" formControlName="totalPrice" class="form-control" step="0.01" min="0.01">
-      <div class="error-message" *ngIf="expenseForm.get('totalPrice')?.touched && expenseForm.get('totalPrice')?.hasError('required')">
-        Total price is required
-      </div>
-      <div class="error-message" *ngIf="expenseForm.get('totalPrice')?.touched && expenseForm.get('totalPrice')?.hasError('min')">
-        Total price must be greater than $0
-      </div>
-    </div>
-  </div>
+  }
 
   <!-- Form Actions -->
   <div class="form-actions">
     <button type="submit" class="btn btn-primary" [disabled]="!expenseForm.valid || isLoading">
       {{ isEditMode ? 'Save Changes' : 'Create Expense' }}
     </button>
-    <button type="button" class="btn btn-secondary" (click)="onCancel()">
-      Cancel
-    </button>
+    <button type="button" class="btn btn-secondary" (click)="onCancel()">Cancel</button>
   </div>
-  
-</form> 
+</form>

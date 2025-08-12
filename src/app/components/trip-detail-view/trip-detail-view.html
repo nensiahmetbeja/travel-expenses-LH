@@ -1,200 +1,197 @@
-<div class="trip-detail-view" *ngIf="!isLoading && trip">
-  <div class="trip-header">
-    <button class="back-button" (click)="onBack()">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M19 12H5M12 19l-7-7 7-7"/>
-      </svg>
-      Back to Trips
-    </button>
-    
-    <div class="header-content">
-      <h1>{{ trip.name }}</h1>
-      <p class="trip-dates">{{ formatDate(trip.startDate) }} - {{ formatDate(trip.endDate) }} ({{ trip.duration }} days)</p>
-    </div>
-  </div>
+@if (!isLoading && trip) {
+  <div class="trip-detail-view">
+    <div class="trip-header">
+      <button class="back-button" (click)="onBack()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Back to Trips
+      </button>
 
-  <div class="trip-content">
-    <div class="expenses-section">
-      <div class="section-header">
-        <h2>Expenses</h2>
-        <button 
-          *ngIf="canShowExpenseActions()"
-          class="add-expense-btn" 
-          (click)="onAddExpense()"
-        >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <line x1="12" y1="5" x2="12" y2="19"></line>
-            <line x1="5" y1="12" x2="19" y2="12"></line>
-          </svg>
-          Add Expense
-        </button>
+      <div class="header-content">
+        <h1>{{ trip.name }}</h1>
+        <p class="trip-dates">{{ formatDate(trip.startDate) }} - {{ formatDate(trip.endDate) }} ({{ trip.duration }} days)</p>
       </div>
-
-      <div class="expenses-list" *ngIf="trip.expenses.length > 0; else noExpenses">
-        <div class="expense-item" *ngFor="let expense of trip.expenses">
-          <div class="expense-icon">
-            {{ getExpenseTypeIcon(expense.type) }}
-          </div>
-          <div class="expense-details">
-            <div class="expense-header">
-              <h3>{{ getExpenseTypeName(expense.type) }}</h3>
-              <span class="expense-price">{{ formatCurrency(expense.totalPrice) }}</span>
-            </div>
-            <p class="expense-description">{{ getExpenseDescription(expense) }}</p>
-            <div class="expense-actions" *ngIf="canShowExpenseActions()">
-              <button class="btn-text" (click)="onViewExpense(expense.id)">View</button>
-            </div>
-            <div class="expense-actions" *ngIf="!canShowExpenseActions()">
-              <button class="btn-text" (click)="onViewExpense(expense.id)">View</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <ng-template #noExpenses>
-        <div class="empty-state">
-          <div class="empty-icon">✈️</div>
-          <h3>No expenses added yet</h3>
-          <p *ngIf="canShowExpenseActions()">Click "Add Expense" to get started</p>
-          <p *ngIf="!canShowExpenseActions()">No expenses have been added to this trip</p>
-        </div>
-      </ng-template>
     </div>
 
-    <div class="trip-summary">
-      <div class="summary-card">
-        <h3>Trip Summary</h3>
-        <div class="summary-item">
-          <span>Total Expenses:</span>
-          <span class="total-amount">{{ formatCurrency(getTotalExpenses()) }}</span>
-        </div>
-        <div class="summary-item">
-          <span>Number of Expenses:</span>
-          <span>{{ trip.expenses.length }}</span>
-        </div>
-        <div class="summary-item">
-          <span>Approval Status:</span>
-          <span class="status-badge" [class]="trip.approvalStatus.toLowerCase().replace(' ', '-')">
-            {{ trip.approvalStatus }}
-          </span>
-        </div>
-        <div class="summary-item">
-          <span>Finance Status:</span>
-          <span class="status-badge" [class]="trip.financeStatus.toLowerCase().replace(' ', '-')">
-            {{ trip.financeStatus }}
-          </span>
-        </div>
-        
-        <!-- Role-specific actions -->
-        <div class="summary-actions">
-          <!-- End User Actions -->
-          <div *ngIf="userRole === Role.EndUser && canEdit" class="end-user-actions">
-            <button 
-              *ngIf="trip.approvalStatus === ApprovalStatus.Draft"
-              class="btn-secondary" 
-              (click)="onSubmitForApproval()"
-            >
+    <div class="trip-content">
+      <div class="expenses-section">
+        <div class="section-header">
+          <h2>Expenses</h2>
+          @if (canShowExpenseActions()) {
+            <button class="add-expense-btn" (click)="onAddExpense()">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <line x1="22" y1="2" x2="11" y2="13"></line>
-                <polygon points="22,2 15,22 11,13 2,9 22,2"></polygon>
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
               </svg>
-              Submit for Approval
+              Add Expense
             </button>
-          </div>
+          }
+        </div>
 
-          <!-- Approver Actions -->
-          <div *ngIf="userRole === Role.Approver && showApprovalActions" class="approver-actions">
-            <button 
-              *ngIf="trip.approvalStatus === ApprovalStatus.PendingApproval"
-              class="btn-approve"
-              (click)="onApproveTrip()"
-            >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <line x1="22" y1="2" x2="11" y2="13"></line>
-                <polygon points="22,2 15,22 11,13 2,9 22,2"></polygon>
-              </svg>
-              Approve Trip
-            </button>
-            <button 
-              *ngIf="trip.approvalStatus === ApprovalStatus.PendingApproval"
-              class="btn-reject"
-              (click)="onRejectTrip()"
-            >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <line x1="18" y1="6" x2="6" y2="18"></line>
-                <line x1="6" y1="6" x2="18" y2="18"></line>
-              </svg>
-              Reject Trip
-            </button>
+        @if (trip.expenses.length > 0) {
+          <div class="expenses-list">
+            @for (expense of trip.expenses; track expense.id) {
+              <div class="expense-item">
+                <div class="expense-icon">
+                  {{ getExpenseTypeIcon(expense.type) }}
+                </div>
+                <div class="expense-details">
+                  <div class="expense-header">
+                    <h3>{{ getExpenseTypeName(expense.type) }}</h3>
+                    <span class="expense-price">{{ formatCurrency(expense.totalPrice) }}</span>
+                  </div>
 
-             <!-- Approver note  -->
-            @if (!savingNote && trip?.approvalStatus === ApprovalStatus.PendingApproval) {
-              <div class="approver-note">
-                <textarea class="note-input"
-                          [formControl]="noteCtrl"
-                          rows="3"
-                          placeholder="Write a short note"></textarea>
-                <div class="note-actions">
-                  <button class="btn-note-add"
-                          (click)="addTripNote()"
-                          [disabled]="savingNote || !noteCtrl.value?.trim()">
-                    Add note
-                  </button>
+                  <p class="expense-description">{{ getExpenseDescription(expense) }}</p>
+
+                  <div class="expense-actions">
+                    <button class="btn-text" (click)="onViewExpense(expense.id)">View</button>
+                  </div>
                 </div>
               </div>
             }
           </div>
+        } @else {
+          <div class="empty-state">
+            <div class="empty-icon">✈️</div>
+            <h3>No expenses added yet</h3>
+            @if (canShowExpenseActions()) {
+              <p>Click "Add Expense" to get started</p>
+            } @else {
+              <p>No expenses have been added to this trip</p>
+            }
+          </div>
+        }
+      </div>
 
-          @if (trip?.approvalNote) {
-            <p class="approver-note-read">
-              <strong>Approver's note:</strong> {{ trip.approvalNote }}
-            </p>
-          }
-          
+      <div class="trip-summary">
+        <div class="summary-card">
+          <h3>Trip Summary</h3>
+          <div class="summary-item">
+            <span>Total Expenses:</span>
+            <span class="total-amount">{{ formatCurrency(getTotalExpenses()) }}</span>
+          </div>
+          <div class="summary-item">
+            <span>Number of Expenses:</span>
+            <span>{{ trip.expenses.length }}</span>
+          </div>
+          <div class="summary-item">
+            <span>Approval Status:</span>
+            <span class="status-badge" [class]="trip.approvalStatus.toLowerCase().replace(' ', '-')">
+              {{ trip.approvalStatus }}
+            </span>
+          </div>
+          <div class="summary-item">
+            <span>Finance Status:</span>
+            <span class="status-badge" [class]="trip.financeStatus.toLowerCase().replace(' ', '-')">
+              {{ trip.financeStatus }}
+            </span>
+          </div>
 
-          <!-- Finance Actions -->
-          <div *ngIf="userRole === Role.Finance && showFinanceActions" class="finance-actions">
-            <button 
-              *ngIf="trip.financeStatus === FinanceStatus.InProcess"
-              class="btn-refund"
-              (click)="onMarkRefunded()"
-            >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path>
-                <path d="M21 3v5h-5"></path>
-                <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path>
-                <path d="M3 21v-5h5"></path>
-              </svg>
-              Mark Refunded
-            </button>
-            <button 
-              *ngIf="trip.financeStatus === FinanceStatus.Refunded"
-              class="btn-in-process"
-              (click)="onMarkInProcess()"
-            >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M12 2v4"></path>
-                <path d="M12 18v4"></path>
-                <path d="M4.93 4.93l2.83 2.83"></path>
-                <path d="M16.24 16.24l2.83 2.83"></path>
-                <path d="M2 12h4"></path>
-                <path d="M18 12h4"></path>
-                <path d="M4.93 19.07l2.83-2.83"></path>
-                <path d="M16.24 7.76l2.83-2.83"></path>
-              </svg>
-              Mark In Process
-            </button>
+          <!-- Role-specific actions -->
+          <div class="summary-actions">
+            <!-- End User Actions -->
+            @if (userRole === Role.EndUser && canEdit) {
+              @if (trip.approvalStatus === ApprovalStatus.Draft) {
+                <div class="end-user-actions">
+                  <button class="btn-secondary" (click)="onSubmitForApproval()">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <line x1="22" y1="2" x2="11" y2="13"></line>
+                      <polygon points="22,2 15,22 11,13 2,9 22,2"></polygon>
+                    </svg>
+                    Submit for Approval
+                  </button>
+                </div>
+              }
+            }
+
+            <!-- Approver Actions -->
+            @if (userRole === Role.Approver && showApprovalActions) {
+              @if (trip.approvalStatus === ApprovalStatus.PendingApproval) {
+                <div class="approver-actions">
+                  <button class="btn-approve" (click)="onApproveTrip()">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <line x1="22" y1="2" x2="11" y2="13"></line>
+                      <polygon points="22,2 15,22 11,13 2,9 22,2"></polygon>
+                    </svg>
+                    Approve Trip
+                  </button>
+                  <button class="btn-reject" (click)="onRejectTrip()">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <line x1="18" y1="6" x2="6" y2="18"></line>
+                      <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                    Reject Trip
+                  </button>
+
+                  @if (!savingNote) {
+                    <div class="approver-note">
+                      <textarea class="note-input"
+                                [formControl]="noteCtrl"
+                                rows="3"
+                                placeholder="Write a short note"></textarea>
+                      <div class="note-actions">
+                        <button class="btn-note-add"
+                                (click)="addTripNote()
+                                " [disabled]="savingNote || !noteCtrl.value?.trim()">
+                          Add note
+                        </button>
+                      </div>
+                    </div>
+                  }
+                </div>
+              }
+            }
+
+            @if (trip?.approvalNote) {
+              <p class="approver-note-read">
+                <strong>Approver's note:</strong> {{ trip.approvalNote }}
+              </p>
+            }
+
+            <!-- Finance Actions -->
+            @if (userRole === Role.Finance && showFinanceActions) {
+              <div class="finance-actions">
+                @if (trip.financeStatus === FinanceStatus.InProcess) {
+                  <button class="btn-refund" (click)="onMarkRefunded()">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path>
+                      <path d="M21 3v5h-5"></path>
+                      <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path>
+                      <path d="M3 21v-5h5"></path>
+                    </svg>
+                    Mark Refunded
+                  </button>
+                } @else if (trip.financeStatus === FinanceStatus.Refunded) {
+                  <button class="btn-in-process" (click)="onMarkInProcess()">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M12 2v4"></path>
+                      <path d="M12 18v4"></path>
+                      <path d="M4.93 4.93l2.83 2.83"></path>
+                      <path d="M16.24 16.24l2.83 2.83"></path>
+                      <path d="M2 12h4"></path>
+                      <path d="M18 12h4"></path>
+                      <path d="M4.93 19.07l2.83-2.83"></path>
+                      <path d="M16.24 7.76l2.83-2.83"></path>
+                    </svg>
+                    Mark In Process
+                  </button>
+                }
+              </div>
+            }
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+}
 
-<div class="loading" *ngIf="isLoading">
-  <div class="spinner"></div>
-  <p>Loading trip details...</p>
-</div>
+@if (isLoading) {
+  <div class="loading">
+    <div class="spinner"></div>
+    <p>Loading trip details...</p>
+  </div>
+}
 
 <!-- Expense Modal -->
 <app-expense-modal
@@ -205,4 +202,4 @@
   (expenseUpdated)="onExpenseUpdated($event)"
   (expenseDeleted)="onExpenseDeleted($event)"
   (closed)="onExpenseModalClosed()"
-></app-expense-modal> 
+></app-expense-modal>
