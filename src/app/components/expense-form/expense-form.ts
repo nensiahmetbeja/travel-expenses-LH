@@ -19,9 +19,12 @@ export class ExpenseFormComponent implements OnInit, OnChanges {
   @Output() cancelled = new EventEmitter<void>();
 
   expenseForm: FormGroup;
-  expenseTypes = Object.values(ExpenseType);
   selectedType: ExpenseType | null = null;
   isLoading = false;
+
+  readonly ExpenseType = ExpenseType;
+  readonly expenseTypes = Object.values(ExpenseType);
+  
 
   // Custom validators
   private dateRangeValidator(control: AbstractControl): ValidationErrors | null {
@@ -44,6 +47,19 @@ export class ExpenseFormComponent implements OnInit, OnChanges {
     const checkOut = control.parent.get('checkoutDate')?.value;
     
     if (checkIn && checkOut && new Date(checkIn) >= new Date(checkOut)) {
+      return { invalidDateRange: true };
+    }
+    
+    return null;
+  }
+
+  private flightDateRangeValidator(control: AbstractControl): ValidationErrors | null {
+    if (!control.parent) return null;
+    
+    const departure = control.parent.get('departureDateTime')?.value;
+    const arrival = control.parent.get('arrivalDateTime')?.value;
+    
+    if (departure && arrival && new Date(departure) >= new Date(arrival)) {
       return { invalidDateRange: true };
     }
     
@@ -168,7 +184,7 @@ export class ExpenseFormComponent implements OnInit, OnChanges {
         this.expenseForm.addControl('from', this.fb.control('', Validators.required));
         this.expenseForm.addControl('to', this.fb.control('', Validators.required));
         this.expenseForm.addControl('departureDateTime', this.fb.control('', Validators.required));
-        this.expenseForm.addControl('arrivalDateTime', this.fb.control('', Validators.required));
+        this.expenseForm.addControl('arrivalDateTime', this.fb.control('', [Validators.required, this.flightDateRangeValidator.bind(this)]));
         break;
       
       case ExpenseType.Taxi:
@@ -233,23 +249,12 @@ export class ExpenseFormComponent implements OnInit, OnChanges {
       }
 
       if (this.isEditMode && this.expenseToEdit) {
-        this.expenseUpdated.emit({
-          expenseId: this.expenseToEdit.id,
-          type: this.selectedType,
-          data: expenseData
-        });
+        this.expenseUpdated.emit(expenseData);
       } else {
-        this.expenseCreated.emit({
-          type: this.selectedType,
-          data: expenseData
-        });
+        this.expenseCreated.emit(expenseData);
       }
-      
-      // Reset loading state after emitting
-      this.isLoading = false;
     }
   }
-
   onCancel(): void {
     this.cancelled.emit();
   }
