@@ -1,59 +1,73 @@
 # TravelExpensesLH
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.1.4.
+A single-page application (SPA) built with **Angular** for managing travel expenses, trip approvals, and reimbursement workflows.  
+The application supports three user roles — **End User**, **Approver**, and **Finance** — each with specific capabilities.
+
+---
+
+## Roles & Login Credentials
+
+| Role       | Username   | Password  | Description                                                                 |
+|------------|------------|-----------|-----------------------------------------------------------------------------|
+| End User   | enduser1   | pass123   | Full trip and expense management: create/edit trips, add expenses, submit for approval |
+| Approver   | approver1  | pass123   | Review trips, approve or reject with notes, read-only access to data       |
+| Finance    | finance1   | pass123   | View approved trips, update reimbursement status, monitor expense totals   |
+
+> **Note:** This project uses mock users stored in the codebase (`src/app/data/users.ts`). Authentication is role-based and persisted via Local Storage.
+
+---
+
+## Features
+
+### **End User**
+- **Trip Management**
+  - Create and manage trips with:
+    - Trip name
+    - Duration
+    - Start and end dates
+- **Expense Tracking**
+  - Add expenses by type with detailed fields:
+    - **Car Rental**: Car name, pickup/dropoff date & time, pickup/dropoff location, total price
+    - **Hotel**: Name, location, check-in/checkout dates, total price
+    - **Flight**: Airline, origin/destination, departure/arrival date & time, total price
+    - **Taxi**: Origin/destination, date & time, total price
+- **Expense Operations**
+  - View, edit, and delete expenses (only when trip is not locked for approval)
+- **Approval Workflow**
+  - Submit trips for approval (locks editing)
+
+### **Approver**
+- View complete trip details and all associated expenses
+- Approve or reject trips with notes
+- Add contextual notes for decisions
+- Read-only access (cannot modify trip or expense data)
+
+### **Finance**
+- View all approved trips and their expenses
+- Mark trips as **In Process** or **Refunded**
+- Monitor expense totals and reimbursement status
+
+---
+
+## Setup Instructions
+
+### **Prerequisites**
+- **Node.js** v16+ (LTS recommended)
+- **Angular CLI** (install globally if not already)
+```bash
+npm install -g @angular/cli
+
+### Installation 
+- **Clone**:
+  ```bash
+```bash
+  git clone https://github.com/nensiahmetbeja/travel-expenses-LH.git
+  cd travel-expenses-LH
+```
 
 ## Development server
-
 To start a local development server, run:
 
 ```bash
 ng serve
 ```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
