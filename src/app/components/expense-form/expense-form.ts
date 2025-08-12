@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { ExpenseType, CreateCarRentalExpenseRequest, CreateHotelExpenseRequest, CreateFlightExpenseRequest, CreateTaxiExpenseRequest, Expense } from '../../models/expense';
 
+
 @Component({
   selector: 'app-expense-form',
   standalone: true,
@@ -74,10 +75,14 @@ export class ExpenseFormComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    this.expenseForm.get('type')?.valueChanges.subscribe(type => {
+    const typeSelected = this.expenseForm.get('type')!;
+    console.log('typeSelected ', typeSelected);
+
+    typeSelected.valueChanges.subscribe(type => {
       this.selectedType = type;
-      this.updateFormFields();
+      this.updateFormFields(type);
     });
+
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -98,106 +103,117 @@ export class ExpenseFormComponent implements OnInit, OnChanges {
       totalPrice: expense.totalPrice
     });
 
-    // Update form fields based on type
-    this.updateFormFields();
-
-    // Populate type-specific fields
-    switch (expense.type) {
-      case ExpenseType.CarRental:
-        this.expenseForm.patchValue({
-          carName: expense.carName,
-          pickUpDateTime: this.formatDateForInput(expense.pickUpDateTime),
-          dropOffDateTime: this.formatDateForInput(expense.dropOffDateTime),
-          pickUpLocation: expense.pickUpLocation,
-          dropOffLocation: expense.dropOffLocation
-        });
-        break;
-      
-      case ExpenseType.Hotel:
-        this.expenseForm.patchValue({
-          hotelName: expense.hotelName,
-          hotelLocation: expense.hotelLocation,
-          checkInDate: this.formatDateForInput(expense.checkInDate),
-          checkoutDate: this.formatDateForInput(expense.checkoutDate)
-        });
-        break;
-      
-      case ExpenseType.Flight:
-        this.expenseForm.patchValue({
-          airline: expense.airline,
-          from: expense.from,
-          to: expense.to,
-          departureDateTime: this.formatDateForInput(expense.departureDateTime),
-          arrivalDateTime: this.formatDateForInput(expense.arrivalDateTime)
-        });
-        break;
-      
-      case ExpenseType.Taxi:
-        this.expenseForm.patchValue({
-          from: expense.from,
-          to: expense.to,
-          dateTime: this.formatDateForInput(expense.dateTime)
-        });
-        break;
-    }
-  }
-
-  private formatDateForInput(date: Date): string {
-    const d = new Date(date);
-    const year = d.getFullYear();
-    const month = String(d.getMonth() + 1).padStart(2, '0');
-    const day = String(d.getDate()).padStart(2, '0');
-    const hours = String(d.getHours()).padStart(2, '0');
-    const minutes = String(d.getMinutes()).padStart(2, '0');
-    return `${year}-${month}-${day}T${hours}:${minutes}`;
-  }
-
-  private updateFormFields(): void {
-    // Remove all existing fields except type and totalPrice
-    const type = this.expenseForm.get('type')?.value;
-    const totalPrice = this.expenseForm.get('totalPrice')?.value;
-    
-    this.expenseForm = this.fb.group({
-      type: [type, Validators.required],
-      totalPrice: [totalPrice, [Validators.required, Validators.min(0.01)]]
+    this.expenseForm.get('type')?.valueChanges.subscribe(type => {
+      this.selectedType = type;
+      this.updateFormFields(type);
     });
+ // Update form fields based on type
+ this.updateFormFields(expense.type);
 
-    // Add type-specific fields
-    switch (this.selectedType) {
-      case ExpenseType.CarRental:
-        this.expenseForm.addControl('carName', this.fb.control('', Validators.required));
-        this.expenseForm.addControl('pickUpDateTime', this.fb.control('', Validators.required));
-        this.expenseForm.addControl('dropOffDateTime', this.fb.control('', [Validators.required, this.dateRangeValidator.bind(this)]));
-        this.expenseForm.addControl('pickUpLocation', this.fb.control('', Validators.required));
-        this.expenseForm.addControl('dropOffLocation', this.fb.control('', Validators.required));
-        break;
-      
-      case ExpenseType.Hotel:
-        this.expenseForm.addControl('hotelName', this.fb.control('', Validators.required));
-        this.expenseForm.addControl('hotelLocation', this.fb.control('', Validators.required));
-        this.expenseForm.addControl('checkInDate', this.fb.control('', Validators.required));
-        this.expenseForm.addControl('checkoutDate', this.fb.control('', [Validators.required, this.hotelDateRangeValidator.bind(this)]));
-        break;
-      
-      case ExpenseType.Flight:
-        this.expenseForm.addControl('airline', this.fb.control('', Validators.required));
-        this.expenseForm.addControl('from', this.fb.control('', Validators.required));
-        this.expenseForm.addControl('to', this.fb.control('', Validators.required));
-        this.expenseForm.addControl('departureDateTime', this.fb.control('', Validators.required));
-        this.expenseForm.addControl('arrivalDateTime', this.fb.control('', [Validators.required, this.flightDateRangeValidator.bind(this)]));
-        break;
-      
-      case ExpenseType.Taxi:
-        this.expenseForm.addControl('from', this.fb.control('', Validators.required));
-        this.expenseForm.addControl('to', this.fb.control('', Validators.required));
-        this.expenseForm.addControl('dateTime', this.fb.control('', Validators.required));
-        break;
+ // Populate type-specific fields
+ switch (expense.type) {
+   case ExpenseType.CarRental:
+     this.expenseForm.patchValue({
+       carName: expense.carName,
+       pickUpDateTime: this.formatDateForInput(expense.pickUpDateTime),
+       dropOffDateTime: this.formatDateForInput(expense.dropOffDateTime),
+       pickUpLocation: expense.pickUpLocation,
+       dropOffLocation: expense.dropOffLocation
+     });
+     break;
+   
+   case ExpenseType.Hotel:
+     this.expenseForm.patchValue({
+       hotelName: expense.hotelName,
+       hotelLocation: expense.hotelLocation,
+       checkInDate: this.formatDateForInput(expense.checkInDate, true),
+       checkoutDate: this.formatDateForInput(expense.checkoutDate, true)
+     });
+     break;
+   
+   case ExpenseType.Flight:
+     this.expenseForm.patchValue({
+       airline: expense.airline,
+       from: expense.from,
+       to: expense.to,
+       departureDateTime: this.formatDateForInput(expense.departureDateTime),
+       arrivalDateTime: this.formatDateForInput(expense.arrivalDateTime)
+     });
+     break;
+   
+   case ExpenseType.Taxi:
+     this.expenseForm.patchValue({
+       from: expense.from,
+       to: expense.to,
+       dateTime: this.formatDateForInput(expense.dateTime)
+     });
+     break;
+ }
+  }
+
+  private formatDateForInput(date: Date, isTime: boolean = false): string {
+    const d = new Date(date);
+    const yyyy = d.getFullYear();
+    const mm = String(d.getMonth() + 1).padStart(2, '0');
+    const dd = String(d.getDate()).padStart(2, '0');
+  
+    if (isTime) {
+      return `${yyyy}-${mm}-${dd}`;
     }
+  
+    const hh = String(d.getHours()).padStart(2, '0');
+    const min = String(d.getMinutes()).padStart(2, '0');
+    return `${yyyy}-${mm}-${dd}T${hh}:${min}`;
+  }
+
+  private updateFormFields(type: ExpenseType | null): void {
+
+      
+    ['carName','pickUpDateTime','dropOffDateTime','pickUpLocation','dropOffLocation',
+       'hotelName','hotelLocation','checkInDate','checkoutDate',
+       'airline','from','to','departureDateTime','arrivalDateTime',
+       'dateTime'
+      ].forEach(c => this.expenseForm.contains(c) && this.expenseForm.removeControl(c));
+    
+      switch (type) {
+        case ExpenseType.CarRental:
+          this.expenseForm.setControl('carName', this.fb.control('', Validators.required));
+          this.expenseForm.setControl('pickUpDateTime', this.fb.control('', Validators.required));
+          this.expenseForm.setControl('dropOffDateTime', this.fb.control('', [Validators.required, this.dateRangeValidator.bind(this)]));
+          this.expenseForm.setControl('pickUpLocation', this.fb.control('', Validators.required));
+          this.expenseForm.setControl('dropOffLocation', this.fb.control('', Validators.required));
+          break;
+        case ExpenseType.Hotel:
+          this.expenseForm.setControl('hotelName', this.fb.control('', Validators.required));
+          this.expenseForm.setControl('hotelLocation', this.fb.control('', Validators.required));
+          this.expenseForm.setControl('checkInDate', this.fb.control('', Validators.required));
+          this.expenseForm.setControl('checkoutDate', this.fb.control('', [Validators.required, this.hotelDateRangeValidator.bind(this)]));
+          break;
+        case ExpenseType.Flight:
+          this.expenseForm.setControl('airline', this.fb.control('', Validators.required));
+          this.expenseForm.setControl('from', this.fb.control('', Validators.required));
+          this.expenseForm.setControl('to', this.fb.control('', Validators.required));
+          this.expenseForm.setControl('departureDateTime', this.fb.control('', Validators.required));
+          this.expenseForm.setControl('arrivalDateTime', this.fb.control('', [Validators.required, this.flightDateRangeValidator.bind(this)]));
+          break;
+        case ExpenseType.Taxi:
+          this.expenseForm.setControl('from', this.fb.control('', Validators.required));
+          this.expenseForm.setControl('to', this.fb.control('', Validators.required));
+          this.expenseForm.setControl('dateTime', this.fb.control('', Validators.required));
+          break;
+      }
   }
 
   onSubmit(): void {
-    if (this.expenseForm.valid) {
-      this.isLoading = true;
+    if (this.expenseForm.invalid) {
+      this.expenseForm.markAllAsTouched();
+      return;
+    }
+
+    try {
+     
+    this.isLoading = true;
+
       const formValue = this.expenseForm.value;
       
       let expenseData: any = {
@@ -253,12 +269,20 @@ export class ExpenseFormComponent implements OnInit, OnChanges {
       } else {
         this.expenseCreated.emit(expenseData);
       }
-    }
+      }
+      finally {
+        this.isLoading = false;
+      }
   }
   onCancel(): void {
     this.cancelled.emit();
   }
 
+  showError(controlName: string, error: string): boolean {
+    const control = this.expenseForm.get(controlName);
+    return !!(control && control.touched && control.hasError(error));
+  }
+  
   getExpenseTypeName(type: ExpenseType): string {
     switch (type) {
       case ExpenseType.CarRental:

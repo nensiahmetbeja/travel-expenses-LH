@@ -1,4 +1,4 @@
-<div class="expense-form" [formGroup]="expenseForm">
+<form class="expense-form" [formGroup]="expenseForm" (ngSubmit)="onSubmit()">
   <!-- Expense Type Selection -->
   <div class="form-group">
     <label for="type">Expense Type *</label>
@@ -8,9 +8,9 @@
         {{ getExpenseTypeName(type) }}
       </option>
     </select>
-    <div class="error-message" *ngIf="expenseForm.get('type')?.touched && expenseForm.get('type')?.hasError('required')">
-      Expense type is required
-    </div>
+    @if (showError('type','required')) {
+      <div class="error-message">Expense type is required</div>
+    }
   </div>
 
   <!-- Dynamic Form Fields -->
@@ -19,9 +19,9 @@
     <div class="form-group" *ngIf="selectedType === ExpenseType.CarRental">
       <label for="carName">Car Name *</label>
       <input type="text" id="carName" formControlName="carName" class="form-control">
-      <div class="error-message" *ngIf="expenseForm.get('carName')?.touched && expenseForm.get('carName')?.hasError('required')">
-        Car name is required
-      </div>
+      @if (showError('carName','required')) {
+        <div class="error-message">Car name is required</div>
+      }
     </div>
 
     <div class="form-group" *ngIf="selectedType === ExpenseType.CarRental">
@@ -187,4 +187,4 @@
     </button>
   </div>
   
-</div> 
+</form> 
