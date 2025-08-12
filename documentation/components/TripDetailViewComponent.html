@@ -1,0 +1,3007 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>travel-expenses-lh documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">travel-expenses-lh documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  TripDetailViewComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/components/trip-detail-view/trip-detail-view.ts</code>
+</p>
+
+
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-trip-detail-view</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>CommonModule</code>
+                                <code><a href="../components/ExpenseModalComponent.html" target="_self" >ExpenseModalComponent</a></code>
+                            <code>ReactiveFormsModule</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./trip-detail-view.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./trip-detail-view.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#ApprovalStatus" >ApprovalStatus</a>
+                            </li>
+                            <li>
+                                <a href="#expenseToView" >expenseToView</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#ExpenseType" >ExpenseType</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#FinanceStatus" >FinanceStatus</a>
+                            </li>
+                            <li>
+                                <a href="#noteCtrl" >noteCtrl</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#Role" >Role</a>
+                            </li>
+                            <li>
+                                <a href="#savingNote" >savingNote</a>
+                            </li>
+                            <li>
+                                <a href="#showExpenseModal" >showExpenseModal</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#addTripNote" >addTripNote</a>
+                            </li>
+                            <li>
+                                <a href="#canShowExpenseActions" >canShowExpenseActions</a>
+                            </li>
+                            <li>
+                                <a href="#formatCurrency" >formatCurrency</a>
+                            </li>
+                            <li>
+                                <a href="#formatDate" >formatDate</a>
+                            </li>
+                            <li>
+                                <a href="#getExpenseDescription" >getExpenseDescription</a>
+                            </li>
+                            <li>
+                                <a href="#getExpenseTypeIcon" >getExpenseTypeIcon</a>
+                            </li>
+                            <li>
+                                <a href="#getExpenseTypeName" >getExpenseTypeName</a>
+                            </li>
+                            <li>
+                                <a href="#getTotalExpenses" >getTotalExpenses</a>
+                            </li>
+                            <li>
+                                <a href="#onAddExpense" >onAddExpense</a>
+                            </li>
+                            <li>
+                                <a href="#onApproveTrip" >onApproveTrip</a>
+                            </li>
+                            <li>
+                                <a href="#onBack" >onBack</a>
+                            </li>
+                            <li>
+                                <a href="#onExpenseCreated" >onExpenseCreated</a>
+                            </li>
+                            <li>
+                                <a href="#onExpenseDeleted" >onExpenseDeleted</a>
+                            </li>
+                            <li>
+                                <a href="#onExpenseModalClosed" >onExpenseModalClosed</a>
+                            </li>
+                            <li>
+                                <a href="#onExpenseUpdated" >onExpenseUpdated</a>
+                            </li>
+                            <li>
+                                <a href="#onMarkInProcess" >onMarkInProcess</a>
+                            </li>
+                            <li>
+                                <a href="#onMarkRefunded" >onMarkRefunded</a>
+                            </li>
+                            <li>
+                                <a href="#onRejectTrip" >onRejectTrip</a>
+                            </li>
+                            <li>
+                                <a href="#onSubmitForApproval" >onSubmitForApproval</a>
+                            </li>
+                            <li>
+                                <a href="#onViewExpense" >onViewExpense</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#canEdit" >canEdit</a>
+                            </li>
+                            <li>
+                                <a href="#isLoading" >isLoading</a>
+                            </li>
+                            <li>
+                                <a href="#showApprovalActions" >showApprovalActions</a>
+                            </li>
+                            <li>
+                                <a href="#showFinanceActions" >showFinanceActions</a>
+                            </li>
+                            <li>
+                                <a href="#trip" >trip</a>
+                            </li>
+                            <li>
+                                <a href="#userRole" >userRole</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Outputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#addExpenseClicked" >addExpenseClicked</a>
+                            </li>
+                            <li>
+                                <a href="#backClicked" >backClicked</a>
+                            </li>
+                            <li>
+                                <a href="#submitForApprovalClicked" >submitForApprovalClicked</a>
+                            </li>
+                            <li>
+                                <a href="#tripApproved" >tripApproved</a>
+                            </li>
+                            <li>
+                                <a href="#tripInProcess" >tripInProcess</a>
+                            </li>
+                            <li>
+                                <a href="#tripRefunded" >tripRefunded</a>
+                            </li>
+                            <li>
+                                <a href="#tripRejected" >tripRejected</a>
+                            </li>
+                            <li>
+                                <a href="#tripUpdated" >tripUpdated</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(tripService: <a href="../injectables/TripService.html" target="_self">TripService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">src/app/components/trip-detail-view/trip-detail-view.ts:44</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>tripService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/TripService.html" target="_self" >TripService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+    <section data-compodoc="block-inputs">
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="canEdit"></a>
+                        <b>canEdit</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>true</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/components/trip-detail-view/trip-detail-view.ts:23</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="isLoading"></a>
+                        <b>isLoading</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/app/components/trip-detail-view/trip-detail-view.ts:20</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="showApprovalActions"></a>
+                        <b>showApprovalActions</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">src/app/components/trip-detail-view/trip-detail-view.ts:21</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="showFinanceActions"></a>
+                        <b>showFinanceActions</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/app/components/trip-detail-view/trip-detail-view.ts:22</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="trip"></a>
+                        <b>trip</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Trip.html" target="_self" >Trip | null</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/app/components/trip-detail-view/trip-detail-view.ts:18</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="userRole"></a>
+                        <b>userRole</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../miscellaneous/enumerations.html#Role" target="_self" >Role</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>Role.EndUser</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/app/components/trip-detail-view/trip-detail-view.ts:19</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+    <section data-compodoc="block-outputs">
+    <h3 id="outputs">Outputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="addExpenseClicked"></a>
+                        <b>addExpenseClicked</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>EventEmitter</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/components/trip-detail-view/trip-detail-view.ts:26</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="backClicked"></a>
+                        <b>backClicked</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>EventEmitter</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/app/components/trip-detail-view/trip-detail-view.ts:25</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="submitForApprovalClicked"></a>
+                        <b>submitForApprovalClicked</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>EventEmitter</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/components/trip-detail-view/trip-detail-view.ts:31</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="tripApproved"></a>
+                        <b>tripApproved</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>EventEmitter</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/app/components/trip-detail-view/trip-detail-view.ts:27</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="tripInProcess"></a>
+                        <b>tripInProcess</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>EventEmitter</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/components/trip-detail-view/trip-detail-view.ts:30</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="tripRefunded"></a>
+                        <b>tripRefunded</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>EventEmitter</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/components/trip-detail-view/trip-detail-view.ts:29</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="tripRejected"></a>
+                        <b>tripRejected</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>EventEmitter</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/components/trip-detail-view/trip-detail-view.ts:28</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="tripUpdated"></a>
+                        <b>tripUpdated</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>EventEmitter</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/components/trip-detail-view/trip-detail-view.ts:32</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addTripNote"></a>
+                    <span class="name">
+                        <span ><b>addTripNote</b></span>
+                        <a href="#addTripNote"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>addTripNote()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="118"
+                                    class="link-to-prism">src/app/components/trip-detail-view/trip-detail-view.ts:118</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="canShowExpenseActions"></a>
+                    <span class="name">
+                        <span ><b>canShowExpenseActions</b></span>
+                        <a href="#canShowExpenseActions"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>canShowExpenseActions()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="214"
+                                    class="link-to-prism">src/app/components/trip-detail-view/trip-detail-view.ts:214</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="formatCurrency"></a>
+                    <span class="name">
+                        <span ><b>formatCurrency</b></span>
+                        <a href="#formatCurrency"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>formatCurrency(amount: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="202"
+                                    class="link-to-prism">src/app/components/trip-detail-view/trip-detail-view.ts:202</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>amount</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="formatDate"></a>
+                    <span class="name">
+                        <span ><b>formatDate</b></span>
+                        <a href="#formatDate"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>formatDate(date: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank">Date</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="194"
+                                    class="link-to-prism">src/app/components/trip-detail-view/trip-detail-view.ts:194</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>date</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank" >Date</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getExpenseDescription"></a>
+                    <span class="name">
+                        <span ><b>getExpenseDescription</b></span>
+                        <a href="#getExpenseDescription"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getExpenseDescription(expense: <a href="../undefineds/Expense.html" target="_self">Expense</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="179"
+                                    class="link-to-prism">src/app/components/trip-detail-view/trip-detail-view.ts:179</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>expense</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#Expense" target="_self" >Expense</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getExpenseTypeIcon"></a>
+                    <span class="name">
+                        <span ><b>getExpenseTypeIcon</b></span>
+                        <a href="#getExpenseTypeIcon"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getExpenseTypeIcon(type: <a href="../undefineds/ExpenseType.html" target="_self">ExpenseType</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="149"
+                                    class="link-to-prism">src/app/components/trip-detail-view/trip-detail-view.ts:149</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>type</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/enumerations.html#ExpenseType" target="_self" >ExpenseType</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getExpenseTypeName"></a>
+                    <span class="name">
+                        <span ><b>getExpenseTypeName</b></span>
+                        <a href="#getExpenseTypeName"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getExpenseTypeName(type: <a href="../undefineds/ExpenseType.html" target="_self">ExpenseType</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="164"
+                                    class="link-to-prism">src/app/components/trip-detail-view/trip-detail-view.ts:164</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>type</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/enumerations.html#ExpenseType" target="_self" >ExpenseType</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getTotalExpenses"></a>
+                    <span class="name">
+                        <span ><b>getTotalExpenses</b></span>
+                        <a href="#getTotalExpenses"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getTotalExpenses()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="209"
+                                    class="link-to-prism">src/app/components/trip-detail-view/trip-detail-view.ts:209</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onAddExpense"></a>
+                    <span class="name">
+                        <span ><b>onAddExpense</b></span>
+                        <a href="#onAddExpense"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onAddExpense()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="55"
+                                    class="link-to-prism">src/app/components/trip-detail-view/trip-detail-view.ts:55</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onApproveTrip"></a>
+                    <span class="name">
+                        <span ><b>onApproveTrip</b></span>
+                        <a href="#onApproveTrip"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onApproveTrip()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="97"
+                                    class="link-to-prism">src/app/components/trip-detail-view/trip-detail-view.ts:97</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onBack"></a>
+                    <span class="name">
+                        <span ><b>onBack</b></span>
+                        <a href="#onBack"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onBack()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="51"
+                                    class="link-to-prism">src/app/components/trip-detail-view/trip-detail-view.ts:51</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onExpenseCreated"></a>
+                    <span class="name">
+                        <span ><b>onExpenseCreated</b></span>
+                        <a href="#onExpenseCreated"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onExpenseCreated(event: literal type)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="70"
+                                    class="link-to-prism">src/app/components/trip-detail-view/trip-detail-view.ts:70</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                        <code>literal type</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onExpenseDeleted"></a>
+                    <span class="name">
+                        <span ><b>onExpenseDeleted</b></span>
+                        <a href="#onExpenseDeleted"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onExpenseDeleted(expenseId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="109"
+                                    class="link-to-prism">src/app/components/trip-detail-view/trip-detail-view.ts:109</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>expenseId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onExpenseModalClosed"></a>
+                    <span class="name">
+                        <span ><b>onExpenseModalClosed</b></span>
+                        <a href="#onExpenseModalClosed"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onExpenseModalClosed()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="90"
+                                    class="link-to-prism">src/app/components/trip-detail-view/trip-detail-view.ts:90</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onExpenseUpdated"></a>
+                    <span class="name">
+                        <span ><b>onExpenseUpdated</b></span>
+                        <a href="#onExpenseUpdated"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onExpenseUpdated(event: literal type)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="81"
+                                    class="link-to-prism">src/app/components/trip-detail-view/trip-detail-view.ts:81</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                        <code>literal type</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onMarkInProcess"></a>
+                    <span class="name">
+                        <span ><b>onMarkInProcess</b></span>
+                        <a href="#onMarkInProcess"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onMarkInProcess()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="139"
+                                    class="link-to-prism">src/app/components/trip-detail-view/trip-detail-view.ts:139</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onMarkRefunded"></a>
+                    <span class="name">
+                        <span ><b>onMarkRefunded</b></span>
+                        <a href="#onMarkRefunded"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onMarkRefunded()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="133"
+                                    class="link-to-prism">src/app/components/trip-detail-view/trip-detail-view.ts:133</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onRejectTrip"></a>
+                    <span class="name">
+                        <span ><b>onRejectTrip</b></span>
+                        <a href="#onRejectTrip"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onRejectTrip()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="103"
+                                    class="link-to-prism">src/app/components/trip-detail-view/trip-detail-view.ts:103</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onSubmitForApproval"></a>
+                    <span class="name">
+                        <span ><b>onSubmitForApproval</b></span>
+                        <a href="#onSubmitForApproval"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onSubmitForApproval()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="145"
+                                    class="link-to-prism">src/app/components/trip-detail-view/trip-detail-view.ts:145</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onViewExpense"></a>
+                    <span class="name">
+                        <span ><b>onViewExpense</b></span>
+                        <a href="#onViewExpense"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onViewExpense(expenseId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="60"
+                                    class="link-to-prism">src/app/components/trip-detail-view/trip-detail-view.ts:60</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>expenseId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ApprovalStatus"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>ApprovalStatus</b></span>
+                        <a href="#ApprovalStatus"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>ApprovalStatus</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/app/components/trip-detail-view/trip-detail-view.ts:43</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="expenseToView"></a>
+                    <span class="name">
+                        <span ><b>expenseToView</b></span>
+                        <a href="#expenseToView"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../miscellaneous/typealiases.html#Expense" target="_self" >Expense | null</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/components/trip-detail-view/trip-detail-view.ts:35</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ExpenseType"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>ExpenseType</b></span>
+                        <a href="#ExpenseType"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>ExpenseType</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/app/components/trip-detail-view/trip-detail-view.ts:42</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="FinanceStatus"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>FinanceStatus</b></span>
+                        <a href="#FinanceStatus"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>FinanceStatus</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">src/app/components/trip-detail-view/trip-detail-view.ts:44</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="noteCtrl"></a>
+                    <span class="name">
+                        <span ><b>noteCtrl</b></span>
+                        <a href="#noteCtrl"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new FormControl&lt;string&gt;(&#x27;&#x27;, { nonNullable: true })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/components/trip-detail-view/trip-detail-view.ts:38</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="Role"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>Role</b></span>
+                        <a href="#Role"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>Role</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/components/trip-detail-view/trip-detail-view.ts:41</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="savingNote"></a>
+                    <span class="name">
+                        <span ><b>savingNote</b></span>
+                        <a href="#savingNote"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/app/components/trip-detail-view/trip-detail-view.ts:37</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showExpenseModal"></a>
+                    <span class="name">
+                        <span ><b>showExpenseModal</b></span>
+                        <a href="#showExpenseModal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/components/trip-detail-view/trip-detail-view.ts:34</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, Input, Output, EventEmitter } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { Trip, ApprovalStatus, FinanceStatus } from &#x27;../../models/trip&#x27;;
+import { Expense, ExpenseType } from &#x27;../../models/expense&#x27;;
+import { Role } from &#x27;../../models/role&#x27;;
+import { ExpenseModalComponent } from &#x27;../expense-modal/expense-modal&#x27;;
+import { TripService } from &#x27;../../services/trip.service&#x27;;
+import { FormControl, ReactiveFormsModule } from &#x27;@angular/forms&#x27;;
+
+@Component({
+  selector: &#x27;app-trip-detail-view&#x27;,
+  standalone: true,
+  imports: [CommonModule, ExpenseModalComponent, ReactiveFormsModule],
+  templateUrl: &#x27;./trip-detail-view.html&#x27;,
+  styleUrls: [&#x27;./trip-detail-view.scss&#x27;]
+})
+export class TripDetailViewComponent {
+  @Input() trip: Trip | null &#x3D; null;
+  @Input() userRole: Role &#x3D; Role.EndUser;
+  @Input() isLoading: boolean &#x3D; false;
+  @Input() showApprovalActions: boolean &#x3D; false;
+  @Input() showFinanceActions: boolean &#x3D; false;
+  @Input() canEdit: boolean &#x3D; true;
+
+  @Output() backClicked &#x3D; new EventEmitter&lt;void&gt;();
+  @Output() addExpenseClicked &#x3D; new EventEmitter&lt;void&gt;();
+  @Output() tripApproved &#x3D; new EventEmitter&lt;string&gt;();
+  @Output() tripRejected &#x3D; new EventEmitter&lt;string&gt;();
+  @Output() tripRefunded &#x3D; new EventEmitter&lt;string&gt;();
+  @Output() tripInProcess &#x3D; new EventEmitter&lt;string&gt;();
+  @Output() submitForApprovalClicked &#x3D; new EventEmitter&lt;void&gt;();
+  @Output() tripUpdated &#x3D; new EventEmitter&lt;void&gt;();
+
+  showExpenseModal &#x3D; false;
+  expenseToView: Expense | null &#x3D; null;
+
+  savingNote &#x3D; false;
+  noteCtrl &#x3D; new FormControl&lt;string&gt;(&#x27;&#x27;, { nonNullable: true });
+
+
+  readonly Role &#x3D; Role;
+  readonly ExpenseType &#x3D; ExpenseType;
+  readonly ApprovalStatus &#x3D; ApprovalStatus;
+  readonly FinanceStatus &#x3D; FinanceStatus;
+
+  //inject trip service
+  constructor(private tripService: TripService) {
+  }
+
+
+  onBack(): void {
+    this.backClicked.emit();
+  }
+
+  onAddExpense(): void {
+    this.expenseToView &#x3D; null; // Ensure we&#x27;re in add mode
+    this.showExpenseModal &#x3D; true;
+  }
+
+  onViewExpense(expenseId: string): void {
+    if (this.trip) {
+      const expense &#x3D; this.trip.expenses.find(e &#x3D;&gt; e.id &#x3D;&#x3D;&#x3D; expenseId);
+      if (expense) {
+        this.expenseToView &#x3D; expense;
+        this.showExpenseModal &#x3D; true;
+      }
+    }
+  }
+
+  onExpenseCreated(event: { type: ExpenseType; data: any }): void {
+    console.log(&#x27;onExpenseCreated &#x27;, event.data, &quot; &quot;, event.type);
+    console.log(&#x27;this.trip from parent comp &#x27;, this.trip);
+    if (this.trip) {
+      this.tripService.addExpense(this.trip.id, event.type, event.data);
+      // Emit event to parent to refresh trip data
+      this.tripUpdated.emit();
+    }
+    this.onExpenseModalClosed();
+  }
+
+  onExpenseUpdated(event: { expenseId: string; data: any }): void {
+    if (this.trip) {
+      this.tripService.updateExpense(this.trip.id, event.expenseId, event.data);
+      // Emit event to parent to refresh trip data
+      this.tripUpdated.emit();
+    }
+    this.onExpenseModalClosed();
+  }
+
+  onExpenseModalClosed(): void {
+    this.showExpenseModal &#x3D; false;
+    this.expenseToView &#x3D; null;
+  }
+
+
+
+  onApproveTrip(): void {
+    if (this.trip) {
+      this.tripApproved.emit(this.trip.id);
+    }
+  }
+
+  onRejectTrip(): void {
+    if (this.trip) {
+      this.tripRejected.emit(this.trip.id);
+    }
+  }
+
+  onExpenseDeleted(expenseId: string): void {
+    if (this.trip) {
+      this.tripService.deleteExpense(this.trip.id, expenseId);
+      // Emit event to parent to refresh trip data
+      this.tripUpdated.emit();
+    }
+    this.onExpenseModalClosed();
+  }
+
+  addTripNote(): void { //approver only
+    if (!this.trip) return;
+    const note &#x3D; this.noteCtrl.value.trim();
+    if (!note) return;
+
+    this.savingNote &#x3D; true;
+    const ok &#x3D; this.tripService.addApprovalNote(this.trip.id, note);
+    if (ok) {
+      this.trip.approvalNote &#x3D; note;   // reflect immediately
+      this.tripUpdated.emit();         // parent can refresh if needed
+    }
+    this.savingNote &#x3D; false;
+    this.noteCtrl.reset(&#x27;&#x27;);
+  }
+
+  onMarkRefunded(): void {
+    if (this.trip) {
+      this.tripRefunded.emit(this.trip.id);
+    }
+  }
+
+  onMarkInProcess(): void {
+    if (this.trip) {
+      this.tripInProcess.emit(this.trip.id);
+    }
+  }
+
+  onSubmitForApproval(): void {
+    this.submitForApprovalClicked.emit();
+  }
+
+  getExpenseTypeIcon(type: ExpenseType): string {
+    switch (type) {
+      case ExpenseType.CarRental:
+        return &#x27;🚗&#x27;;
+      case ExpenseType.Hotel:
+        return &#x27;🏨&#x27;;
+      case ExpenseType.Flight:
+        return &#x27;✈️&#x27;;
+      case ExpenseType.Taxi:
+        return &#x27;🚕&#x27;;
+      default:
+        return &#x27;💰&#x27;;
+    }
+  }
+
+  getExpenseTypeName(type: ExpenseType): string {
+    switch (type) {
+      case ExpenseType.CarRental:
+        return &#x27;Car Rental&#x27;;
+      case ExpenseType.Hotel:
+        return &#x27;Hotel&#x27;;
+      case ExpenseType.Flight:
+        return &#x27;Flight&#x27;;
+      case ExpenseType.Taxi:
+        return &#x27;Taxi&#x27;;
+      default:
+        return type;
+    }
+  }
+
+  getExpenseDescription(expense: Expense): string {
+    switch (expense.type) {
+      case ExpenseType.CarRental:
+        return &#x60;${expense.carName} - ${expense.pickUpLocation} to ${expense.dropOffLocation}&#x60;;
+      case ExpenseType.Hotel:
+        return &#x60;${expense.hotelName} - ${expense.hotelLocation}&#x60;;
+      case ExpenseType.Flight:
+        return &#x60;${expense.airline} - ${expense.from} to ${expense.to}&#x60;;
+      case ExpenseType.Taxi:
+        return &#x60;${expense.from} to ${expense.to}&#x60;;
+      default:
+        return &#x27;Expense&#x27;;
+    }
+  }
+
+  formatDate(date: Date): string {
+    return new Date(date).toLocaleDateString(&#x27;en-US&#x27;, {
+      month: &#x27;short&#x27;,
+      day: &#x27;2-digit&#x27;,
+      year: &#x27;numeric&#x27;
+    });
+  }
+
+  formatCurrency(amount: number): string {
+    return new Intl.NumberFormat(&#x27;en-US&#x27;, {
+      style: &#x27;currency&#x27;,
+      currency: &#x27;USD&#x27;
+    }).format(amount);
+  }
+
+  getTotalExpenses(): number {
+    if (!this.trip) return 0;
+    return this.trip.expenses.reduce((total, expense) &#x3D;&gt; total + expense.totalPrice, 0);   
+  }
+
+  canShowExpenseActions(): boolean {
+    return this.userRole &#x3D;&#x3D;&#x3D; Role.EndUser &amp;&amp; this.canEdit;
+  }
+} </code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">@if (!isLoading &amp;&amp; trip) {
+  &lt;div class&#x3D;&quot;trip-detail-view&quot;&gt;
+    &lt;div class&#x3D;&quot;trip-header&quot;&gt;
+      &lt;button class&#x3D;&quot;back-button&quot; (click)&#x3D;&quot;onBack()&quot;&gt;
+        &lt;svg width&#x3D;&quot;20&quot; height&#x3D;&quot;20&quot; viewBox&#x3D;&quot;0 0 24 24&quot; fill&#x3D;&quot;none&quot; stroke&#x3D;&quot;currentColor&quot; stroke-width&#x3D;&quot;2&quot;&gt;
+          &lt;path d&#x3D;&quot;M19 12H5M12 19l-7-7 7-7&quot;/&gt;
+        &lt;/svg&gt;
+        Back to Trips
+      &lt;/button&gt;
+
+      &lt;div class&#x3D;&quot;header-content&quot;&gt;
+        &lt;h1&gt;{{ trip.name }}&lt;/h1&gt;
+        &lt;p class&#x3D;&quot;trip-dates&quot;&gt;{{ formatDate(trip.startDate) }} - {{ formatDate(trip.endDate) }} ({{ trip.duration }} days)&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class&#x3D;&quot;trip-content&quot;&gt;
+      &lt;div class&#x3D;&quot;expenses-section&quot;&gt;
+        &lt;div class&#x3D;&quot;section-header&quot;&gt;
+          &lt;h2&gt;Expenses&lt;/h2&gt;
+          @if (canShowExpenseActions()) {
+            &lt;button class&#x3D;&quot;add-expense-btn&quot; (click)&#x3D;&quot;onAddExpense()&quot;&gt;
+              &lt;svg width&#x3D;&quot;16&quot; height&#x3D;&quot;16&quot; viewBox&#x3D;&quot;0 0 24 24&quot; fill&#x3D;&quot;none&quot; stroke&#x3D;&quot;currentColor&quot; stroke-width&#x3D;&quot;2&quot;&gt;
+                &lt;line x1&#x3D;&quot;12&quot; y1&#x3D;&quot;5&quot; x2&#x3D;&quot;12&quot; y2&#x3D;&quot;19&quot;&gt;&lt;/line&gt;
+                &lt;line x1&#x3D;&quot;5&quot; y1&#x3D;&quot;12&quot; x2&#x3D;&quot;19&quot; y2&#x3D;&quot;12&quot;&gt;&lt;/line&gt;
+              &lt;/svg&gt;
+              Add Expense
+            &lt;/button&gt;
+          }
+        &lt;/div&gt;
+
+        @if (trip.expenses.length &gt; 0) {
+          &lt;div class&#x3D;&quot;expenses-list&quot;&gt;
+            @for (expense of trip.expenses; track expense.id) {
+              &lt;div class&#x3D;&quot;expense-item&quot;&gt;
+                &lt;div class&#x3D;&quot;expense-icon&quot;&gt;
+                  {{ getExpenseTypeIcon(expense.type) }}
+                &lt;/div&gt;
+                &lt;div class&#x3D;&quot;expense-details&quot;&gt;
+                  &lt;div class&#x3D;&quot;expense-header&quot;&gt;
+                    &lt;h3&gt;{{ getExpenseTypeName(expense.type) }}&lt;/h3&gt;
+                    &lt;span class&#x3D;&quot;expense-price&quot;&gt;{{ formatCurrency(expense.totalPrice) }}&lt;/span&gt;
+                  &lt;/div&gt;
+
+                  &lt;p class&#x3D;&quot;expense-description&quot;&gt;{{ getExpenseDescription(expense) }}&lt;/p&gt;
+
+                  &lt;div class&#x3D;&quot;expense-actions&quot;&gt;
+                    &lt;button class&#x3D;&quot;btn-text&quot; (click)&#x3D;&quot;onViewExpense(expense.id)&quot;&gt;View&lt;/button&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+            }
+          &lt;/div&gt;
+        } @else {
+          &lt;div class&#x3D;&quot;empty-state&quot;&gt;
+            &lt;div class&#x3D;&quot;empty-icon&quot;&gt;✈️&lt;/div&gt;
+            &lt;h3&gt;No expenses added yet&lt;/h3&gt;
+            @if (canShowExpenseActions()) {
+              &lt;p&gt;Click &quot;Add Expense&quot; to get started&lt;/p&gt;
+            } @else {
+              &lt;p&gt;No expenses have been added to this trip&lt;/p&gt;
+            }
+          &lt;/div&gt;
+        }
+      &lt;/div&gt;
+
+      &lt;div class&#x3D;&quot;trip-summary&quot;&gt;
+        &lt;div class&#x3D;&quot;summary-card&quot;&gt;
+          &lt;h3&gt;Trip Summary&lt;/h3&gt;
+          &lt;div class&#x3D;&quot;summary-item&quot;&gt;
+            &lt;span&gt;Total Expenses:&lt;/span&gt;
+            &lt;span class&#x3D;&quot;total-amount&quot;&gt;{{ formatCurrency(getTotalExpenses()) }}&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;summary-item&quot;&gt;
+            &lt;span&gt;Number of Expenses:&lt;/span&gt;
+            &lt;span&gt;{{ trip.expenses.length }}&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;summary-item&quot;&gt;
+            &lt;span&gt;Approval Status:&lt;/span&gt;
+            &lt;span class&#x3D;&quot;status-badge&quot; [class]&#x3D;&quot;trip.approvalStatus.toLowerCase().replace(&#x27; &#x27;, &#x27;-&#x27;)&quot;&gt;
+              {{ trip.approvalStatus }}
+            &lt;/span&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;summary-item&quot;&gt;
+            &lt;span&gt;Finance Status:&lt;/span&gt;
+            &lt;span class&#x3D;&quot;status-badge&quot; [class]&#x3D;&quot;trip.financeStatus.toLowerCase().replace(&#x27; &#x27;, &#x27;-&#x27;)&quot;&gt;
+              {{ trip.financeStatus }}
+            &lt;/span&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Role-specific actions --&gt;
+          &lt;div class&#x3D;&quot;summary-actions&quot;&gt;
+            &lt;!-- End User Actions --&gt;
+            @if (userRole &#x3D;&#x3D;&#x3D; Role.EndUser &amp;&amp; canEdit) {
+              @if (trip.approvalStatus &#x3D;&#x3D;&#x3D; ApprovalStatus.Draft) {
+                &lt;div class&#x3D;&quot;end-user-actions&quot;&gt;
+                  &lt;button class&#x3D;&quot;btn-secondary&quot; (click)&#x3D;&quot;onSubmitForApproval()&quot;&gt;
+                    &lt;svg width&#x3D;&quot;16&quot; height&#x3D;&quot;16&quot; viewBox&#x3D;&quot;0 0 24 24&quot; fill&#x3D;&quot;none&quot; stroke&#x3D;&quot;currentColor&quot; stroke-width&#x3D;&quot;2&quot;&gt;
+                      &lt;line x1&#x3D;&quot;22&quot; y1&#x3D;&quot;2&quot; x2&#x3D;&quot;11&quot; y2&#x3D;&quot;13&quot;&gt;&lt;/line&gt;
+                      &lt;polygon points&#x3D;&quot;22,2 15,22 11,13 2,9 22,2&quot;&gt;&lt;/polygon&gt;
+                    &lt;/svg&gt;
+                    Submit for Approval
+                  &lt;/button&gt;
+                &lt;/div&gt;
+              }
+            }
+
+            &lt;!-- Approver Actions --&gt;
+            @if (userRole &#x3D;&#x3D;&#x3D; Role.Approver &amp;&amp; showApprovalActions) {
+              @if (trip.approvalStatus &#x3D;&#x3D;&#x3D; ApprovalStatus.PendingApproval) {
+                &lt;div class&#x3D;&quot;approver-actions&quot;&gt;
+                  &lt;button class&#x3D;&quot;btn-approve&quot; (click)&#x3D;&quot;onApproveTrip()&quot;&gt;
+                    &lt;svg width&#x3D;&quot;16&quot; height&#x3D;&quot;16&quot; viewBox&#x3D;&quot;0 0 24 24&quot; fill&#x3D;&quot;none&quot; stroke&#x3D;&quot;currentColor&quot; stroke-width&#x3D;&quot;2&quot;&gt;
+                      &lt;line x1&#x3D;&quot;22&quot; y1&#x3D;&quot;2&quot; x2&#x3D;&quot;11&quot; y2&#x3D;&quot;13&quot;&gt;&lt;/line&gt;
+                      &lt;polygon points&#x3D;&quot;22,2 15,22 11,13 2,9 22,2&quot;&gt;&lt;/polygon&gt;
+                    &lt;/svg&gt;
+                    Approve Trip
+                  &lt;/button&gt;
+                  &lt;button class&#x3D;&quot;btn-reject&quot; (click)&#x3D;&quot;onRejectTrip()&quot;&gt;
+                    &lt;svg width&#x3D;&quot;16&quot; height&#x3D;&quot;16&quot; viewBox&#x3D;&quot;0 0 24 24&quot; fill&#x3D;&quot;none&quot; stroke&#x3D;&quot;currentColor&quot; stroke-width&#x3D;&quot;2&quot;&gt;
+                      &lt;line x1&#x3D;&quot;18&quot; y1&#x3D;&quot;6&quot; x2&#x3D;&quot;6&quot; y2&#x3D;&quot;18&quot;&gt;&lt;/line&gt;
+                      &lt;line x1&#x3D;&quot;6&quot; y1&#x3D;&quot;6&quot; x2&#x3D;&quot;18&quot; y2&#x3D;&quot;18&quot;&gt;&lt;/line&gt;
+                    &lt;/svg&gt;
+                    Reject Trip
+                  &lt;/button&gt;
+
+                  @if (!savingNote) {
+                    &lt;div class&#x3D;&quot;approver-note&quot;&gt;
+                      &lt;textarea class&#x3D;&quot;note-input&quot;
+                                [formControl]&#x3D;&quot;noteCtrl&quot;
+                                rows&#x3D;&quot;3&quot;
+                                placeholder&#x3D;&quot;Write a short note&quot;&gt;&lt;/textarea&gt;
+                      &lt;div class&#x3D;&quot;note-actions&quot;&gt;
+                        &lt;button class&#x3D;&quot;btn-note-add&quot;
+                                (click)&#x3D;&quot;addTripNote()
+                                &quot; [disabled]&#x3D;&quot;savingNote || !noteCtrl.value.trim()&quot;&gt;
+                          Add note
+                        &lt;/button&gt;
+                      &lt;/div&gt;
+                    &lt;/div&gt;
+                  }
+                &lt;/div&gt;
+              }
+            }
+
+            @if (trip.approvalNote) {
+              &lt;p class&#x3D;&quot;approver-note-read&quot;&gt;
+                &lt;strong&gt;Approver&#x27;s note:&lt;/strong&gt; {{ trip.approvalNote }}
+              &lt;/p&gt;
+            }
+
+            &lt;!-- Finance Actions --&gt;
+            @if (userRole &#x3D;&#x3D;&#x3D; Role.Finance &amp;&amp; showFinanceActions) {
+              &lt;div class&#x3D;&quot;finance-actions&quot;&gt;
+                @if (trip.financeStatus &#x3D;&#x3D;&#x3D; FinanceStatus.InProcess) {
+                  &lt;button class&#x3D;&quot;btn-refund&quot; (click)&#x3D;&quot;onMarkRefunded()&quot;&gt;
+                    &lt;svg width&#x3D;&quot;16&quot; height&#x3D;&quot;16&quot; viewBox&#x3D;&quot;0 0 24 24&quot; fill&#x3D;&quot;none&quot; stroke&#x3D;&quot;currentColor&quot; stroke-width&#x3D;&quot;2&quot;&gt;
+                      &lt;path d&#x3D;&quot;M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8&quot;&gt;&lt;/path&gt;
+                      &lt;path d&#x3D;&quot;M21 3v5h-5&quot;&gt;&lt;/path&gt;
+                      &lt;path d&#x3D;&quot;M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16&quot;&gt;&lt;/path&gt;
+                      &lt;path d&#x3D;&quot;M3 21v-5h5&quot;&gt;&lt;/path&gt;
+                    &lt;/svg&gt;
+                    Mark Refunded
+                  &lt;/button&gt;
+                } @else if (trip.financeStatus &#x3D;&#x3D;&#x3D; FinanceStatus.Refunded) {
+                  &lt;button class&#x3D;&quot;btn-in-process&quot; (click)&#x3D;&quot;onMarkInProcess()&quot;&gt;
+                    &lt;svg width&#x3D;&quot;16&quot; height&#x3D;&quot;16&quot; viewBox&#x3D;&quot;0 0 24 24&quot; fill&#x3D;&quot;none&quot; stroke&#x3D;&quot;currentColor&quot; stroke-width&#x3D;&quot;2&quot;&gt;
+                      &lt;path d&#x3D;&quot;M12 2v4&quot;&gt;&lt;/path&gt;
+                      &lt;path d&#x3D;&quot;M12 18v4&quot;&gt;&lt;/path&gt;
+                      &lt;path d&#x3D;&quot;M4.93 4.93l2.83 2.83&quot;&gt;&lt;/path&gt;
+                      &lt;path d&#x3D;&quot;M16.24 16.24l2.83 2.83&quot;&gt;&lt;/path&gt;
+                      &lt;path d&#x3D;&quot;M2 12h4&quot;&gt;&lt;/path&gt;
+                      &lt;path d&#x3D;&quot;M18 12h4&quot;&gt;&lt;/path&gt;
+                      &lt;path d&#x3D;&quot;M4.93 19.07l2.83-2.83&quot;&gt;&lt;/path&gt;
+                      &lt;path d&#x3D;&quot;M16.24 7.76l2.83-2.83&quot;&gt;&lt;/path&gt;
+                    &lt;/svg&gt;
+                    Mark In Process
+                  &lt;/button&gt;
+                }
+              &lt;/div&gt;
+            }
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+}
+
+@if (isLoading) {
+  &lt;div class&#x3D;&quot;loading&quot;&gt;
+    &lt;div class&#x3D;&quot;spinner&quot;&gt;&lt;/div&gt;
+    &lt;p&gt;Loading trip details...&lt;/p&gt;
+  &lt;/div&gt;
+}
+
+&lt;!-- Expense Modal --&gt;
+&lt;app-expense-modal
+  [trip]&#x3D;&quot;trip&quot;
+  [isOpen]&#x3D;&quot;showExpenseModal&quot;
+  [expenseToView]&#x3D;&quot;expenseToView&quot;
+  (expenseCreated)&#x3D;&quot;onExpenseCreated($event)&quot;
+  (expenseUpdated)&#x3D;&quot;onExpenseUpdated($event)&quot;
+  (expenseDeleted)&#x3D;&quot;onExpenseDeleted($event)&quot;
+  (closed)&#x3D;&quot;onExpenseModalClosed()&quot;
+&gt;&lt;/app-expense-modal&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./trip-detail-view.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">.trip-detail-view {
+  min-height: 100vh;
+  // background: #f8fafc;
+  padding: 2rem 1rem;
+}
+
+.trip-header {
+  max-width: 1200px;
+  margin: 0 auto 2rem auto;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+
+  .back-button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    color: #374151;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &amp;:hover {
+      background: #f9fafb;
+      border-color: #d1d5db;
+    }
+
+    svg {
+      transition: transform 0.2s ease;
+    }
+
+    &amp;:hover svg {
+      transform: translateX(-2px);
+    }
+  }
+
+  .header-content {
+    flex: 1;
+
+    h1 {
+      color: #1f2937;
+      margin: 0 0 0.5rem 0;
+      font-size: 2.5rem;
+      font-weight: 600;
+    }
+
+    .trip-dates {
+      color: #6b7280;
+      margin: 0;
+      font-size: 1.1rem;
+      font-weight: 400;
+    }
+  }
+}
+
+.trip-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 350px;
+  gap: 2rem;
+}
+
+.expenses-section {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #f3f4f6;
+
+    h2 {
+      color: #1f2937;
+      margin: 0;
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    .add-expense-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      background: #3b82f6;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+
+      &amp;:hover {
+        background: #2563eb;
+        transform: translateY(-1px);
+      }
+    }
+  }
+
+  .expenses-list {
+    .expense-item {
+      display: flex;
+      gap: 1rem;
+      padding: 1.5rem;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      transition: all 0.2s ease;
+
+      &amp;:hover {
+        border-color: #d1d5db;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      &amp;:last-child {
+        margin-bottom: 0;
+      }
+
+      .expense-icon {
+        font-size: 2rem;
+        flex-shrink: 0;
+      }
+
+      .expense-details {
+        flex: 1;
+
+        .expense-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 0.5rem;
+
+          h3 {
+            color: #1f2937;
+            margin: 0;
+            font-size: 1.125rem;
+            font-weight: 600;
+          }
+
+          .expense-price {
+            color: #059669;
+            font-weight: 600;
+            font-size: 1.125rem;
+          }
+        }
+
+        .expense-description {
+          color: #6b7280;
+          margin: 0 0 1rem 0;
+          font-size: 0.875rem;
+        }
+
+        .expense-actions {
+          display: flex;
+          gap: 0.5rem;
+
+          button {
+            padding: 0.5rem 1rem;
+            background: none;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            color: #374151;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+
+            &amp;:hover {
+              background: #f9fafb;
+              border-color: #9ca3af;
+            }
+
+            &amp;.delete {
+              color: #dc2626;
+              border-color: #fecaca;
+
+              &amp;:hover {
+                background: #fef2f2;
+                border-color: #fca5a5;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 3rem 2rem;
+    border: 2px dashed #d1d5db;
+    border-radius: 8px;
+
+    .empty-icon {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+    }
+
+    h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #374151;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      color: #6b7280;
+      margin: 0;
+    }
+  }
+}
+
+.trip-summary {
+  .summary-card {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 1.5rem;
+    position: sticky;
+    top: 2rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+    h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #1f2937;
+      margin-bottom: 1.5rem;
+    }
+
+    .summary-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid #f3f4f6;
+
+      &amp;:last-of-type {
+        border-bottom: none;
+        margin-bottom: 1.5rem;
+      }
+
+      .total-amount {
+        font-weight: 600;
+        color: #059669;
+        font-size: 1.125rem;
+      }
+
+      .status-badge {
+        padding: 0.25rem 0.75rem;
+        border-radius: 9999px;
+        font-size: 0.75rem;
+        font-weight: 500;
+        text-transform: uppercase;
+
+        &amp;.draft {
+          background: #fef3c7;
+          color: #92400e;
+        }
+
+        &amp;.pending-approval {
+          background: #dbeafe;
+          color: #1e40af;
+        }
+
+        &amp;.approved {
+          background: #d1fae5;
+          color: #065f46;
+        }
+
+        &amp;.rejected {
+          background: #fee2e2;
+          color: #991b1b;
+        }
+
+        &amp;.in-process {
+          background: #e0e7ff;
+          color: #3730a3;
+        }
+
+        &amp;.refunded {
+          background: #ecfdf5;
+          color: #047857;
+        }
+      }
+    }
+
+    .summary-actions {
+      .end-user-actions,
+      .approver-actions,
+      .finance-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+
+      button {
+        width: 100%;
+        padding: 0.75rem 1.5rem;
+        border: none;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+
+        &amp;:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
+        }
+      }
+
+      .btn-secondary {
+        background: #6b7280;
+        color: white;
+
+        &amp;:hover:not(:disabled) {
+          background: #4b5563;
+        }
+      }
+
+      .btn-approve {
+        background: #10b981;
+        color: white;
+
+        &amp;:hover:not(:disabled) {
+          background: #059669;
+        }
+      }
+
+      .btn-reject {
+        background: #ef4444;
+        color: white;
+
+        &amp;:hover:not(:disabled) {
+          background: #dc2626;
+        }
+      }
+
+      .btn-refund {
+        background: #8b5cf6;
+        color: white;
+
+        &amp;:hover:not(:disabled) {
+          background: #7c3aed;
+        }
+      }
+
+      .btn-in-process {
+        background: #3b82f6;
+        color: white;
+
+        &amp;:hover:not(:disabled) {
+          background: #2563eb;
+        }
+      }
+      .approver-note .note-input{
+        width: 100%;
+        padding: 0.75rem 1.5rem;
+        border: 1px solid #d1d5db;
+        border-radius: 8px;
+        color: #374151;
+        font-size: 0.875rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+    }
+  }
+}
+
+.loading {
+  text-align: center;
+  background: white;
+  padding: 3rem 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+  .spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 1rem auto;
+  }
+
+  p {
+    color: #7f8c8d;
+    margin: 0;
+    font-size: 1.1rem;
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+// Responsive design
+@media (max-width: 1024px) {
+  .trip-content {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .trip-summary .summary-card {
+    position: static;
+  }
+}
+
+@media (max-width: 768px) {
+  .trip-detail-view {
+    padding: 1rem 0.5rem;
+  }
+
+  .trip-header {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+
+    .back-button {
+      align-self: flex-start;
+    }
+
+    .header-content h1 {
+      font-size: 2rem;
+    }
+  }
+
+  .expenses-section {
+    padding: 1.5rem;
+
+    .section-header {
+      flex-direction: column;
+      gap: 1rem;
+      align-items: stretch;
+
+      .add-expense-btn {
+        justify-content: center;
+      }
+    }
+  }
+
+  .trip-summary .summary-card {
+    padding: 1.5rem;
+  }
+} </code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div>@if (!isLoading && trip) {  <div class="trip-detail-view">    <div class="trip-header">      <button class="back-button" (click)="onBack()">        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">          <path d="M19 12H5M12 19l-7-7 7-7"/>        </svg>        Back to Trips      </button>      <div class="header-content">        <h1>{{ trip.name }}</h1>        <p class="trip-dates">{{ formatDate(trip.startDate) }} - {{ formatDate(trip.endDate) }} ({{ trip.duration }} days)</p>      </div>    </div>    <div class="trip-content">      <div class="expenses-section">        <div class="section-header">          <h2>Expenses</h2>          @if (canShowExpenseActions()) {            <button class="add-expense-btn" (click)="onAddExpense()">              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">                <line x1="12" y1="5" x2="12" y2="19"></line>                <line x1="5" y1="12" x2="19" y2="12"></line>              </svg>              Add Expense            </button>          }        </div>        @if (trip.expenses.length > 0) {          <div class="expenses-list">            @for (expense of trip.expenses; track expense.id) {              <div class="expense-item">                <div class="expense-icon">                  {{ getExpenseTypeIcon(expense.type) }}                </div>                <div class="expense-details">                  <div class="expense-header">                    <h3>{{ getExpenseTypeName(expense.type) }}</h3>                    <span class="expense-price">{{ formatCurrency(expense.totalPrice) }}</span>                  </div>                  <p class="expense-description">{{ getExpenseDescription(expense) }}</p>                  <div class="expense-actions">                    <button class="btn-text" (click)="onViewExpense(expense.id)">View</button>                  </div>                </div>              </div>            }          </div>        } @else {          <div class="empty-state">            <div class="empty-icon">✈️</div>            <h3>No expenses added yet</h3>            @if (canShowExpenseActions()) {              <p>Click "Add Expense" to get started</p>            } @else {              <p>No expenses have been added to this trip</p>            }          </div>        }      </div>      <div class="trip-summary">        <div class="summary-card">          <h3>Trip Summary</h3>          <div class="summary-item">            <span>Total Expenses:</span>            <span class="total-amount">{{ formatCurrency(getTotalExpenses()) }}</span>          </div>          <div class="summary-item">            <span>Number of Expenses:</span>            <span>{{ trip.expenses.length }}</span>          </div>          <div class="summary-item">            <span>Approval Status:</span>            <span class="status-badge" [class]="trip.approvalStatus.toLowerCase().replace(\' \', \'-\')">              {{ trip.approvalStatus }}            </span>          </div>          <div class="summary-item">            <span>Finance Status:</span>            <span class="status-badge" [class]="trip.financeStatus.toLowerCase().replace(\' \', \'-\')">              {{ trip.financeStatus }}            </span>          </div>          <!-- Role-specific actions -->          <div class="summary-actions">            <!-- End User Actions -->            @if (userRole === Role.EndUser && canEdit) {              @if (trip.approvalStatus === ApprovalStatus.Draft) {                <div class="end-user-actions">                  <button class="btn-secondary" (click)="onSubmitForApproval()">                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">                      <line x1="22" y1="2" x2="11" y2="13"></line>                      <polygon points="22,2 15,22 11,13 2,9 22,2"></polygon>                    </svg>                    Submit for Approval                  </button>                </div>              }            }            <!-- Approver Actions -->            @if (userRole === Role.Approver && showApprovalActions) {              @if (trip.approvalStatus === ApprovalStatus.PendingApproval) {                <div class="approver-actions">                  <button class="btn-approve" (click)="onApproveTrip()">                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">                      <line x1="22" y1="2" x2="11" y2="13"></line>                      <polygon points="22,2 15,22 11,13 2,9 22,2"></polygon>                    </svg>                    Approve Trip                  </button>                  <button class="btn-reject" (click)="onRejectTrip()">                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">                      <line x1="18" y1="6" x2="6" y2="18"></line>                      <line x1="6" y1="6" x2="18" y2="18"></line>                    </svg>                    Reject Trip                  </button>                  @if (!savingNote) {                    <div class="approver-note">                      <textarea class="note-input"                                [formControl]="noteCtrl"                                rows="3"                                placeholder="Write a short note"></textarea>                      <div class="note-actions">                        <button class="btn-note-add"                                (click)="addTripNote()                                " [disabled]="savingNote || !noteCtrl.value.trim()">                          Add note                        </button>                      </div>                    </div>                  }                </div>              }            }            @if (trip.approvalNote) {              <p class="approver-note-read">                <strong>Approver\'s note:</strong> {{ trip.approvalNote }}              </p>            }            <!-- Finance Actions -->            @if (userRole === Role.Finance && showFinanceActions) {              <div class="finance-actions">                @if (trip.financeStatus === FinanceStatus.InProcess) {                  <button class="btn-refund" (click)="onMarkRefunded()">                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">                      <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path>                      <path d="M21 3v5h-5"></path>                      <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path>                      <path d="M3 21v-5h5"></path>                    </svg>                    Mark Refunded                  </button>                } @else if (trip.financeStatus === FinanceStatus.Refunded) {                  <button class="btn-in-process" (click)="onMarkInProcess()">                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">                      <path d="M12 2v4"></path>                      <path d="M12 18v4"></path>                      <path d="M4.93 4.93l2.83 2.83"></path>                      <path d="M16.24 16.24l2.83 2.83"></path>                      <path d="M2 12h4"></path>                      <path d="M18 12h4"></path>                      <path d="M4.93 19.07l2.83-2.83"></path>                      <path d="M16.24 7.76l2.83-2.83"></path>                    </svg>                    Mark In Process                  </button>                }              </div>            }          </div>        </div>      </div>    </div>  </div>}@if (isLoading) {  <div class="loading">    <div class="spinner"></div>    <p>Loading trip details...</p>  </div>}<!-- Expense Modal --><app-expense-modal  [trip]="trip"  [isOpen]="showExpenseModal"  [expenseToView]="expenseToView"  (expenseCreated)="onExpenseCreated($event)"  (expenseUpdated)="onExpenseUpdated($event)"  (expenseDeleted)="onExpenseDeleted($event)"  (closed)="onExpenseModalClosed()"></app-expense-modal></div>'
+    var COMPONENTS = [{'name': 'App', 'selector': 'app-root'},{'name': 'ApproverComponent', 'selector': 'app-approver'},{'name': 'ApproverTripDetailComponent', 'selector': 'app-approver-trip-detail'},{'name': 'CreateTripComponent', 'selector': 'app-create-trip'},{'name': 'EndUserComponent', 'selector': 'app-end-user'},{'name': 'ExpenseFormComponent', 'selector': 'app-expense-form'},{'name': 'ExpenseModalComponent', 'selector': 'app-expense-modal'},{'name': 'FinanceComponent', 'selector': 'app-finance'},{'name': 'FinanceTripDetailComponent', 'selector': 'app-finance-trip-detail'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'TripDetailComponent', 'selector': 'app-trip-detail'},{'name': 'TripDetailViewComponent', 'selector': 'app-trip-detail-view'},{'name': 'TripListComponent', 'selector': 'app-trip-list'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'TripDetailViewComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'TripDetailViewComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
