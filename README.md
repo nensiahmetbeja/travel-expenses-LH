@@ -49,21 +49,7 @@ The application supports three user roles — **End User**, **Approver**, and **
 
 ---
 
-# Trip Management System - Architecture Overview
-
-## System Architecture
-<img width="3840" height="2219" alt="Travel-Expenses-LH-UML" src="https://github.com/user-attachments/assets/016861c5-0c24-4ec1-a268-47d7fa7996b5" />
-
-
-## Key Design Decisions
-- Role-based routing with guards
-- Centralized state management via services
-- Reusable component architecture
-- Local storage for persistence
-
----
-
-## Setup Instructions
+## Getting started
 
 ### **Prerequisites**
 - **Node.js** v20+ (LTS recommended)
@@ -85,3 +71,60 @@ To start a local development server, run:
 ```bash
 ng serve
 ```
+
+---
+# Architecture Overview
+
+## Architecture Documentation
+- **Technical Decisions**: See [docs/technical-decisions.md](docs/technical-decisions.md) for detailed architecture rationale
+- **UML diagram**: See [docs/Travel-Expenses-LH-UML.png](docs/Travel-Expenses-LH-UML.png) for UML diagram, also presented below
+- **Additional Documents in Compodoc**: When viewing the generated Compodoc documentation, navigate to the /additional-documents route to explore the technical decisions, architecture notes, and other supplementary materials directly in the interactive documentation.
+
+
+<img width="3840" height="2219" alt="Travel-Expenses-LH-UML" src="https://github.com/user-attachments/assets/016861c5-0c24-4ec1-a268-47d7fa7996b5" />
+
+
+## Key Design Decisions
+- Role-based routing with guards
+- Centralized state management via services
+- Reusable component architecture
+- Local storage for persistence
+
+---
+
+## Access Documentation
+
+### API Documentation
+Generate comprehensive API documentation using Compodoc:
+
+```bash
+# Generate and serve documentation
+compodoc -p tsconfig.json -s
+
+# Generate documentation only
+compodoc -p tsconfig.json
+
+# Generate documentation with specific output directory
+compodoc -p tsconfig.json -d docs/api
+```
+
+---
+
+## Testing
+
+### Test Coverage
+- Unit tests for components and services
+- Integration tests for user workflows
+- E2E tests for critical user journeys
+
+### Running Tests
+```bash
+# Unit tests
+ng test
+
+# E2E tests
+ng e2e
+```
+---
+
+**Note**: This is a fictional application developed for demonstration purposes. It showcases modern web development practices, Angular best practices, and enterprise-level application architecture.

@@ -1,0 +1,6 @@
+[
+    { "title": "Overview & Setup", "file": "index.md" },
+    { "title": "Architecture", "file": "architecture-uml.md" },
+    { "title": "Technical Decisions", "file": "technical-decisions.md" }
+  ]
+  

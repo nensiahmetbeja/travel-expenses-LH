@@ -165,17 +165,60 @@
 <li>Monitor expense totals and reimbursement status</li>
 </ul>
 <hr>
-<h2>Setup Instructions</h2>
+<h2>Getting started</h2>
 <h3><strong>Prerequisites</strong></h3>
 <ul>
-<li><strong>Node.js</strong> v16+ (LTS recommended)</li>
+<li><strong>Node.js</strong> v20+ (LTS recommended)</li>
 <li><strong>Angular CLI</strong> (install globally if not already)</li>
 </ul>
 <b>Example :</b><div><pre class="line-numbers"><code class="language-bash">npm install -g &#64;angular/cli</code></pre></div><h3>Installation</h3>
 <b>Example :</b><div><pre class="line-numbers"><code class="language-bash">  git clone https://github.com/nensiahmetbeja/travel-expenses-LH.git
   cd travel-expenses-LH</code></pre></div><h2>Development server</h2>
 <p>To start a local development server, run:</p>
-<b>Example :</b><div><pre class="line-numbers"><code class="language-bash">ng serve</code></pre></div>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-bash">ng serve</code></pre></div><hr>
+<h1>Architecture Overview</h1>
+<h2>Architecture Documentation</h2>
+<ul>
+<li><strong>Technical Decisions</strong>: See <a href="docs/technical-decisions.md">docs/technical-decisions.md</a> for detailed architecture rationale</li>
+<li><strong>UML diagram</strong>: See <a href="docs/Travel-Expenses-LH-UML.png">docs/Travel-Expenses-LH-UML.png</a> for UML diagram, also presented below:</li>
+</ul>
+<img width="3840" height="2219" alt="Travel-Expenses-LH-UML" src="https://github.com/user-attachments/assets/016861c5-0c24-4ec1-a268-47d7fa7996b5" />
+
+
+<h2>Key Design Decisions</h2>
+<ul>
+<li>Role-based routing with guards</li>
+<li>Centralized state management via services</li>
+<li>Reusable component architecture</li>
+<li>Local storage for persistence</li>
+</ul>
+<hr>
+<h2>Documentation</h2>
+<h3>API Documentation</h3>
+<p>Generate comprehensive API documentation using Compodoc:</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-bash"># Generate and serve documentation
+compodoc -p tsconfig.json -s
+
+# Generate documentation only
+compodoc -p tsconfig.json
+
+# Generate documentation with specific output directory
+compodoc -p tsconfig.json -d docs/api</code></pre></div><hr>
+<h2>Testing</h2>
+<h3>Test Coverage</h3>
+<ul>
+<li>Unit tests for components and services</li>
+<li>Integration tests for user workflows</li>
+<li>E2E tests for critical user journeys</li>
+</ul>
+<h3>Running Tests</h3>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-bash"># Unit tests
+ng test
+
+# E2E tests
+ng e2e</code></pre></div><hr>
+<p><strong>Note</strong>: This is a fictional application developed for demonstration purposes. It showcases modern web development practices, Angular best practices, and enterprise-level application architecture.</p>
+
 
 
 

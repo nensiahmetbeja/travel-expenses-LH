@@ -1,0 +1,287 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>travel-expenses-lh documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">travel-expenses-lh documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content additional-page">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<hr>
+<h2>Table of Contents</h2>
+<ul>
+<li><a href="#d1-role-based-authentication-with-localstorage">Security &amp; Authentication</a></li>
+<li><a href="#d2-role-based-routing-with-path-segmentation">Routing &amp; Authorization</a></li>
+<li><a href="#d3-service-based-state-with-localstorage-persistence">State Management</a></li>
+<li><a href="#d4-standalone-components-with-clear-hierarchy">Component Architecture</a></li>
+<li><a href="#d5-event-driven-communication-via-output">Component Communication</a></li>
+<li><a href="#d6-reactive-forms-with-custom-validation">Forms Strategy</a></li>
+<li><a href="#d7-centralized-services-with-localstorage-persistence">Data Services</a></li>
+<li><a href="#d8-modal-orchestration-with-component-composition">UX Architecture</a></li>
+<li><a href="#d9-minimal-testing-with-focus-on-core-functionality">Testing Strategy</a></li>
+<li><a href="#d10-angular-17-standalone-components-with-budget-warnings">Build &amp; Performance</a></li>
+</ul>
+<hr>
+<h2>Decisions</h2>
+<h3>[D1] Role-Based Authentication with localStorage</h3>
+<p><strong>Status:</strong> Accepted<br><strong>Context:</strong> Need for simple authentication without backend infrastructure, requiring role-based access control across different user dashboards.<br><strong>Options Considered:</strong> JWT tokens, session-based auth, localStorage with role storage<br><strong>Decision:</strong> localStorage-based authentication with role persistence for user sessions.<br><strong>Rationale:</strong> Simplest implementation for demonstration purposes, no backend dependencies, immediate role access across components.<br><strong>Implications:</strong> Security risk of localStorage tampering, no session expiration, potential for role escalation attacks.<br><strong>Fallback/Next Steps:</strong> Migrate to JWT + HTTP-only cookies when backend is available; implement role verification on each request.<br><strong>References:</strong>  </p>
+<ul>
+<li><code>src/app/services/auth.service.ts:L1–L35</code>  </li>
+<li><code>src/app/guards/auth.guard.ts:L1–L24</code>  </li>
+<li><code>src/app/models/role.ts:L1–L5</code></li>
+</ul>
+<hr>
+<h3>[D2] Role-Based Routing with Path Segmentation</h3>
+<p><strong>Status:</strong> Accepted<br><strong>Context:</strong> Need to separate user experiences by role while maintaining clear URL structure and preventing unauthorized access.<br><strong>Options Considered:</strong> Single route with role-based rendering, role-specific subdomains, path-based role separation<br><strong>Decision:</strong> Path-based role separation (<code>/traveller</code>, <code>/approver</code>, <code>/finance</code>) with authGuard protection.<br><strong>Rationale:</strong> Clear URL structure, easy to understand, simple guard implementation, natural separation of concerns.<br><strong>Implications:</strong> Route duplication for similar functionality, potential for code duplication in role-specific components.<br><strong>Fallback/Next Steps:</strong> Consider feature-based routing if role-specific logic becomes too divergent.<br><strong>References:</strong>  </p>
+<ul>
+<li><code>src/app/app.routes.ts:L1–L69</code>  </li>
+<li><code>src/app/guards/auth.guard.ts:L1–L24</code></li>
+</ul>
+<hr>
+<h3>[D3] Service-Based State with localStorage Persistence</h3>
+<p><strong>Status:</strong> Accepted<br><strong>Context:</strong> Need for data persistence without backend, requiring state management across components and user sessions.<br><strong>Options Considered:</strong> NgRx store, Angular signals, service-based with localStorage, in-memory only<br><strong>Decision:</strong> Service-based state management with localStorage persistence for trips and expenses.<br><strong>Rationale:</strong> Simplicity over complexity, no external dependencies, immediate persistence, familiar Angular patterns.<br><strong>Implications:</strong> No real-time updates, potential data inconsistency across tabs, limited scalability, localStorage size constraints.<br><strong>Fallback/Next Steps:</strong> Migrate to NgRx when real-time updates and complex state interactions are needed.<br><strong>References:</strong>  </p>
+<ul>
+<li><code>src/app/services/trip.service.ts:L1–L100</code>  </li>
+<li><code>src/app/services/auth.service.ts:L1–L35</code></li>
+</ul>
+<hr>
+<h3>[D4] Standalone Components with Clear Hierarchy</h3>
+<p><strong>Status:</strong> Accepted<br><strong>Context:</strong> Need for modular, maintainable components that can be easily tested and reused across different role contexts.<br><strong>Options Considered:</strong> NgModule-based architecture, standalone components, hybrid approach<br><strong>Decision:</strong> Angular 17 standalone components with clear parent-child hierarchy for expense operations.<br><strong>Rationale:</strong> Modern Angular approach, better tree-shaking, simpler testing, clear component boundaries, no module complexity.<br><strong>Implications:</strong> Potential for import duplication, need for careful dependency management, learning curve for team.<br><strong>Fallback/Next Steps:</strong> Consider NgModules if component complexity increases significantly.<br><strong>References:</strong>  </p>
+<ul>
+<li><code>src/app/components/expense-modal/expense-modal.ts:L1–L40</code>  </li>
+<li><code>src/app/components/trip-detail-view/trip-detail-view.ts:L1–L50</code>  </li>
+<li><code>src/app/components/expense-form/expense-form.ts:L1–L30</code></li>
+</ul>
+<hr>
+<h3>[D5] Event-Driven Communication via @Output/@Input</h3>
+<p><strong>Status:</strong> Accepted<br><strong>Context:</strong> Need for loose coupling between components while maintaining clear data flow for expense operations.<br><strong>Options Considered:</strong> Service-based communication, input binding, event emitters, shared state<br><strong>Decision:</strong> Use <strong>@Input</strong> for passing data down to child components and <strong>@Output</strong> event emitters for propagating actions upward to parent components. Parent components then invoke services to handle the business logic or API calls.<br><strong>Rationale:</strong> - Maintains <strong>component independence</strong> — no direct references between sibling components.  </p>
+<ul>
+<li>Keeps data flow <strong>unidirectional and explicit</strong>, which aids debugging and maintenance.  </li>
+<li>Simplifies unit testing by allowing component events to be easily mocked or intercepted.<br><strong>Implications:</strong> Event chain complexity (ExpenseForm → ExpenseModal → TripDetailView → TripDetail), potential for lost events.<br><strong>Fallback/Next Steps:</strong> Consider service-based communication if event chains become too complex.<br><strong>References:</strong>  </li>
+<li><code>src/app/components/expense-form/expense-form.ts:L200–L300</code>  </li>
+<li><code>src/app/components/expense-modal/expense-modal.ts:L40–L100</code>  </li>
+<li><code>src/app/components/trip-detail-view/trip-detail-view.ts:L60–L100</code></li>
+</ul>
+<hr>
+<h3>[D6] Reactive Forms with Custom Validation</h3>
+<p><strong>Status:</strong> Accepted<br><strong>Context:</strong> Need for complex form validation across different expense types with dynamic field requirements.<br><strong>Options Considered:</strong> Template-driven forms, reactive forms, hybrid approach<br><strong>Decision:</strong> Reactive forms with custom validators for expense type-specific validation.<br><strong>Rationale:</strong> Better validation control, dynamic form generation, easier testing, type safety with TypeScript.<br><strong>Implications:</strong> More boilerplate code, steeper learning curve, potential for complex form state management.<br><strong>Fallback/Next Steps:</strong> Consider template-driven forms for simpler forms if validation requirements decrease.<br><strong>References:</strong>  </p>
+<ul>
+<li><code>src/app/components/expense-form/expense-form.ts:L1–L100</code>  </li>
+<li><code>src/app/pages/end-user/create-trip/create-trip.ts:L1–L50</code></li>
+</ul>
+<hr>
+<h3>[D7] Centralized Services with localStorage Persistence</h3>
+<p><strong>Status:</strong> Accepted<br><strong>Context:</strong> Need for centralized business logic and data persistence without external dependencies.<br><strong>Options Considered:</strong> Multiple specialized services, single monolithic service, service per feature<br><strong>Decision:</strong> Two centralized services: <code>AuthService</code> for authentication, <code>TripService</code> for trip/expense management.<br><strong>Rationale:</strong> Clear separation of concerns, easy to maintain, simple dependency injection, centralized data access.<br><strong>Implications:</strong> Services become large, potential for tight coupling, difficult to test individual features.<br><strong>Fallback/Next Steps:</strong> Split into feature-specific services when individual services exceed 300+ lines.<br><strong>References:</strong>  </p>
+<ul>
+<li><code>src/app/services/auth.service.ts:L1–L35</code>  </li>
+<li><code>src/app/services/trip.service.ts:L1–L100</code></li>
+</ul>
+<hr>
+<h3>[D8] Modal Orchestration with Component Composition</h3>
+<p><strong>Status:</strong> Accepted<br><strong>Context:</strong> Need for expense operations (create, view, edit, delete) without navigation, maintaining context and user experience.<br><strong>Options Considered:</strong> Separate routes for each operation, inline forms, modal-based approach<br><strong>Decision:</strong> Modal-based expense operations with component composition (<code>ExpenseModal</code> → <code>ExpenseForm</code>).<br><strong>Rationale:</strong> Better user experience, maintains context, no navigation complexity, reusable modal component.<br><strong>Implications:</strong> Complex modal state management, potential for modal state bugs, accessibility challenges.<br><strong>Fallback/Next Steps:</strong> Consider route-based approach if modal complexity increases significantly.<br><strong>References:</strong>  </p>
+<ul>
+<li><code>src/app/components/expense-modal/expense-modal.ts:L1–L40</code>  </li>
+<li><code>src/app/components/expense-form/expense-form.ts:L1–L30</code>  </li>
+<li><code>src/app/components/trip-detail-view/trip-detail-view.ts:L40–L60</code></li>
+</ul>
+<hr>
+<h3>[D9] Minimal Testing with Focus on Core Functionality</h3>
+<p><strong>Status:</strong> Accepted<br><strong>Context:</strong> Need for rapid development and demonstration, with limited time for comprehensive testing infrastructure.<br><strong>Options Considered:</strong> Comprehensive unit testing, integration testing, minimal testing, TDD approach<br><strong>Decision:</strong> Minimal testing with focus on core functionality and component specifications.<br><strong>Rationale:</strong> Faster development, focus on working features, easier demonstration, reduced complexity.<br><strong>Implications:</strong> Potential for bugs in edge cases, difficult to refactor safely, technical debt accumulation.<br><strong>Fallback/Next Steps:</strong> Implement comprehensive testing when moving to production or when bug count increases.<br><strong>References:</strong>  </p>
+<ul>
+<li><code>src/app/app.spec.ts:L1–L26</code>  </li>
+<li><code>src/app/pages/end-user/end-user.spec.ts:L1–L50</code></li>
+</ul>
+<hr>
+<h3>[D10] Angular 17 Standalone Components with Budget Warnings</h3>
+<p><strong>Status:</strong> Accepted<br><strong>Context:</strong> Need for modern Angular features and optimal bundle size while maintaining development velocity.<br><strong>Options Considered:</strong> Angular 16 with NgModules, Angular 17 standalone, hybrid approach<br><strong>Decision:</strong> Angular 17 with standalone components and performance budgets.<br><strong>Rationale:</strong> Latest Angular features, better tree-shaking, modern development experience, performance monitoring.<br><strong>Implications:</strong> Budget warnings for SCSS files, potential for large bundles, need for optimization.<br><strong>Fallback/Next Steps:</strong> Optimize SCSS files, implement code splitting if bundle size becomes problematic.<br><strong>References:</strong>  </p>
+<ul>
+<li><code>src/app/app.config.ts:L1–L15</code>  </li>
+<li><code>angular.json</code> (performance budgets)</li>
+</ul>
+<hr>
+<h2>Open Questions &amp; Risks</h2>
+<h3>Security Risks</h3>
+<ul>
+<li><strong>localStorage Tampering:</strong> Users can modify their role in localStorage, potentially accessing unauthorized features.</li>
+<li><strong>No Session Expiration:</strong> Authentication state persists indefinitely.</li>
+<li><strong>Client-Side Validation:</strong> All validation occurs client-side and can be bypassed.</li>
+</ul>
+<h3>Data Consistency Risks</h3>
+<ul>
+<li>Multi-tab Behavior: Changes in one tab may not reflect in others.</li>
+<li>localStorage Limits: Potential storage quota exceeded with large datasets.</li>
+<li>No Conflict Resolution: No handling of concurrent modifications.</li>
+</ul>
+<h3>Scalability Concerns</h3>
+<ul>
+<li><strong>Service Growth:</strong> <code>TripService</code> already at 274 lines, approaching maintainability limits.</li>
+<li><strong>Component Complexity:</strong> <code>ExpenseModal</code> component handles multiple responsibilities.</li>
+<li><strong>Event Chain Depth:</strong> Four-level event chain for expense operations.</li>
+</ul>
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'additional-page';
+            var COMPODOC_CURRENT_PAGE_URL = 'technical-decisions.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
