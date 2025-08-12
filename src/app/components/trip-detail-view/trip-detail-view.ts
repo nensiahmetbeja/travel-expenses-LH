@@ -5,11 +5,12 @@ import { Expense, ExpenseType } from '../../models/expense';
 import { Role } from '../../models/role';
 import { ExpenseModalComponent } from '../expense-modal/expense-modal';
 import { TripService } from '../../services/trip.service';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-trip-detail-view',
   standalone: true,
-  imports: [CommonModule, ExpenseModalComponent],
+  imports: [CommonModule, ExpenseModalComponent, ReactiveFormsModule],
   templateUrl: './trip-detail-view.html',
   styleUrls: ['./trip-detail-view.scss']
 })
@@ -32,6 +33,10 @@ export class TripDetailViewComponent {
 
   showExpenseModal = false;
   expenseToView: Expense | null = null;
+
+  savingNote = false;
+  noteCtrl = new FormControl<string>('', { nonNullable: true });
+
 
   readonly Role = Role;
   readonly ExpenseType = ExpenseType;
@@ -108,6 +113,21 @@ export class TripDetailViewComponent {
       this.tripUpdated.emit();
     }
     this.onExpenseModalClosed();
+  }
+
+  addTripNote(): void { //approver only
+    if (!this.trip) return;
+    const note = this.noteCtrl.value.trim();
+    if (!note) return;
+
+    this.savingNote = true;
+    const ok = this.tripService.addApprovalNote(this.trip.id, note);
+    if (ok) {
+      this.trip.approvalNote = note;   // reflect immediately
+      this.tripUpdated.emit();         // parent can refresh if needed
+    }
+    this.savingNote = false;
+    this.noteCtrl.reset('');
   }
 
   onMarkRefunded(): void {

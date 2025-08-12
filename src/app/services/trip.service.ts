@@ -53,6 +53,7 @@ export class TripService {
       endDate: request.endDate,
       financeStatus: FinanceStatus.InProcess,
       approvalStatus: ApprovalStatus.Draft,
+      approvalNote: '',
       expenses: [],
       createdAt: new Date(),
       updatedAt: new Date()
@@ -260,5 +261,14 @@ export class TripService {
     const trip = this.getTripById(tripId);
     if (!trip) return 0;
     return trip.expenses.reduce((total, expense) => total + expense.totalPrice, 0);
+  }
+
+  addApprovalNote(tripId: string, note: string): boolean {
+    const trip = this.getTripById(tripId);
+    if (!trip) return false;
+    trip.approvalNote = note;
+    trip.updatedAt = new Date();
+    this.saveTrips();
+    return true;
   }
 } 

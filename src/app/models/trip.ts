@@ -21,6 +21,7 @@ export interface Trip {
   endDate: Date;
   financeStatus: FinanceStatus;
   approvalStatus: ApprovalStatus;
+  approvalNote?: string; //nullable 
   expenses: Expense[];
   createdAt: Date;
   updatedAt: Date;

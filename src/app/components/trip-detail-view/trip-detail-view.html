@@ -126,7 +126,31 @@
               </svg>
               Reject Trip
             </button>
+
+             <!-- Approver note  -->
+            @if (!savingNote && trip?.approvalStatus === ApprovalStatus.PendingApproval) {
+              <div class="approver-note">
+                <textarea class="note-input"
+                          [formControl]="noteCtrl"
+                          rows="3"
+                          placeholder="Write a short note"></textarea>
+                <div class="note-actions">
+                  <button class="btn-note-add"
+                          (click)="addTripNote()"
+                          [disabled]="savingNote || !noteCtrl.value?.trim()">
+                    Add note
+                  </button>
+                </div>
+              </div>
+            }
           </div>
+
+          @if (trip?.approvalNote) {
+            <p class="approver-note-read">
+              <strong>Approver's note:</strong> {{ trip.approvalNote }}
+            </p>
+          }
+          
 
           <!-- Finance Actions -->
           <div *ngIf="userRole === Role.Finance && showFinanceActions" class="finance-actions">
