@@ -56,10 +56,10 @@ The application supports three user roles — **End User**, **Approver**, and **
 - **Angular CLI** (install globally if not already)
 ```bash
 npm install -g @angular/cli
+```
 
 ### Installation 
-- **Clone**:
-  ```bash
+
 ```bash
   git clone https://github.com/nensiahmetbeja/travel-expenses-LH.git
   cd travel-expenses-LH
