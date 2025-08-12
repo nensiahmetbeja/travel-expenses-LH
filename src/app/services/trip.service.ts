@@ -20,9 +20,8 @@ export class TripService {
         endDate: new Date(trip.endDate),
         createdAt: new Date(trip.createdAt),
         updatedAt: new Date(trip.updatedAt),
-        // Handle migration from old format to new enum format
         financeStatus: trip.financeStatus || FinanceStatus.InProcess,
-        approvalStatus: trip.approvalStatus || (trip.isApproved ? ApprovalStatus.Approved : ApprovalStatus.Draft),
+        approvalStatus: trip.approvalStatus || ApprovalStatus.Draft,
         expenses: trip.expenses.map((expense: any) => ({
           ...expense,
           createdAt: new Date(expense.createdAt),
@@ -171,6 +170,7 @@ export class TripService {
     this.saveTrips();
     return updatedExpense;
   }
+
 
   deleteExpense(tripId: string, expenseId: string): boolean {
     const trip = this.getTripById(tripId);

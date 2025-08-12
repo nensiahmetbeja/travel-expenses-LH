@@ -43,7 +43,6 @@
             <p class="expense-description">{{ getExpenseDescription(expense) }}</p>
             <div class="expense-actions" *ngIf="canShowExpenseActions()">
               <button class="btn-text" (click)="onViewExpense(expense.id)">View</button>
-              <!-- <button class="btn-text delete" (click)="onDeleteExpense(expense.id)" *ngIf="canEditExpense()">Delete</button> -->
             </div>
             <div class="expense-actions" *ngIf="!canShowExpenseActions()">
               <button class="btn-text" (click)="onViewExpense(expense.id)">View</button>
@@ -180,5 +179,6 @@
   [expenseToView]="expenseToView"
   (expenseCreated)="onExpenseCreated($event)"
   (expenseUpdated)="onExpenseUpdated($event)"
+  (expenseDeleted)="onExpenseDeleted($event)"
   (closed)="onExpenseModalClosed()"
 ></app-expense-modal> 

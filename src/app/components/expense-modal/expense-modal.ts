@@ -17,8 +17,8 @@ export class ExpenseModalComponent {
   @Input() expenseToView: Expense | null = null;
   @Output() expenseCreated = new EventEmitter<any>();
   @Output() expenseUpdated = new EventEmitter<any>();
-  @Output() closed = new EventEmitter<void>();
   @Output() expenseDeleted = new EventEmitter<string>();
+  @Output() closed = new EventEmitter<void>();
 
   showSuccessMessage = false;
   isEditMode = false;
@@ -40,7 +40,8 @@ export class ExpenseModalComponent {
 
   onDeleteExpense(): void {
     if (this.expenseToView) {
-      // Emit delete event to parent component
+      console.log('Deleting expense:', this.expenseToView);
+      //sending the expense id to the trip detail view component
       this.expenseDeleted.emit(this.expenseToView.id);
       this.closeModal();
     }

@@ -86,13 +86,6 @@ export class TripDetailComponent implements OnInit {
     }
   }
 
-  deleteExpense(expenseId: string): void {
-    if (this.trip && confirm('Are you sure you want to delete this expense?')) {
-      this.tripService.deleteExpense(this.trip.id, expenseId);
-      this.loadTrip(); // Reload to update the view
-    }
-  }
-
   submitForApproval(): void {
     if (this.trip && confirm('Are you sure you want to submit this trip for approval? You won\'t be able to edit expenses after submission.')) {
       this.tripService.submitForApproval(this.trip.id);

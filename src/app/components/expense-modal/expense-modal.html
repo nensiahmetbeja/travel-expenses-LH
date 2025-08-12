@@ -13,14 +13,6 @@
     </div>
 
     <div class="modal-body">
-      <!-- Success Message -->
-      <div class="success-message" *ngIf="showSuccessMessage">
-        <div class="success-icon">✓</div>
-        <h3>{{ expenseToView ? 'Expense Updated Successfully!' : 'Expense Created Successfully!' }}</h3>
-        <p>Closing modal...</p>
-      </div>
-
-      <!-- View Mode - Read-only display -->
       <div *ngIf="isViewMode && expenseToView" class="expense-view">
         <div class="expense-header">
           <h3>{{ getExpenseTypeName(expenseToView.type) }}</h3>
@@ -136,7 +128,7 @@
           </ng-container>
         </div>
 
-          <button 
+        <button 
           class="btn-delete" 
           (click)="onDeleteExpense()"
           *ngIf="canShowEditButton()"
@@ -153,7 +145,6 @@
       <!-- Expense Form (for add/edit) -->
       <app-expense-form
         *ngIf="!showSuccessMessage && (!expenseToView || isEditMode)"
-        [tripId]="trip?.id || ''"
         [expenseToEdit]="isEditMode ? expenseToView : null"
         [isEditMode]="isEditMode"
         (expenseCreated)="onExpenseCreated($event)"

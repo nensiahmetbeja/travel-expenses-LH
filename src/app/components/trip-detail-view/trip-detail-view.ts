@@ -4,6 +4,7 @@ import { Trip, ApprovalStatus, FinanceStatus } from '../../models/trip';
 import { Expense, ExpenseType } from '../../models/expense';
 import { Role } from '../../models/role';
 import { ExpenseModalComponent } from '../expense-modal/expense-modal';
+import { TripService } from '../../services/trip.service';
 
 @Component({
   selector: 'app-trip-detail-view',
@@ -39,6 +40,11 @@ export class TripDetailViewComponent {
   readonly ExpenseType = ExpenseType;
   readonly ApprovalStatus = ApprovalStatus;
   readonly FinanceStatus = FinanceStatus;
+
+  //inject trip service
+  constructor(private tripService: TripService) {
+  }
+
 
   onBack(): void {
     this.backClicked.emit();
@@ -80,9 +86,6 @@ export class TripDetailViewComponent {
     this.expenseEdited.emit(expenseId);
   }
 
-  onDeleteExpense(expenseId: string): void {
-    this.expenseDeleted.emit(expenseId);
-  }
 
   onApproveTrip(): void {
     if (this.trip) {
@@ -94,6 +97,13 @@ export class TripDetailViewComponent {
     if (this.trip) {
       this.tripRejected.emit(this.trip.id);
     }
+  }
+
+  onExpenseDeleted(expenseId: string): void {
+    if (this.trip) {
+    this.tripService.deleteExpense(this.trip.id, expenseId);
+    }
+   
   }
 
   onMarkRefunded(): void {

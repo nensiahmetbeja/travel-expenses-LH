@@ -17,7 +17,7 @@
   <div class="dynamic-fields" *ngIf="selectedType">
     <!-- Car Rental Fields -->
     <div class="form-group" *ngIf="selectedType === ExpenseType.CarRental">
-      <label for="carName">Car Name</label>
+      <label for="carName">Car Name *</label>
       <input type="text" id="carName" formControlName="carName" class="form-control">
       <div class="error-message" *ngIf="expenseForm.get('carName')?.touched && expenseForm.get('carName')?.hasError('required')">
         Car name is required
@@ -25,7 +25,7 @@
     </div>
 
     <div class="form-group" *ngIf="selectedType === ExpenseType.CarRental">
-      <label for="pickUpDateTime">Pick-up Date & Time</label>
+      <label for="pickUpDateTime">Pick-up Date & Time *</label>
       <input type="datetime-local" id="pickUpDateTime" formControlName="pickUpDateTime" class="form-control">
       <div class="error-message" *ngIf="expenseForm.get('pickUpDateTime')?.touched && expenseForm.get('pickUpDateTime')?.hasError('required')">
         Pick-up date & time is required
@@ -33,7 +33,7 @@
     </div>
 
     <div class="form-group" *ngIf="selectedType === ExpenseType.CarRental">
-      <label for="dropOffDateTime">Drop-off Date & Time</label>
+      <label for="dropOffDateTime">Drop-off Date & Time *</label>
       <input type="datetime-local" id="dropOffDateTime" formControlName="dropOffDateTime" class="form-control">
       <div class="error-message" *ngIf="expenseForm.get('dropOffDateTime')?.touched && expenseForm.get('dropOffDateTime')?.hasError('required')">
         Drop-off date & time is required
@@ -44,7 +44,7 @@
     </div>
 
     <div *ngIf="isFieldVisible('pickUpLocation')" class="form-group">
-      <label for="pickUpLocation">{{ getFieldLabel('pickUpLocation') }} *</label>
+      <label for="pickUpLocation">{{ getFieldLabel('pickUpLocation') }}</label>
       <input type="text" id="pickUpLocation" formControlName="pickUpLocation" class="form-control">
       <div class="error-message" *ngIf="expenseForm.get('pickUpLocation')?.touched && expenseForm.get('pickUpLocation')?.hasError('required')">
         Pick-up location is required
@@ -61,7 +61,7 @@
 
     <!-- Hotel Fields -->
     <div class="form-group" *ngIf="selectedType === ExpenseType.Hotel">
-      <label for="hotelName">Hotel Name</label>
+      <label for="hotelName">Hotel Name *</label>
       <input type="text" id="hotelName" formControlName="hotelName" class="form-control">
       <div class="error-message" *ngIf="expenseForm.get('hotelName')?.touched && expenseForm.get('hotelName')?.hasError('required')">
         Hotel name is required
@@ -69,7 +69,7 @@
     </div>
 
     <div class="form-group" *ngIf="selectedType === ExpenseType.Hotel">
-      <label for="hotelLocation">Hotel Location</label>
+      <label for="hotelLocation">Hotel Location *</label>
       <input type="text" id="hotelLocation" formControlName="hotelLocation" class="form-control">
       <div class="error-message" *ngIf="expenseForm.get('hotelLocation')?.touched && expenseForm.get('hotelLocation')?.hasError('required')">
         Hotel location is required
@@ -77,7 +77,7 @@
     </div>
 
     <div class="form-group" *ngIf="selectedType === ExpenseType.Hotel">
-      <label for="checkInDate">Check-in Date</label>
+      <label for="checkInDate">Check-in Date *</label>
       <input type="date" id="checkInDate" formControlName="checkInDate" class="form-control">
       <div class="error-message" *ngIf="expenseForm.get('checkInDate')?.touched && expenseForm.get('checkInDate')?.hasError('required')">
         Check-in date is required
@@ -85,7 +85,7 @@
     </div>
 
     <div class="form-group" *ngIf="selectedType === ExpenseType.Hotel">
-      <label for="checkoutDate">Check-out Date</label>
+      <label for="checkoutDate">Check-out Date *</label>
       <input type="date" id="checkoutDate" formControlName="checkoutDate" class="form-control">
       <div class="error-message" *ngIf="expenseForm.get('checkoutDate')?.touched && expenseForm.get('checkoutDate')?.hasError('required')">
         Check-out date is required
@@ -97,7 +97,7 @@
 
     <!-- Flight Fields -->
     <div class="form-group" *ngIf="selectedType === ExpenseType.Flight">
-      <label for="airline">Airline</label>
+      <label for="airline">Airline *</label>
       <input type="text" id="airline" formControlName="airline" class="form-control">
       <div class="error-message" *ngIf="expenseForm.get('airline')?.touched && expenseForm.get('airline')?.hasError('required')">
         Airline is required
@@ -105,7 +105,7 @@
     </div>
 
     <div class="form-group" *ngIf="selectedType === ExpenseType.Flight">
-      <label for="from">From</label>
+      <label for="from">From *</label>
       <input type="text" id="from" formControlName="from" class="form-control">
       <div class="error-message" *ngIf="expenseForm.get('from')?.touched && expenseForm.get('from')?.hasError('required')">
         Departure location is required
@@ -113,7 +113,7 @@
     </div>
 
     <div class="form-group" *ngIf="selectedType === ExpenseType.Flight">
-      <label for="to">To</label>
+      <label for="to">To *</label>
       <input type="text" id="to" formControlName="to" class="form-control">
       <div class="error-message" *ngIf="expenseForm.get('to')?.touched && expenseForm.get('to')?.hasError('required')">
         Arrival location is required
@@ -121,7 +121,7 @@
     </div>
 
     <div class="form-group" *ngIf="selectedType === ExpenseType.Flight">
-      <label for="departureDateTime">Departure Date & Time</label>
+      <label for="departureDateTime">Departure Date & Time *</label>
       <input type="datetime-local" id="departureDateTime" formControlName="departureDateTime" class="form-control">
       <div class="error-message" *ngIf="expenseForm.get('departureDateTime')?.touched && expenseForm.get('departureDateTime')?.hasError('required')">
         Departure date & time is required
@@ -129,7 +129,7 @@
     </div>
 
     <div class="form-group" *ngIf="selectedType === ExpenseType.Flight">
-      <label for="arrivalDateTime">Arrival Date & Time</label>
+      <label for="arrivalDateTime">Arrival Date & Time *</label>
       <input type="datetime-local" id="arrivalDateTime" formControlName="arrivalDateTime" class="form-control">
       <div class="error-message" *ngIf="expenseForm.get('arrivalDateTime')?.touched && expenseForm.get('arrivalDateTime')?.hasError('required')">
         Arrival date & time is required
@@ -141,7 +141,7 @@
 
     <!-- Taxi Fields -->
     <div class="form-group" *ngIf="selectedType === ExpenseType.Taxi">
-      <label for="from">From</label>
+      <label for="from">From *</label>
       <input type="text" id="from" formControlName="from" class="form-control">
       <div class="error-message" *ngIf="expenseForm.get('from')?.touched && expenseForm.get('from')?.hasError('required')">
         Pick-up location is required
@@ -149,7 +149,7 @@
     </div>
 
     <div class="form-group" *ngIf="selectedType === ExpenseType.Taxi">
-      <label for="to">To</label>
+      <label for="to">To *</label>
       <input type="text" id="to" formControlName="to" class="form-control">
       <div class="error-message" *ngIf="expenseForm.get('to')?.touched && expenseForm.get('to')?.hasError('required')">
         Drop-off location is required
@@ -157,10 +157,10 @@
     </div>
 
     <div class="form-group" *ngIf="selectedType === ExpenseType.Taxi">
-      <label for="dateTime">Date & Time</label>
+      <label for="dateTime">Date & Time (pick-up time) *</label>
       <input type="datetime-local" id="dateTime" formControlName="dateTime" class="form-control">
       <div class="error-message" *ngIf="expenseForm.get('dateTime')?.touched && expenseForm.get('dateTime')?.hasError('required')">
-        Date & time is required
+        Pick-up date & time is required
       </div>
     </div>
 
@@ -186,4 +186,5 @@
       Cancel
     </button>
   </div>
+  
 </div> 
